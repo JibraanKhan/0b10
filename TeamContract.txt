@@ -42,28 +42,27 @@ agreement. Then commit the revised contract via git.
 
 
 
-TEAM NAME [type your team name here]: 0b10 
+TEAM NAME [type your team name here]: 
 
 
 
 TEAM MEMBERS AND CONTACT INFO:
 
    MEMBER              MOBILE PHONE           PREFERRED EMAIL
-
-1. Jibraan Khan       (502) 883-9568            jibraan.khan@centre.edu
-2. Selam Vanvoorhis   (774) 303-0325            selam.vanvoorhis@centre.edu
-3. Shelby Young       (502) 424-0794            shelby.young@centre.edu
+1.
+2.
+3. 
 4.
 
 
 
-AGREED MEETING TIME/PLACE/LINK FOR REGULAR WEEKLY TEAM MEETINGS/WORK: Olin 208 on Mondays at 9:00 PM
+AGREED MEETING TIME/PLACE/LINK FOR REGULAR WEEKLY TEAM MEETINGS/WORK:
 
 
 
 
 
-OUR PLAN FOR SUBMITTING THE DELIVERABLES: 
+OUR PLAN FOR SUBMITTING THE DELIVERABLES:
 
 [Note: The deadlines are listed below, and it is OK to leave these
 unchanged.  However, your team may need to submit one or more
@@ -98,8 +97,8 @@ your covenant.  It is OK to leave this blank.]
 
 
 
-WE HELD OUR INITIAL TEAM MEETING ON [enter date and time]: 09/07/2021 at 9:30 PM
-AT [type location/provide meeting link of meeting; e.g., Olin 023]: Crounse 302
+WE HELD OUR INITIAL TEAM MEETING ON [enter date and time]:
+AT [type location/provide meeting link of meeting; e.g., Olin 023]:
 
 
 
@@ -107,8 +106,16 @@ AT [type location/provide meeting link of meeting; e.g., Olin 023]: Crounse 302
 CONTRACT. WE UNDERSTAND THAT TO MODIFY THIS COVENANT, WE WILL HAVE TO
 HAVE UNANIMOUS AGREEMENT AT A MEETING WHEN ALL MEMBERS ARE PRESENT."
 
-SIGNED (Full name and date): Jibraan Khan
+SIGNED (Full name and date):
 
 [Type your name to indicate agreement.  Note: Each team member should
 type his or her own name.  Please do not sign this agreement on behalf
 of someone else.]
+
+
+
+
+
+
+
+
