@@ -2,29 +2,29 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Inventory_Pokemon_Name 
+Field Name:           Costume_Size
 
 Specification Type:
   Unique:  _ 
-  Generic: X 
+  Generic: X
   Replica: _ 
-Parent Table:         X 
-Label:                Species 
-Source Specification: SpeciesType 
-Shared By:            Pokemon_Validation, Orders, Pokemon_Moves
+Parent Table:         Costumes_Inventory
+Label:                Size
+Source Specification: Costume Size
+Shared By:            _ 
 Aliases:              _ 
-Description:           
+Description:          The size of the costume in the inventory.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            _ 
-Length:               _ 
+Data Type:            VARCHAR(5)
+Length:               5
 Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ 
+  Letters (A-Z):      X
   Numbers (0-9):      _ 
   Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
@@ -32,7 +32,7 @@ Character Support:
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ 
+Key Type:      Non:        X
                Primary:    _ 
                Foreign:    _ 
                Alternate:  _ 
@@ -40,35 +40,35 @@ Key Type:      Non:        _
 Key Structure: Simple:     _ 
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ 
+Uniqueness:    Non-unique: X
                Unique:     _ 
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _ 
+               No nulls:   X
 
-Values Entered By: User:   _ 
-                   System: _ 
+Values Entered By: User:   X
+                   System: _
 
 Required Value:    No:     _ 
-                   Yes:    _ 
+                   Yes:    X
 
 Default Value:     _ 
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _ 
+  Enter now, edits allowed:       X
   Enter now, edits not allowed:   _ 
-  Enter later, edits allowed:     _ 
+  Enter later, edits allowed:     X
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    _ 
-                >    _ 
-                >=   _ 
+                ALL  X
+                =    _
+                >    _
+                >=   _
                 !=   _ 
                 <    _ 
                 <=   _ 
@@ -94,8 +94,8 @@ Comparisons Allowed:
 Operations Allowed:
   Same Field:   _ 
                 ALL  _ 
-                +    _ 
-                -    _ 
+                +    X
+                -    X 
                 *    _ 
                 /    _ 
 

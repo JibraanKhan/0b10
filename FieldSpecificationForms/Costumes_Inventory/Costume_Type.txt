@@ -2,63 +2,63 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           _ 
+Field Name:           Costume_Type 
 
 Specification Type:
-  Unique:  _ 
+  Unique:  _
   Generic: _ 
-  Replica: _ 
-Parent Table:         _ 
-Label:                _ 
-Source Specification: _ 
-Shared By:            _ 
-Aliases:              _ 
-Description:          _ 
+  Replica: X
+Parent Table:         Costumes_Inventory 
+Label:                Type of Costume 
+Source Specification: Costume Type 
+Shared By:            Costumes_Types
+Aliases:              _
+Description:          A foreign key that is a string to help identify all the various costume types, such as a Gyarados costume. 
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            _ 
-Length:               _ 
+Data Type:            VARCHAR(30) 
+Length:               30 
 Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ 
-  Numbers (0-9):      _ 
-  Keyboard (.,/$#%):  _ 
+  Letters (A-Z):      X
+  Numbers (0-9):      X 
+  Keyboard (.,/$#%):  X
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ 
-               Primary:    _ 
-               Foreign:    _ 
+Key Type:      Non:        _
+               Primary:    _
+               Foreign:    X
                Alternate:  _ 
 
-Key Structure: Simple:     _ 
+Key Structure: Simple:     X 
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ 
-               Unique:     _ 
+Uniqueness:    Non-unique: X
+               Unique:     _
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _ 
+               No nulls:   X
 
 Values Entered By: User:   _ 
-                   System: _ 
+                   System: X 
 
 Required Value:    No:     _ 
-                   Yes:    _ 
+                   Yes:    X
 
 Default Value:     _ 
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _ 
-  Enter now, edits not allowed:   _ 
+  Enter now, edits allowed:       X
+  Enter now, edits not allowed:   _
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
@@ -66,19 +66,19 @@ Edit Rule:
 Comparisons Allowed:
   Same Field:   _ 
                 ALL  _ 
-                =    _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 
   Other Fields: _
                 ALL  _ 
-                =    _ 
+                =    _
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   _
                 <    _ 
                 <=   _ 
 

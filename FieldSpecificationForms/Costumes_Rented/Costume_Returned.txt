@@ -2,83 +2,83 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Pokemon_Name 
+Field Name:           Costumes_Returned
 
 Specification Type:
   Unique:  _ 
-  Generic: _ 
-  Replica: X 
-Parent Table:         Orders 
-Label:                Species 
-Source Specification: Species
-Shared By:            Pokemon_Validation, Pokemon_Inventory, Orders, Sightings 
+  Generic: X
+  Replica: _ 
+Parent Table:         Costumes_Rented
+Label:                Returned Date
+Source Specification: Date
+Shared By:            _ 
 Aliases:              _ 
-Description:          The name of the pokemon species that is being ordered.
+Description:          The date and time by which the costume is returned.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            VARCHAR(15)
-Length:               15
-Decimal Places:       _
-Input Mask:           _ 
+Data Type:            TIMESTAMP
+Length:               365
+Decimal Places:       _ 
+Input Mask:           Date input box with MM-DD-YYYY
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      X 
-  Numbers (0-9):      X 
-  Keyboard (.,/$#%):  X 
+  Letters (A-Z):      _ 
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _
+Key Type:      Non:        X
                Primary:    _ 
-               Foreign:    X
+               Foreign:    _ 
                Alternate:  _ 
 
-Key Structure: Simple:     X 
+Key Structure: Simple:     _ 
                Composite:  _ 
 
-Uniqueness:    Non-unique: X 
+Uniqueness:    Non-unique: X
                Unique:     _ 
 
-Null Support:  Nulls OK:   _ 
-               No nulls:   X
+Null Support:  Nulls OK:   X
+               No nulls:   _ 
 
-Values Entered By: User:   _ 
-                   System: X
+Values Entered By: User:   X
+                   System: _ 
 
-Required Value:    No:     _ 
-                   Yes:    X
+Required Value:    No:     X
+                   Yes:    _ 
 
 Default Value:     _ 
 
-Range of Values:   _ 
+Range of Values:   Every day in the year.
 
 Edit Rule:
   Enter now, edits allowed:       X
   Enter now, edits not allowed:   _ 
-  Enter later, edits allowed:     _ 
+  Enter later, edits allowed:     X
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    X
+                ALL  X
+                =    _ 
                 >    _ 
                 >=   _ 
-                !=   X
+                !=   _ 
                 <    _ 
                 <=   _ 
 
   Other Fields: _
-                ALL  _ 
-                =    X 
+                ALL  X
+                =    _ 
                 >    _ 
                 >=   _ 
-                !=   X 
+                !=   _ 
                 <    _ 
                 <=   _ 
 
@@ -94,15 +94,15 @@ Comparisons Allowed:
 Operations Allowed:
   Same Field:   _ 
                 ALL  _ 
-                +    _ 
-                -    _ 
+                +    _
+                -    _
                 *    _ 
                 /    _ 
 
   Other Fields: _ 
                 ALL  _ 
-                +    _ 
-                -    _ 
+                +    X
+                -    X
                 *    _ 
                 /    _ 
 

@@ -2,45 +2,45 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Pokemon_Name 
+Field Name:           Staff_ID
 
 Specification Type:
   Unique:  _ 
   Generic: _ 
-  Replica: X 
-Parent Table:         Orders 
-Label:                Species 
-Source Specification: Species
-Shared By:            Pokemon_Validation, Pokemon_Inventory, Orders, Sightings 
+  Replica: X
+Parent Table:         Costumes_Rented
+Label:                _
+Source Specification: Staff_Members
+Shared By:            Staff
 Aliases:              _ 
-Description:          The name of the pokemon species that is being ordered.
+Description:          The id that corresponds to a staff member in the staff table, to link the costume to which staff rented it out.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            VARCHAR(15)
-Length:               15
-Decimal Places:       _
+Data Type:            INT
+Length:               _ 
+Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      X 
-  Numbers (0-9):      X 
-  Keyboard (.,/$#%):  X 
+  Letters (A-Z):      _ 
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _
-               Primary:    _ 
-               Foreign:    X
+Key Type:      Non:        _ 
+               Primary:    _
+               Foreign:    X 
                Alternate:  _ 
 
-Key Structure: Simple:     X 
-               Composite:  _ 
+Key Structure: Simple:     _
+               Composite:  X
 
-Uniqueness:    Non-unique: X 
+Uniqueness:    Non-unique: X
                Unique:     _ 
 
 Null Support:  Nulls OK:   _ 
@@ -75,10 +75,10 @@ Comparisons Allowed:
 
   Other Fields: _
                 ALL  _ 
-                =    X 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   X 
+                !=   X
                 <    _ 
                 <=   _ 
 

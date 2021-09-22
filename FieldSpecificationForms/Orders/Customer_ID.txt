@@ -2,30 +2,30 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           _ 
+Field Name:           Customer_ID
 
 Specification Type:
-  Unique:  _ 
+  Unique:  _
   Generic: _ 
-  Replica: _ 
-Parent Table:         _ 
-Label:                _ 
+  Replica: X 
+Parent Table:         Orders
+Label:                ID
 Source Specification: _ 
-Shared By:            _ 
+Shared By:            Customers
 Aliases:              _ 
-Description:          _ 
+Description:          The customer id that identifies which customer the order is by.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            _ 
-Length:               _ 
+Data Type:            INT
+Length:               _
 Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
   Letters (A-Z):      _ 
-  Numbers (0-9):      _ 
+  Numbers (0-9):      X
   Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
@@ -34,30 +34,30 @@ LOGICAL ELEMENTS
 
 Key Type:      Non:        _ 
                Primary:    _ 
-               Foreign:    _ 
+               Foreign:    X
                Alternate:  _ 
 
-Key Structure: Simple:     _ 
+Key Structure: Simple:     X
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ 
+Uniqueness:    Non-unique: X
                Unique:     _ 
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _ 
+               No nulls:   X
 
 Values Entered By: User:   _ 
-                   System: _ 
+                   System: X
 
 Required Value:    No:     _ 
-                   Yes:    _ 
+                   Yes:    X
 
 Default Value:     _ 
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _ 
+  Enter now, edits allowed:       X
   Enter now, edits not allowed:   _ 
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
@@ -66,19 +66,19 @@ Edit Rule:
 Comparisons Allowed:
   Same Field:   _ 
                 ALL  _ 
-                =    _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 
   Other Fields: _
                 ALL  _ 
-                =    _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 

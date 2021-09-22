@@ -2,46 +2,46 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Pokemon_Name 
+Field Name:           Costume_ID
 
 Specification Type:
-  Unique:  _ 
+  Unique:  X
   Generic: _ 
-  Replica: X 
-Parent Table:         Orders 
-Label:                Species 
-Source Specification: Species
-Shared By:            Pokemon_Validation, Pokemon_Inventory, Orders, Sightings 
+  Replica: _ 
+Parent Table:         Costumes_Inventory
+Label:                _
+Source Specification: _ 
+Shared By:            Costumes_Rented
 Aliases:              _ 
-Description:          The name of the pokemon species that is being ordered.
+Description:          The unique id of the costume that is in the inventory.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            VARCHAR(15)
-Length:               15
-Decimal Places:       _
+Data Type:            INT
+Length:               _ 
+Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      X 
-  Numbers (0-9):      X 
-  Keyboard (.,/$#%):  X 
+  Letters (A-Z):      _ 
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _
-               Primary:    _ 
-               Foreign:    X
+Key Type:      Non:        _ 
+               Primary:    X
+               Foreign:    _ 
                Alternate:  _ 
 
-Key Structure: Simple:     X 
+Key Structure: Simple:     X
                Composite:  _ 
 
-Uniqueness:    Non-unique: X 
-               Unique:     _ 
+Uniqueness:    Non-unique: _ 
+               Unique:     X
 
 Null Support:  Nulls OK:   _ 
                No nulls:   X
@@ -57,8 +57,8 @@ Default Value:     _
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       X
-  Enter now, edits not allowed:   _ 
+  Enter now, edits allowed:       _ 
+  Enter now, edits not allowed:   X
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
@@ -75,10 +75,10 @@ Comparisons Allowed:
 
   Other Fields: _
                 ALL  _ 
-                =    X 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   X 
+                !=   X
                 <    _ 
                 <=   _ 
 

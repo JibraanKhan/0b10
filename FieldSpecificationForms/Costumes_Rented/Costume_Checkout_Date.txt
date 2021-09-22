@@ -2,37 +2,37 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           _ 
+Field Name:           Costume_Checkout_Date
 
 Specification Type:
   Unique:  _ 
-  Generic: _ 
+  Generic: X
   Replica: _ 
-Parent Table:         _ 
-Label:                _ 
-Source Specification: _ 
-Shared By:            _ 
+Parent Table:         Costume_Rented
+Label:                Checkout Date
+Source Specification: Date
+Shared By:            _
 Aliases:              _ 
-Description:          _ 
+Description:          The time and date that the costume was checked out by.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            _ 
-Length:               _ 
+Data Type:            TIMESTAMP
+Length:               365
 Decimal Places:       _ 
-Input Mask:           _ 
+Input Mask:           Date input box with MM-DD-YYYY
 Display Format:       _ 
 Character Support:
   Letters (A-Z):      _ 
-  Numbers (0-9):      _ 
+  Numbers (0-9):      X
   Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ 
+Key Type:      Non:        X
                Primary:    _ 
                Foreign:    _ 
                Alternate:  _ 
@@ -43,21 +43,21 @@ Key Structure: Simple:     _
 Uniqueness:    Non-unique: _ 
                Unique:     _ 
 
-Null Support:  Nulls OK:   _ 
-               No nulls:   _ 
+Null Support:  Nulls OK:   _
+               No nulls:   X
 
 Values Entered By: User:   _ 
-                   System: _ 
+                   System: X
 
-Required Value:    No:     _ 
-                   Yes:    _ 
+Required Value:    No:     X
+                   Yes:    _
 
-Default Value:     _ 
+Default Value:     CURRENT TIMESTAMP
 
-Range of Values:   _ 
+Range of Values:   Every day in the year.
 
 Edit Rule:
-  Enter now, edits allowed:       _ 
+  Enter now, edits allowed:       X
   Enter now, edits not allowed:   _ 
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
@@ -65,16 +65,16 @@ Edit Rule:
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    _ 
-                >    _ 
+                ALL  X
+                =    _
+                >    _
                 >=   _ 
-                !=   _ 
+                !=   _
                 <    _ 
                 <=   _ 
 
   Other Fields: _
-                ALL  _ 
+                ALL  X
                 =    _ 
                 >    _ 
                 >=   _ 
@@ -83,7 +83,7 @@ Comparisons Allowed:
                 <=   _ 
 
   Value Expr.:  _ 
-                ALL  _ 
+                ALL  _
                 =    _ 
                 >    _ 
                 >=   _ 
@@ -94,15 +94,15 @@ Comparisons Allowed:
 Operations Allowed:
   Same Field:   _ 
                 ALL  _ 
-                +    _ 
-                -    _ 
+                +    X
+                -    X
                 *    _ 
                 /    _ 
 
   Other Fields: _ 
                 ALL  _ 
-                +    _ 
-                -    _ 
+                +    X
+                -    X
                 *    _ 
                 /    _ 
 
