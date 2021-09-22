@@ -57,8 +57,8 @@ Default Value:     _
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       X
-  Enter now, edits not allowed:   _
+  Enter now, edits allowed:       _
+  Enter now, edits not allowed:   X
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
