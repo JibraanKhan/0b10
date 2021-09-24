@@ -2,30 +2,30 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Costume_Checkout_Date
+Field Name:           Costume_Rented
 
 Specification Type:
   Unique:  _ 
   Generic: X
   Replica: _ 
-Parent Table:         Costume_Rented
-Label:                Checkout Date
-Source Specification: Date
-Shared By:            _
+Parent Table:         Costumes_Inventory
+Label:                Rented
+Source Specification: Boolean
+Shared By:            _ 
 Aliases:              _ 
-Description:          The time and date that the costume was checked out by.
+Description:          A boolean representing whether the costume has been rented or not.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            TIMESTAMP
-Length:               365
-Decimal Places:       _ 
-Input Mask:           Date input box with MM-DD-YYYY
+Data Type:            BOOLEAN
+Length:               1-byte
+Decimal Places:       _
+Input Mask:           A checkbox. 
 Display Format:       _ 
-Character Support:
-  Letters (A-Z):      _ 
-  Numbers (0-9):      X
+Character Support: No characters, just a checkbox.
+  Letters (A-Z):      _
+  Numbers (0-9):      _ 
   Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
@@ -40,41 +40,41 @@ Key Type:      Non:        X
 Key Structure: Simple:     _ 
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ 
+Uniqueness:    Non-unique: X
                Unique:     _ 
 
-Null Support:  Nulls OK:   _
-               No nulls:   X
+Null Support:  Nulls OK:   X
+               No nulls:   _
 
-Values Entered By: User:   _ 
-                   System: X
+Values Entered By: User:   X
+                   System: _
 
-Required Value:    No:     X
+Required Value:    No:     X 
                    Yes:    _
 
-Default Value:     CURRENT TIMESTAMP
+Default Value:     FALSE
 
-Range of Values:   Every day in the year.
+Range of Values:   NULL, TRUE
 
 Edit Rule:
-  Enter now, edits allowed:       X
+  Enter now, edits allowed:       _
   Enter now, edits not allowed:   _ 
-  Enter later, edits allowed:     _ 
+  Enter later, edits allowed:     X
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  X
-                =    _
+                ALL  _
+                =    X
                 >    _
-                >=   _ 
-                !=   _
+                >=   _
+                !=   X
                 <    _ 
                 <=   _ 
 
   Other Fields: _
-                ALL  X
+                ALL  _ 
                 =    _ 
                 >    _ 
                 >=   _ 
@@ -83,7 +83,7 @@ Comparisons Allowed:
                 <=   _ 
 
   Value Expr.:  _ 
-                ALL  X
+                ALL  _ 
                 =    _ 
                 >    _ 
                 >=   _ 
@@ -94,22 +94,22 @@ Comparisons Allowed:
 Operations Allowed:
   Same Field:   _ 
                 ALL  _ 
-                +    X
-                -    X
+                +    _
+                -    _ 
                 *    _ 
                 /    _ 
 
   Other Fields: _ 
                 ALL  _ 
-                +    X
-                -    X
+                +    _ 
+                -    _ 
                 *    _ 
                 /    _ 
 
   Value Expr.:  _ 
                 ALL  _ 
-                +    X
-                -    X
+                +    _ 
+                -    _ 
                 *    _ 
                 /    _ 
 

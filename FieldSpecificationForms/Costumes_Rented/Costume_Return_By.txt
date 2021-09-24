@@ -83,8 +83,8 @@ Comparisons Allowed:
                 <=   _ 
 
   Value Expr.:  _ 
-                ALL  _ 
-                =    _ 
+                ALL  X
+                =    _
                 >    _ 
                 >=   _ 
                 !=   _ 
@@ -108,8 +108,8 @@ Operations Allowed:
 
   Value Expr.:  _ 
                 ALL  _ 
-                +    _ 
-                -    _ 
+                +    X
+                -    X
                 *    _ 
                 /    _ 
 
