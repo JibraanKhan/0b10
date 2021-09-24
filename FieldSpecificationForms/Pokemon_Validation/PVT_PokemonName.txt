@@ -1,0 +1,117 @@
+FIELD SPECIFICATIONS
+
+GENERAL ELEMENTS
+
+Field Name:           _ Pokemon_Name
+
+Specification Type:
+  Unique:  _ X
+  Generic: _ 
+  Replica: _ 
+Parent Table:         _ Pokemon
+Label:                _ 
+Source Specification: _ 
+Shared By:            _ Orders, Sightings, Pokemon_Inventory
+Aliases:              _ 
+Description:          _ The name of a species of Pokemon
+
+
+PHYSICAL ELEMENTS
+
+Data Type:            _ VARCHAR(15)
+Length:               _ 15
+Decimal Places:       _ 
+Input Mask:           _ 
+Display Format:       _ 
+Character Support:
+  Letters (A-Z):      _ X
+  Numbers (0-9):      _ X
+  Keyboard (.,/$#%):  _ X
+  Special (©®™Σπ):    _ 
+
+
+LOGICAL ELEMENTS
+
+Key Type:      Non:        _ 
+               Primary:    _ X
+               Foreign:    _ 
+               Alternate:  _ 
+
+Key Structure: Simple:     _ X
+               Composite:  _ 
+
+Uniqueness:    Non-unique: _ 
+               Unique:     _ X
+
+Null Support:  Nulls OK:   _ 
+               No nulls:   _ X
+
+Values Entered By: User:   _ X
+                   System: _ 
+
+Required Value:    No:     _ 
+                   Yes:    _ X
+
+Default Value:     _ 
+
+Range of Values:   _ 
+
+Edit Rule:
+  Enter now, edits allowed:       _ 
+  Enter now, edits not allowed:   _ X
+  Enter later, edits allowed:     _ 
+  Enter later, edits not allowed: _ 
+  Not determined at this time:    _ 
+
+Comparisons Allowed:
+  Same Field:   _ 
+                ALL  _ 
+                =    _ X
+                >    _ 
+                >=   _ 
+                !=   _ X
+                <    _ 
+                <=   _ 
+
+  Other Fields: _
+                ALL  _ 
+                =    _ 
+                >    _ 
+                >=   _ 
+                !=   _ 
+                <    _ 
+                <=   _ 
+
+  Value Expr.:  _ 
+                ALL  _ 
+                =    _ X
+                >    _ 
+                >=   _ 
+                !=   _ X
+                <    _ 
+                <=   _ 
+
+Operations Allowed:
+  Same Field:   _ 
+                ALL  _ 
+                +    _ 
+                -    _ 
+                *    _ 
+                /    _ 
+
+  Other Fields: _ 
+                ALL  _ 
+                +    _ 
+                -    _ 
+                *    _ 
+                /    _ 
+
+  Value Expr.:  _ 
+                ALL  _ 
+                +    _ 
+                -    _ 
+                *    _ 
+                /    _ 
+
+NOTES:
+
