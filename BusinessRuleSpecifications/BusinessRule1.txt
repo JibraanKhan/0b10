@@ -2,26 +2,26 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ 
+Statement:  Deletion of a pokemon species that has been ordered, sighted, or exists in the inventory is forbidden.
 
-Constraint: _ 
+Constraint: Deletion of a pokemon species record from the Pokemon table.
 
-Type:     Database Oriented:     _ 
+Type:     Database Oriented:     X
           Application Oriented   _ 
 
 Category: Field Specific:        _ 
-          Relationship Specific: _ 
+          Relationship Specific: X
 
 Test On:  Insert:                _ 
-          Delete:                _ 
+          Delete:                X 
           Update:                _
 
 
 STRUCTURES AFFECTED
 
-Field Names: _ 
+Field Names: _
 
-Table Names: _
+Table Names: Pokemon
 
 
 FIELD ELEMENTS AFFECTED
@@ -40,14 +40,15 @@ Logical Elements:  Key Type:            _
                    Values Entered By:   _ 
                    Default Value:       _ 
                    Range of Values:     _ 
-                   Comparisons Allowed: _ 
+                   Comparisons Allowed: X (Want to see if there are any Pokemon records associated with any of the Pokemon table's children.)
                    Operations Allowed:  _ 
                    Edit Rule:           _ 
 
 
 ACTION TAKEN
 
-_ 
+Implement the deletion rule as a restriction between the children of the Pokemon table and the Pokemon table, so that when a pokemon species
+has been interacted with, it cannot be deleted from the Pokemon table.
 
 
 NOTES: _

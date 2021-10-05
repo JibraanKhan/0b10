@@ -2,18 +2,18 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ 
+Statement:  Deletion of costume types is forbidden. 
 
-Constraint: _ 
+Constraint: Deletion of a costume type record in the Costume_Types table.
 
-Type:     Database Oriented:     _ 
+Type:     Database Oriented:     X
           Application Oriented   _ 
 
 Category: Field Specific:        _ 
-          Relationship Specific: _ 
+          Relationship Specific: X
 
 Test On:  Insert:                _ 
-          Delete:                _ 
+          Delete:                X
           Update:                _
 
 
@@ -21,7 +21,7 @@ STRUCTURES AFFECTED
 
 Field Names: _ 
 
-Table Names: _
+Table Names: Costume_Types
 
 
 FIELD ELEMENTS AFFECTED
@@ -40,14 +40,16 @@ Logical Elements:  Key Type:            _
                    Values Entered By:   _ 
                    Default Value:       _ 
                    Range of Values:     _ 
-                   Comparisons Allowed: _ 
+                   Comparisons Allowed: X (Want to see if there are any Costume_Types records associated with any Costumes in the inventory.)
                    Operations Allowed:  _ 
                    Edit Rule:           _ 
 
 
 ACTION TAKEN
 
-_ 
+Implementing the restrict deletion rule by checking if there are any costumes in the inventory that are using the costume_type that is
+going to be deleted, if so then we do not delete that costume_type. Otherwise, we can delete the costume_type as that costume_type does
+not have any records pertaining to it. 
 
 
 NOTES: _

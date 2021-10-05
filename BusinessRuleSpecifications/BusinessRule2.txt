@@ -2,18 +2,18 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ 
+Statement:  Deletion of staff members should disable all of the records that pertain to them. 
 
-Constraint: _ 
+Constraint: Deletion of records in Staff's children tables.
 
-Type:     Database Oriented:     _ 
+Type:     Database Oriented:     X
           Application Oriented   _ 
 
 Category: Field Specific:        _ 
-          Relationship Specific: _ 
+          Relationship Specific: X
 
 Test On:  Insert:                _ 
-          Delete:                _ 
+          Delete:                X
           Update:                _
 
 
@@ -21,7 +21,7 @@ STRUCTURES AFFECTED
 
 Field Names: _ 
 
-Table Names: _
+Table Names: Costumes_Rented, Staff
 
 
 FIELD ELEMENTS AFFECTED
@@ -40,14 +40,14 @@ Logical Elements:  Key Type:            _
                    Values Entered By:   _ 
                    Default Value:       _ 
                    Range of Values:     _ 
-                   Comparisons Allowed: _ 
+                   Comparisons Allowed: X (Can query by checking for active records using == or !=)
                    Operations Allowed:  _ 
                    Edit Rule:           _ 
 
 
 ACTION TAKEN
 
-_ 
+Implement the deny deletion rule perhaps through a view or something similar where we can keep track of active/inactive records.
 
 
 NOTES: _
