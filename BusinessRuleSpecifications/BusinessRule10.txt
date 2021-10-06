@@ -2,26 +2,27 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _The costume checkout date comes before the costume due date
+Statement:  _A rug can also be loaned out to at most one
+customer at a time 
 
-Constraint: _Cannot enter custome due date that comes before custome checkout date
+Constraint: _ 
 
-Type:     Database Oriented:     _x 
+Type:     Database Oriented:     x_
           Application Oriented   _ 
 
 Category: Field Specific:        _ 
           Relationship Specific: _x 
 
-Test On:  Insert:                _x
+Test On:  Insert:                _ x
           Delete:                _ 
           Update:                _
 
 
 STRUCTURES AFFECTED
 
-Field Names: _Costume_rentedID, costume_rental_date, costume_due_date
+Field Names: _ 
 
-Table Names: _Costume_rented 
+Table Names: _
 
 
 FIELD ELEMENTS AFFECTED
@@ -39,7 +40,7 @@ Logical Elements:  Key Type:            _
                    Null Support:        _ 
                    Values Entered By:   _ 
                    Default Value:       _ 
-                   Range of Values:     _x 
+                   Range of Values:     _ 
                    Comparisons Allowed: _ 
                    Operations Allowed:  _ 
                    Edit Rule:           _ 
@@ -47,7 +48,7 @@ Logical Elements:  Key Type:            _
 
 ACTION TAKEN
 
-_ If a costume due date entered takes place before the rental_date then cause am error
+_ 
 
 
-NOTES: __ 
+NOTES: _

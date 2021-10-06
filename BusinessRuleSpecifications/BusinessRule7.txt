@@ -2,31 +2,29 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ 
-
-Constraint: _ 
-
-Type:     Database Oriented:     _ 
+Statement:  _Order sale price has to be greater than zero
+Constraint: _ cannot enter a sale price less than or equal to zero
+Type:     Database Oriented:     _x 
           Application Oriented   _ 
 
 Category: Field Specific:        _ 
-          Relationship Specific: _ 
+          Relationship Specific: _x 
 
-Test On:  Insert:                _ 
+Test On:  Insert:                _x
           Delete:                _ 
           Update:                _
 
 
 STRUCTURES AFFECTED
 
-Field Names: _ 
+Field Names: _OrderID, sale_price
 
-Table Names: _
+Table Names: _Order
 
 
 FIELD ELEMENTS AFFECTED
 
-Physical Elements: Data Type:           _ 
+Physical Elements: Data Type:           _ x
                    Length:              _ 
                    Decimal Places:      _ 
                    Character Support:   _ 
@@ -47,7 +45,8 @@ Logical Elements:  Key Type:            _
 
 ACTION TAKEN
 
-_ 
+_ If a negative sale price is entered the transaction will cause an error
 
 
 NOTES: _
+

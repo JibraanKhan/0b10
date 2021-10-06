@@ -1,0 +1,113 @@
+GENERAL ELEMENTS
+
+Field Name:           Last_Seen_Timestamp
+
+Specification Type:
+  Unique:  _ x
+  Generic: _ 
+  Replica: _ 
+Parent Table:         Sightings
+Label:                _ 
+Source Specification: _ 
+Shared By:            
+Aliases:              _ 
+Description:          _The last time, in hours and minutes that a particular pokemon was spotted
+
+
+PHYSICAL ELEMENTS
+Data Type:            _Numeric
+Length:               _ 
+Decimal Places:       _0 
+Input Mask:           _ HH:MM:SS DD/MM/YYYY
+Display Format:       _ 
+Character Support:
+  Letters (A-Z):      _ 
+  Numbers (0-9):      _ x
+  Keyboard (.,/$#%):  _
+  Special (©®™Σπ):    _ 
+
+
+LOGICAL ELEMENTS
+
+Key Type:      Non:        _ 
+               Primary:    _
+               Foreign:    _ 
+               Alternate:  _x 
+
+Key Structure: Simple:     _x
+               Composite:  _ 
+
+Uniqueness:    Non-unique: _x 
+               Unique:     _ 
+
+Null Support:  Nulls OK:   _x 
+               No nulls:   _ 
+
+Values Entered By: User:   _x 
+                   System: _ 
+
+Required Value:    No:     _ 
+                   Yes:    _ 
+
+Default Value:     _ 
+
+Range of Values:   _ 
+
+Edit Rule:
+  Enter now, edits allowed:       _ 
+  Enter now, edits not allowed:   _ 
+  Enter later, edits allowed:     _x 
+  Enter later, edits not allowed: _ 
+  Not determined at this time:    _ 
+
+Comparisons Allowed:
+  Same Field:   _ 
+                ALL  _ 
+                =    _x 
+                >    _ 
+                >=   _ 
+                !=   _x 
+                <    _ 
+                <=   _ 
+
+  Other Fields: _
+                ALL  _ 
+                =    _ 
+                >    _ 
+                >=   _ 
+                !=   _ 
+                <    _ 
+                <=   _ 
+
+  Value Expr.:  _ 
+                ALL  _ 
+                =    _ 
+                >    _ 
+                >=   _ 
+                !=   _ 
+                <    _ 
+                <=   _ 
+
+Operations Allowed:
+  Same Field:   _ 
+                ALL  _ 
+                +    _ 
+                -    _ 
+                *    _ 
+                /    _ 
+
+  Other Fields: _ 
+                ALL  _ 
+                +    _ 
+                -    _ 
+                *    _ 
+                /    _ 
+
+  Value Expr.:  _ 
+                ALL  _ 
+                +    _ 
+                -    _ 
+                *    _ 
+                /    _ 
+
+NOTES:

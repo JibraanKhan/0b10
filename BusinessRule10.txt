@@ -2,10 +2,8 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _The costume checkout date comes before the costume due date
-
-Constraint: _Cannot enter custome due date that comes before custome checkout date
-
+Statement:  _The Costume's returned date comes after the costume’s checkout date
+Constraint: _return date has to come after checkout date
 Type:     Database Oriented:     _x 
           Application Oriented   _ 
 
@@ -47,7 +45,7 @@ Logical Elements:  Key Type:            _
 
 ACTION TAKEN
 
-_ If a costume due date entered takes place before the rental_date then cause am error
-
+_ If a costume return date comes before costume checkout  date, cause an error
 
 NOTES: __ 
+
