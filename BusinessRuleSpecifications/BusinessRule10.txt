@@ -2,26 +2,27 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  Staff members should not be allowed to be removed from the database if they have rented costumes.
+Statement:  A staff member can only rent 10 costumes at a time.
 
-Constraint: Deletion of records in Costumes_Rented table.
+Constraint: The degree of participation from staff to costumes_rented is only limited 
+            to five, so there can only be five active rentals per staff member.
 
-Type:     Database Oriented:     X
-          Application Oriented   _ 
+Type:     Database Oriented:     _
+          Application Oriented   X
 
 Category: Field Specific:        _ 
           Relationship Specific: X
 
-Test On:  Insert:                _ 
-          Delete:                X
+Test On:  Insert:                X
+          Delete:                _
           Update:                _
 
 
 STRUCTURES AFFECTED
 
-Field Names: _ 
+Field Names: _
 
-Table Names: Staff
+Table Names: Costumes_Rented
 
 
 FIELD ELEMENTS AFFECTED
@@ -40,14 +41,13 @@ Logical Elements:  Key Type:            _
                    Values Entered By:   _ 
                    Default Value:       _ 
                    Range of Values:     _ 
-                   Comparisons Allowed: X (Can query by checking for active records using == or !=)
+                   Comparisons Allowed: X (Want to see how many active records in the costumes_rented table are associated with a particular staff member.)
                    Operations Allowed:  _ 
                    Edit Rule:           _ 
 
 
 ACTION TAKEN
 
-Implement the deny deletion rule through restrict and a view on top of that to have all the active staff members.
-
+On insert, check if the staff member who is having a record inserted already has five active records associated with them. 
 
 NOTES: _
