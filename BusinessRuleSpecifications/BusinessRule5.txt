@@ -2,26 +2,26 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ 
+Statement:  _ Each costume from the inventory can be rented to only one staff member at a time. 
 
 Constraint: _ 
 
-Type:     Database Oriented:     _ 
+Type:     Database Oriented:     _ X
           Application Oriented   _ 
 
 Category: Field Specific:        _ 
-          Relationship Specific: _ 
+          Relationship Specific: _ X
 
-Test On:  Insert:                _ 
+Test On:  Insert:                _ X
           Delete:                _ 
-          Update:                _
+          Update:                _ X
 
 
 STRUCTURES AFFECTED
 
 Field Names: _ 
 
-Table Names: _
+Table Names: _Costumes_Rented, Costumes_Inventory
 
 
 FIELD ELEMENTS AFFECTED
@@ -46,6 +46,8 @@ Logical Elements:  Key Type:            _
 
 
 ACTION TAKEN
+
+The degree of participation for the costumes_rented table was changed to (0,1)
 
 _ 
 
