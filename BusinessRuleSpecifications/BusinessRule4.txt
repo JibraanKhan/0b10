@@ -2,18 +2,18 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ 
+Statement:  _ Costumes can be deemed inactive after being worn out, damaged, or taken out of service.
 
-Constraint: _ 
+Constraint: _ An entry in the Costumes table may be inactivated but not deleted
 
-Type:     Database Oriented:     _ 
+Type:     Database Oriented:     _ X
           Application Oriented   _ 
 
 Category: Field Specific:        _ 
-          Relationship Specific: _ 
+          Relationship Specific: _ X
 
 Test On:  Insert:                _ 
-          Delete:                _ 
+          Delete:                _ X
           Update:                _
 
 
@@ -21,7 +21,7 @@ STRUCTURES AFFECTED
 
 Field Names: _ 
 
-Table Names: _
+Table Names: _Costumes_Inventory, Costumes_Rented
 
 
 FIELD ELEMENTS AFFECTED
@@ -46,6 +46,7 @@ Logical Elements:  Key Type:            _
 
 
 ACTION TAKEN
+Implement the deny deletion rule to the costumes_inventory table.
 
 _ 
 
