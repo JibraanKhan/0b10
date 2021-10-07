@@ -1,32 +1,32 @@
 BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
+ 
+Statement:  _ Number of Pokemon sighted has to be greater than 0.
 
-Statement:  _ 
+Constraint: _ the field number_of_pokemon in the sightings table must be an int greater than zero
 
-Constraint: _ 
-
-Type:     Database Oriented:     _ 
+Type:     Database Oriented:     _ X
           Application Oriented   _ 
 
-Category: Field Specific:        _ 
+Category: Field Specific:        _ X
           Relationship Specific: _ 
 
-Test On:  Insert:                _ 
+Test On:  Insert:                _ X
           Delete:                _ 
-          Update:                _
+          Update:                _X
 
 
 STRUCTURES AFFECTED
 
-Field Names: _ 
+Field Names: _ number_of_pokemon
 
 Table Names: _
 
 
 FIELD ELEMENTS AFFECTED
 
-Physical Elements: Data Type:           _ 
+Physical Elements: Data Type:           _ X
                    Length:              _ 
                    Decimal Places:      _ 
                    Character Support:   _ 
@@ -39,13 +39,15 @@ Logical Elements:  Key Type:            _
                    Null Support:        _ 
                    Values Entered By:   _ 
                    Default Value:       _ 
-                   Range of Values:     _ 
+                   Range of Values:     _ X
                    Comparisons Allowed: _ 
                    Operations Allowed:  _ 
                    Edit Rule:           _ 
 
 
 ACTION TAKEN
+
+Limit the possible values for number_of_pokemon to be integers greater than zero.
 
 _ 
 
