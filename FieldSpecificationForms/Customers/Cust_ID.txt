@@ -1,61 +1,64 @@
+FIELD SPECIFICATIONS
+
 GENERAL ELEMENTS
 
-Field Name:           Staff_Last_Name
+Field Name:           Cust_ID
 
 Specification Type:
-  Unique:  _ x
+  Unique:  X
   Generic: _ 
   Replica: _ 
-Parent Table:         Staff
-Label:                _ 
+Parent Table:         Customers
+Label:                ID
 Source Specification: _ 
-Shared By:            
+Shared By:            Orders
 Aliases:              _ 
-Description:          _The last name of a staff who purshed a pokemon
+Description:          The unique identifying number given to each customer
 
 
 PHYSICAL ELEMENTS
-Data Type:            Characters
+
+Data Type:            INT
 Length:               _ 
-Decimal Places:       _
+Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ x
-  Numbers (0-9):      _ 
-  Keyboard (.,/$#%):  _
+  Letters (A-Z):      _ 
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
 Key Type:      Non:        _ 
-               Primary:    _
+               Primary:    X
                Foreign:    _ 
-               Alternate:  _x 
+               Alternate:  _ 
 
-Key Structure: Simple:     _x
+Key Structure: Simple:     X
                Composite:  _ 
 
-Uniqueness:    Non-unique: _x 
-               Unique:     _ 
+Uniqueness:    Non-unique: _ 
+               Unique:     X
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _x 
+               No nulls:   X
 
 Values Entered By: User:   _ 
-                   System: _x 
+                   System: X
 
 Required Value:    No:     _ 
-                   Yes:    _x 
+                   Yes:    X
 
 Default Value:     _ 
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _
-  Enter now, edits not allowed:   _x 
+  Enter now, edits allowed:       _ 
+  Enter now, edits not allowed:   X
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
@@ -63,10 +66,10 @@ Edit Rule:
 Comparisons Allowed:
   Same Field:   _ 
                 ALL  _ 
-                =    _x 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _x 
+                !=   X
                 <    _ 
                 <=   _ 
 
@@ -81,10 +84,10 @@ Comparisons Allowed:
 
   Value Expr.:  _ 
                 ALL  _ 
-                =    _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 
@@ -110,4 +113,5 @@ Operations Allowed:
                 *    _ 
                 /    _ 
 
-NOTES:_Numeric
+NOTES:
+

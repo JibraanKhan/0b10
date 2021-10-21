@@ -2,7 +2,7 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Costumes_Returned
+Field Name:           Rental_ReturnedDate
 
 Specification Type:
   Unique:  _ 
@@ -19,7 +19,7 @@ Description:          The date and time by which the costume is returned.
 PHYSICAL ELEMENTS
 
 Data Type:            TIMESTAMP
-Length:               365
+Length:               _
 Decimal Places:       _ 
 Input Mask:           Date input box with MM-DD-YYYY
 Display Format:       _ 

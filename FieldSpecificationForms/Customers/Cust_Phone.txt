@@ -1,73 +1,75 @@
+FIELD SPECIFICATIONS
+
 GENERAL ELEMENTS
 
-Field Name:           Last_Seen_Location
+Field Name:           Cust_Phone
 
 Specification Type:
-  Unique:  _ x
+  Unique:  X
   Generic: _ 
   Replica: _ 
-Parent Table:         Sightings
-Label:                _ 
-Source Specification: _ 
-Shared By:            _
+Parent Table:         Customers
+Label:                Phone #
+Source Specification: Phone Number
+Shared By:            _ 
 Aliases:              _ 
-Description:          _The last location that a particular pokemon was spotted at 
+Description:          The main phone number of the customer
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            characters
-Length:               _ 
+Data Type:            VARCHAR(20)
+Length:               20 Characters
 Decimal Places:       _ 
-Input Mask:           _ 
+Input Mask:           +1 (###) ###-####
 Display Format:       _ 
 Character Support:
   Letters (A-Z):      _ 
-  Numbers (0-9):      _ 
-  Keyboard (.,/$#%):  _x
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  X
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ 
-               Primary:    _
+Key Type:      Non:        X
+               Primary:    _ 
                Foreign:    _ 
-               Alternate:  _x 
+               Alternate:  _ 
 
-Key Structure: Simple:     _x
+Key Structure: Simple:     _ 
                Composite:  _ 
 
-Uniqueness:    Non-unique: _x 
+Uniqueness:    Non-unique: X
                Unique:     _ 
 
-Null Support:  Nulls OK:   _ 
-               No nulls:   _x 
+Null Support:  Nulls OK:   X
+               No nulls:   _ 
 
-Values Entered By: User:   _x
+Values Entered By: User:   X
                    System: _ 
 
-Required Value:    No:     _ 
-                   Yes:    _x 
+Required Value:    No:     X
+                   Yes:    _ 
 
 Default Value:     _ 
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _x 
+  Enter now, edits allowed:       _ 
   Enter now, edits not allowed:   _ 
-  Enter later, edits allowed:     _ 
+  Enter later, edits allowed:     X
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
                 ALL  _ 
-                =    _x 
+                =    _ 
                 >    _ 
                 >=   _ 
-                !=   _x 
+                !=   _ 
                 <    _ 
                 <=   _ 
 
@@ -112,3 +114,4 @@ Operations Allowed:
                 /    _ 
 
 NOTES:
+

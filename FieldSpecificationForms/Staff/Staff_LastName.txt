@@ -1,75 +1,72 @@
-FIELD SPECIFICATIONS
-
 GENERAL ELEMENTS
 
-Field Name:           _ Customer_Address
+Field Name:           Staff_LastName
 
 Specification Type:
-  Unique:  _ X
-  Generic: _ 
+  Unique:  _
+  Generic: X 
   Replica: _ 
-Parent Table:         _ Customers
+Parent Table:         Staff
 Label:                _ 
-Source Specification: _ 
-Shared By:            _ 
+Source Specification: Person Name
+Shared By:            
 Aliases:              _ 
-Description:          _ The home street address of the customer
+Description:          The last name of a staff member who works at the facility.
 
 
 PHYSICAL ELEMENTS
-
-Data Type:            _ Alphanumeric
-Length:               _ 
-Decimal Places:       _ 
+Data Type:            VARCHAR(25)
+Length:               25 Characters
+Decimal Places:       _
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ X
-  Numbers (0-9):      _ X
-  Keyboard (.,/$#%):  _ X
+  Letters (A-Z):      X
+  Numbers (0-9):      _ 
+  Keyboard (.,/$#%):  _
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ X
-               Primary:    _ 
+Key Type:      Non:        X
+               Primary:    _
                Foreign:    _ 
-               Alternate:  _ 
+               Alternate:  _
 
-Key Structure: Simple:     _ 
+Key Structure: Simple:     _
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ X
+Uniqueness:    Non-unique: X 
                Unique:     _ 
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _ X
+               No nulls:   X
 
-Values Entered By: User:   _ X
-                   System: _ 
+Values Entered By: User:   X
+                   System: _
 
 Required Value:    No:     _ 
-                   Yes:    _ X
+                   Yes:    X
 
 Default Value:     _ 
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _ X
-  Enter now, edits not allowed:   _ 
+  Enter now, edits allowed:       X
+  Enter now, edits not allowed:   _
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    _ 
+                ALL  X
+                =    _
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   _
                 <    _ 
                 <=   _ 
 
@@ -84,10 +81,10 @@ Comparisons Allowed:
 
   Value Expr.:  _ 
                 ALL  _ 
-                =    _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 
@@ -113,5 +110,4 @@ Operations Allowed:
                 *    _ 
                 /    _ 
 
-NOTES:
-
+NOTES:_Numeric

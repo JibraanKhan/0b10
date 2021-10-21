@@ -2,55 +2,55 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           _ Customer_ID
+Field Name:           Pokemon_Name
 
 Specification Type:
-  Unique:  _ X
+  Unique:  X
   Generic: _ 
   Replica: _ 
-Parent Table:         _ Customers
+Parent Table:         Pokemon
 Label:                _ 
 Source Specification: _ 
-Shared By:            _ Orders
+Shared By:            Orders, Sightings, Pokemon_Inventory
 Aliases:              _ 
-Description:          _ The unique identifying number given to each customer
+Description:          The name of a species of Pokemon
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            _ INT
-Length:               _ 
+Data Type:            VARCHAR(15)
+Length:               15
 Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ 
-  Numbers (0-9):      _ X
-  Keyboard (.,/$#%):  _ 
-  Special (©®™Σπ):    _ 
+  Letters (A-Z):      X
+  Numbers (0-9):      _
+  Keyboard (.,/$#%):  _
+  Special (©®™Σπ):    X
 
 
 LOGICAL ELEMENTS
 
 Key Type:      Non:        _ 
-               Primary:    _ X
+               Primary:    X
                Foreign:    _ 
                Alternate:  _ 
 
-Key Structure: Simple:     _ X
+Key Structure: Simple:     X
                Composite:  _ 
 
 Uniqueness:    Non-unique: _ 
-               Unique:     _ X
+               Unique:     X
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _ X
+               No nulls:   X
 
-Values Entered By: User:   _ 
-                   System: _ X
+Values Entered By: User:   X
+                   System: _ 
 
 Required Value:    No:     _ 
-                   Yes:    _ X
+                   Yes:    X
 
 Default Value:     _ 
 
@@ -58,7 +58,7 @@ Range of Values:   _
 
 Edit Rule:
   Enter now, edits allowed:       _ 
-  Enter now, edits not allowed:   _ X
+  Enter now, edits not allowed:   X
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
@@ -66,28 +66,28 @@ Edit Rule:
 Comparisons Allowed:
   Same Field:   _ 
                 ALL  _ 
-                =    _ X
+                =    _
                 >    _ 
                 >=   _ 
-                !=   _ X
+                !=   _
                 <    _ 
                 <=   _ 
 
   Other Fields: _
                 ALL  _ 
-                =    _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 
   Value Expr.:  _ 
                 ALL  _ 
-                =    _ X
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ X
+                !=   X
                 <    _ 
                 <=   _ 
 

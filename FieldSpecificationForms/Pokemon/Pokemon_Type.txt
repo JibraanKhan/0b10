@@ -1,77 +1,80 @@
+FIELD SPECIFICATIONS
+
 GENERAL ELEMENTS
 
-Field Name:           Number_Of_Pokemon
+Field Name:           Pokemon_Type
 
 Specification Type:
-  Unique:  _ x
-  Generic: _ 
+  Unique:  _
+  Generic: X
   Replica: _ 
-Parent Table:         Sightings
-Label:                _ 
+Parent Table:         Pokemon
+Label:                Type
 Source Specification: _ 
-Shared By:            
+Shared By:            _ 
 Aliases:              _ 
-Description:          _The number of pokemon sighted kept in the inventory at any time point in time 
+Description:          The Pokemon type refers to the different elemental properties associated with Pokemon.
 
 
 PHYSICAL ELEMENTS
-Data Type:            Numeric
-Length:               _ 
-Decimal Places:       _0
+
+Data Type:            VARCHAR(10)
+Length:               10 Characters
+Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ 
-  Numbers (0-9):      _x
+  Letters (A-Z):      X
+  Numbers (0-9):      _
   Keyboard (.,/$#%):  _
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ 
-               Primary:    _
+Key Type:      Non:        X
+               Primary:    _ 
                Foreign:    _ 
-               Alternate:  _x 
+               Alternate:  _ 
 
-Key Structure: Simple:     _x
+Key Structure: Simple:     _ 
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ 
-               Unique:     _x 
+Uniqueness:    Non-unique: X
+               Unique:     _ 
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _x 
+               No nulls:   X
 
-Values Entered By: User:   _ 
-                   System: _x 
+Values Entered By: User:   X
+                   System: _
 
 Required Value:    No:     _ 
-                   Yes:    _x 
+                   Yes:    X
 
 Default Value:     _ 
 
-Range of Values:   _ 
+Range of Values:   (Normal, Fire, Water, Grass, Flying, Fighting, Poison, Electric, Ground, Rock, Psychic, Ice, Bug, Ghost, Steel, Dragon, Dark, Fairy)
 
 Edit Rule:
-  Enter now, edits allowed:       _x 
-  Enter now, edits not allowed:   _ 
-  Enter later, edits allowed:     _ 
+  Enter now, edits allowed:       _ 
+  Enter now, edits not allowed:   X
+  Enter later, edits allowed:     _
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _x 
-                =    _ 
+                ALL  _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 
   Other Fields: _
-                ALL  _x 
+                ALL  _ 
                 =    _ 
                 >    _ 
                 >=   _ 
@@ -91,15 +94,15 @@ Comparisons Allowed:
 Operations Allowed:
   Same Field:   _ 
                 ALL  _ 
-                +    _x 
-                -    _x 
+                +    _ 
+                -    _ 
                 *    _ 
                 /    _ 
 
   Other Fields: _ 
                 ALL  _ 
-                +    _x 
-                -    _x 
+                +    _ 
+                -    _ 
                 *    _ 
                 /    _ 
 
@@ -111,3 +114,4 @@ Operations Allowed:
                 /    _ 
 
 NOTES:
+

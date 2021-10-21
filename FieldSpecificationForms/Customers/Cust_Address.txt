@@ -1,63 +1,64 @@
+FIELD SPECIFICATIONS
+
 GENERAL ELEMENTS
 
-Field Name:           Sighting_ID
+Field Name:           Cust_Address
 
 Specification Type:
-  Unique:  _ x
-  Generic: _ 
+  Unique:  _
+  Generic: X 
   Replica: _ 
-Parent Table:         Sightings
-Label:                _ 
-Source Specification: _ 
-Shared By:            _Orders, Pokemon_Inventory, Pokemon_Validation
+Parent Table:         Customers
+Label:                Address 
+Source Specification: Address
+Shared By:            _ 
 Aliases:              _ 
-Description:          _ The unique ID of pokemon that has been sighted, recorded in the database so that 
-			staff can have a lead for customers who want that particular pokemon
+Description:          The home street address of the customer
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            Numeric
-Length:               _ 
+Data Type:            VARCHAR(50)
+Length:               50 Characters 
 Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ 
-  Numbers (0-9):      _x 
-  Keyboard (.,/$#%):  _
+  Letters (A-Z):      X
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  X
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ 
-               Primary:    _x
+Key Type:      Non:        X
+               Primary:    _ 
                Foreign:    _ 
                Alternate:  _ 
 
-Key Structure: Simple:     _x
+Key Structure: Simple:     _ 
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ 
-               Unique:     _x 
+Uniqueness:    Non-unique: X
+               Unique:     _ 
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _x 
+               No nulls:   X
 
-Values Entered By: User:   _ 
-                   System: _x 
+Values Entered By: User:   X
+                   System: _ 
 
 Required Value:    No:     _ 
-                   Yes:    _x 
+                   Yes:    X
 
 Default Value:     _ 
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _ 
-  Enter now, edits not allowed:   _x 
+  Enter now, edits allowed:       X
+  Enter now, edits not allowed:   _ 
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
@@ -65,10 +66,10 @@ Edit Rule:
 Comparisons Allowed:
   Same Field:   _ 
                 ALL  _ 
-                =    _x 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _x 
+                !=   X
                 <    _ 
                 <=   _ 
 
@@ -113,3 +114,4 @@ Operations Allowed:
                 /    _ 
 
 NOTES:
+

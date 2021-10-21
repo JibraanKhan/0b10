@@ -2,83 +2,83 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Pokemon_Name 
+Field Name:           Pokemon_Price
 
 Specification Type:
-  Unique:  _ 
-  Generic: _ 
-  Replica: X 
-Parent Table:         Orders 
-Label:                Species 
-Source Specification: Species
-Shared By:            Pokemon, Pokemon_Inventory, Orders, Sightings 
+  Unique:  _
+  Generic: X
+  Replica: _ 
+Parent Table:         Pokemon_Inventory
+Label:                Price
+Source Specification: Price
+Shared By:            _ 
 Aliases:              _ 
-Description:          The name of the pokemon species that is being ordered.
+Description:          The price that the pokemon in the inventory is set to be sold for.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            VARCHAR(15)
-Length:               15
-Decimal Places:       _
+Data Type:            FLOAT
+Length:               _ 
+Decimal Places:       2
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      X 
-  Numbers (0-9):      _
-  Keyboard (.,/$#%):  _
-  Special (©®™Σπ):    _
+  Letters (A-Z):      _ 
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  X
+  Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _
-               Primary:    _ 
-               Foreign:    X
+Key Type:      Non:        X
+               Primary:    _
+               Foreign:    _ 
                Alternate:  _ 
 
-Key Structure: Simple:     X 
+Key Structure: Simple:     _
                Composite:  _ 
 
-Uniqueness:    Non-unique: X 
-               Unique:     _ 
+Uniqueness:    Non-unique: X
+               Unique:     _
 
-Null Support:  Nulls OK:   _ 
+Null Support:  Nulls OK:   _
                No nulls:   X
 
-Values Entered By: User:   _ 
+Values Entered By: User:   X
                    System: X
 
-Required Value:    No:     _ 
+Required Value:    No:     _
                    Yes:    X
 
-Default Value:     _ 
+Default Value:     _
 
-Range of Values:   _ 
+Range of Values:   _
 
 Edit Rule:
-  Enter now, edits allowed:       _
+  Enter now, edits allowed:       _ 
   Enter now, edits not allowed:   X
   Enter later, edits allowed:     _ 
-  Enter later, edits not allowed: _ 
+  Enter later, edits not allowed: _
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    X
+                ALL  X
+                =    _
                 >    _ 
                 >=   _ 
-                !=   X
+                !=   _
                 <    _ 
                 <=   _ 
 
-  Other Fields: _
-                ALL  _ 
-                =    X 
+  Other Fields: Order_SoldFor in Orders table.
+                ALL  X
+                =    _
                 >    _ 
                 >=   _ 
-                !=   X 
+                !=   _ 
                 <    _ 
                 <=   _ 
 
@@ -93,14 +93,14 @@ Comparisons Allowed:
 
 Operations Allowed:
   Same Field:   _ 
-                ALL  _ 
+                ALL  X
                 +    _ 
-                -    _ 
+                -    _
                 *    _ 
                 /    _ 
 
-  Other Fields: _ 
-                ALL  _ 
+  Other Fields: Order_SoldFor in Orders table.
+                ALL  X
                 +    _ 
                 -    _ 
                 *    _ 

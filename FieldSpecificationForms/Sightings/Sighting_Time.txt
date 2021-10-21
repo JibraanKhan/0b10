@@ -1,30 +1,29 @@
 GENERAL ELEMENTS
 
-Field Name:           _Pokemon_Name
+Field Name:           Sighting_Time
 
 Specification Type:
-  Unique:  _ x
-  Generic: _ 
+  Unique:  _
+  Generic: X
   Replica: _ 
 Parent Table:         Sightings
 Label:                _ 
-Source Specification: _ 
-Shared By:            _Sightings, Orders, Pokemon_Validation
+Source Specification: Date and time.
+Shared By:            
 Aliases:              _ 
-Description:          _A foreign key to identify the unique pokemon names in the sightings table
+Description:          The time that the sighting happened.
 
 
 PHYSICAL ELEMENTS
-
-Data Type:            _Characteres
+Data Type:            TIMESTAMP
 Length:               _ 
-Decimal Places:       _ 
-Input Mask:           _ 
+Decimal Places:       _
+Input Mask:           DD/MM/YYYY    HH:MM:SS 
 Display Format:       _ 
 Character Support:
   Letters (A-Z):      _ 
-  Numbers (0-9):      _ 
-  Keyboard (.,/$#%):  _x
+  Numbers (0-9):      X
+  Keyboard (.,/$#%):  _
   Special (©®™Σπ):    _ 
 
 
@@ -32,51 +31,51 @@ LOGICAL ELEMENTS
 
 Key Type:      Non:        _ 
                Primary:    _
-               Foreign:    _ 
-               Alternate:  _x 
+               Foreign:    _
+               Alternate:  X
 
-Key Structure: Simple:     _x
-               Composite:  _ 
+Key Structure: Simple:     _
+               Composite:  X
 
-Uniqueness:    Non-unique: _ 
-               Unique:     _x 
+Uniqueness:    Non-unique: X 
+               Unique:     _ 
 
-Null Support:  Nulls OK:   _ 
-               No nulls:   _x 
+Null Support:  Nulls OK:   _
+               No nulls:   X
 
-Values Entered By: User:   _ 
-                   System: _x 
+Values Entered By: User:   X
+                   System: X
 
-Required Value:    No:     _ 
-                   Yes:    _x 
+Required Value:    No:     X
+                   Yes:    _ 
 
-Default Value:     _ 
+Default Value:     CURRENT TIMESTAMP
 
 Range of Values:   _ 
 
 Edit Rule:
   Enter now, edits allowed:       _ 
-  Enter now, edits not allowed:   _x 
-  Enter later, edits allowed:     _ 
+  Enter now, edits not allowed:   X
+  Enter later, edits allowed:     _
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    _x 
+                ALL  X
+                =    _
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   _
                 <    _ 
                 <=   _ 
 
   Other Fields: _
                 ALL  _ 
-                =    _x 
+                =    _ 
                 >    _ 
                 >=   _ 
-                !=   _ x
+                !=   _ 
                 <    _ 
                 <=   _ 
 
@@ -93,7 +92,7 @@ Operations Allowed:
   Same Field:   _ 
                 ALL  _ 
                 +    _ 
-                -    _ 
+                -    X
                 *    _ 
                 /    _ 
 

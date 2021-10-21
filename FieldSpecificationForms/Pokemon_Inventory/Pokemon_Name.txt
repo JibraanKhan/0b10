@@ -25,9 +25,9 @@ Input Mask:           _
 Display Format:       _ 
 Character Support:
   Letters (A-Z):      X 
-  Numbers (0-9):      X 
-  Keyboard (.,/$#%):  X 
-  Special (©®™Σπ):    _ 
+  Numbers (0-9):      _ 
+  Keyboard (.,/$#%):  _
+  Special (©®™Σπ):    X
 
 
 LOGICAL ELEMENTS

@@ -2,37 +2,37 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           _ Pokemon_Type
+Field Name:           Cust_FirstName
 
 Specification Type:
-  Unique:  _ X
-  Generic: _ 
+  Unique:  _
+  Generic: X
   Replica: _ 
-Parent Table:         _ Pokemon
-Label:                _ Type
-Source Specification: _ 
+Parent Table:         Customers
+Label:                _ 
+Source Specification: Person Name
 Shared By:            _ 
 Aliases:              _ 
-Description:          _ The Pokemon type refers to the different elemental properties associated with Pokemon and their moves
+Description:          The first name of the customer.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            _ Alphanumeric
-Length:               _ 20
+Data Type:            VARCHAR(25)
+Length:               25 Characters
 Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ X
-  Numbers (0-9):      _ X
-  Keyboard (.,/$#%):  _ X
+  Letters (A-Z):      X
+  Numbers (0-9):      _ 
+  Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ X
+Key Type:      Non:        X
                Primary:    _ 
                Foreign:    _ 
                Alternate:  _ 
@@ -40,36 +40,36 @@ Key Type:      Non:        _ X
 Key Structure: Simple:     _ 
                Composite:  _ 
 
-Uniqueness:    Non-unique: _ X
+Uniqueness:    Non-unique: X
                Unique:     _ 
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _ X
+               No nulls:   X
 
-Values Entered By: User:   _ X
+Values Entered By: User:   X
                    System: _ 
 
 Required Value:    No:     _ 
-                   Yes:    _ X
+                   Yes:    X
 
 Default Value:     _ 
 
-Range of Values:   _ (Normal, Fire, Water, Grass, Flying, Fighting, Poison, Electric, Ground, Rock, Psychic, Ice, Bug, Ghost, Steel, Dragon, Dark, Fairy)
+Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _ 
+  Enter now, edits allowed:       X
   Enter now, edits not allowed:   _ 
-  Enter later, edits allowed:     _ X
+  Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    _ X
+                ALL  X
+                =    _
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   _
                 <    _ 
                 <=   _ 
 
@@ -84,10 +84,10 @@ Comparisons Allowed:
 
   Value Expr.:  _ 
                 ALL  _ 
-                =    _ X
+                =    _
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   _
                 <    _ 
                 <=   _ 
 

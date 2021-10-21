@@ -1,77 +1,77 @@
 GENERAL ELEMENTS
 
-Field Name:           Staff_First_Name
+Field Name:           Sighting_NumPokemon
 
 Specification Type:
-  Unique:  _ x
-  Generic: _ 
+  Unique:  _
+  Generic: X
   Replica: _ 
-Parent Table:         Staff
+Parent Table:         Sightings
 Label:                _ 
 Source Specification: _ 
-Shared By:            
+Shared By:            _
 Aliases:              _ 
-Description:          _ The first name of a staff member who works to catch the pokemon
+Description:          The number of pokemon sighted.
 
 
 PHYSICAL ELEMENTS
-Data Type:            Character
+Data Type:            INT
 Length:               _ 
-Decimal Places:       _ 
+Decimal Places:       _
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
-  Letters (A-Z):      _ x
-  Numbers (0-9):      _ 
+  Letters (A-Z):      _ 
+  Numbers (0-9):      X
   Keyboard (.,/$#%):  _
   Special (©®™Σπ):    _ 
 
 
 LOGICAL ELEMENTS
 
-Key Type:      Non:        _ 
+Key Type:      Non:        X
                Primary:    _
                Foreign:    _ 
-               Alternate:  _x 
+               Alternate:  _
 
-Key Structure: Simple:     _x
+Key Structure: Simple:     _
                Composite:  _ 
 
-Uniqueness:    Non-unique: _x 
-               Unique:     _ 
+Uniqueness:    Non-unique: _ 
+               Unique:     _
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   _x 
+               No nulls:   X
 
-Values Entered By: User:   _ 
-                   System: _x 
+Values Entered By: User:   X
+                   System: _
 
-Required Value:    No:     _ 
-                   Yes:    _x 
+Required Value:    No:     X
+                   Yes:    _
 
-Default Value:     _ 
+Default Value:     0
 
 Range of Values:   _ 
 
 Edit Rule:
-  Enter now, edits allowed:       _ 
-  Enter now, edits not allowed:   _x 
+  Enter now, edits allowed:       _
+  Enter now, edits not allowed:   X
   Enter later, edits allowed:     _ 
-  Enter later, edits not allowed: _ 
+  Enter later, edits not allowed: _
   Not determined at this time:    _ 
 
 Comparisons Allowed:
   Same Field:   _ 
-                ALL  _ 
-                =    _x 
+                ALL  X
+                =    _ 
                 >    _ 
                 >=   _ 
-                !=   _x 
+                !=   _ 
                 <    _ 
                 <=   _ 
 
   Other Fields: _
-                ALL  _ 
+                ALL  _
                 =    _ 
                 >    _ 
                 >=   _ 
@@ -90,15 +90,15 @@ Comparisons Allowed:
 
 Operations Allowed:
   Same Field:   _ 
-                ALL  _ 
-                +    _ 
-                -    _ 
+                ALL  X 
+                +    _
+                -    _
                 *    _ 
                 /    _ 
 
   Other Fields: _ 
                 ALL  _ 
-                +    _ 
+                +    _
                 -    _ 
                 *    _ 
                 /    _ 
