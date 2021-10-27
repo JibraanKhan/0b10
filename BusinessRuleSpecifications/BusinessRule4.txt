@@ -2,7 +2,7 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ Costumes can be deemed inactive after being worn out, damaged, or taken out of service.
+Statement:  Costumes can be deemed inactive after being worn out, damaged, or taken out of service.
 
 Constraint: _ An entry in the Costumes table may be inactivated but not deleted
 

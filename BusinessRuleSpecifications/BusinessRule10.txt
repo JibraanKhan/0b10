@@ -2,7 +2,7 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  A staff member can only rent 10 costumes at a time.
+Statement:  A staff member can only rent five costumes at a time.
 
 Constraint: The degree of participation from staff to costumes_rented is only limited 
             to five, so there can only be five active rentals per staff member.

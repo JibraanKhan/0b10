@@ -2,7 +2,7 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
  
-Statement:  _ Number of Pokemon sighted has to be greater than 0.
+Statement:  Number of Pokemon sighted has to be greater than 0.
 
 Constraint: _ the field number_of_pokemon in the sightings table must be an int greater than zero
 

@@ -11,7 +11,7 @@ Specification Type:
 Parent Table:         Orders
 Label:                ID
 Source Specification: _ 
-Shared By:            _ 
+Shared By:            Fulfilled_Orders
 Aliases:              _ 
 Description:          The primary key that identifies the order in the orders table.
 
@@ -73,12 +73,12 @@ Comparisons Allowed:
                 <    _ 
                 <=   _ 
 
-  Other Fields: _
+  Other Fields: Order_ID inside the Fulfilled_Orders table.
                 ALL  _ 
-                =    _ 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   _ 
+                !=   X
                 <    _ 
                 <=   _ 
 

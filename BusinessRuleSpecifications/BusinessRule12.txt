@@ -2,18 +2,18 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  Deletion of a pokemon species that has been ordered, sighted, or exists in the inventory is forbidden.
+Statement:  Once a customer has placed an order, the order cannot be deleted.
 
-Constraint: Deletion of a pokemon species record from the Pokemon table.
+Constraint: Deletion of order records inside Orders.
 
 Type:     Database Oriented:     X
-          Application Oriented   _ 
+          Application Oriented   _
 
-Category: Field Specific:        _ 
+Category: Field Specific:        _
           Relationship Specific: X
 
-Test On:  Insert:                _ 
-          Delete:                X 
+Test On:  Insert:                _
+          Delete:                X
           Update:                _
 
 
@@ -21,7 +21,7 @@ STRUCTURES AFFECTED
 
 Field Names: _
 
-Table Names: Pokemon
+Table Names: Orders
 
 
 FIELD ELEMENTS AFFECTED
@@ -38,17 +38,17 @@ Logical Elements:  Key Type:            _
                    Uniqueness:          _ 
                    Null Support:        _ 
                    Values Entered By:   _ 
-                   Default Value:       _ 
-                   Range of Values:     _ 
+                   Default Value:       _
+                   Range of Values:     _
                    Comparisons Allowed: _
-                   Operations Allowed:  _ 
+                   Operations Allowed:  _
                    Edit Rule:           _ 
 
 
 ACTION TAKEN
 
-Implement the deletion rule as a restriction between the children of the Pokemon table and the Pokemon table, so that when a pokemon species
-has been interacted with, it cannot be deleted from the Pokemon table.
-
+Use the Restrict delete rule and implement it with deny. Essentially on delete, 
+check if the order exists in fulfilled_orders, and if it does, do not delete the 
+order record from the Orders table.
 
 NOTES: _

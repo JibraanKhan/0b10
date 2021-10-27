@@ -2,7 +2,7 @@ BUSINESS RULE SPECIFICATIONS
 
 RULE INFORMATION
 
-Statement:  _ Each costume from the inventory can be rented to only one staff member at a time. 
+Statement:  Each costume from the inventory can be rented to only one staff member at a time. 
 
 Constraint: _ 
 

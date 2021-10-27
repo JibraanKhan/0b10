@@ -8,12 +8,12 @@ Specification Type:
   Unique:  X 
   Generic: _ 
   Replica: _ 
-Parent Table:         Pokemon_Inventory 
+Parent Table:         Fulfilled_Orders 
 Label:                ID 
 Source Specification: _ 
-Shared By:            Fulfilled_Orders
+Shared By:            Pokemon_Inventory
 Aliases:              _ 
-Description:          The unique key that corresponds to each pokemon in inventory at the PPC. 
+Description:          The unique key that corresponds to each pokemon in inventory at the PPC as well as each fulfilled order. 
 
 
 PHYSICAL ELEMENTS
@@ -33,15 +33,15 @@ Character Support:
 LOGICAL ELEMENTS
 
 Key Type:      Non:        _ 
-               Primary:    X 
-               Foreign:    _ 
+               Primary:    _
+               Foreign:    X
                Alternate:  _ 
 
-Key Structure: Simple:     X 
-               Composite:  _ 
+Key Structure: Simple:     _
+               Composite:  X
 
 Uniqueness:    Non-unique: _ 
-               Unique:     X 
+               Unique:     X
 
 Null Support:  Nulls OK:   _ 
                No nulls:   X 
@@ -54,7 +54,7 @@ Required Value:    No:     _
 
 Default Value:     _ 
 
-Range of Values:   _ 
+Range of Values:   All the Inventory_ID values present in the Pokemon_Inventory
 
 Edit Rule:
   Enter now, edits allowed:       _ 
@@ -73,7 +73,7 @@ Comparisons Allowed:
                 <    _ 
                 <=   _ 
 
-  Other Fields: Inventory_ID inside Fulfilled_Orders
+  Other Fields: Inventory_ID inside Pokemon_Inventory
                 ALL  _ 
                 =    X
                 >    _ 

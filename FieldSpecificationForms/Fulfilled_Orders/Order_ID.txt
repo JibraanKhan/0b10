@@ -2,30 +2,30 @@ FIELD SPECIFICATIONS
 
 GENERAL ELEMENTS
 
-Field Name:           Inventory_ID 
+Field Name:           Order_ID
 
 Specification Type:
-  Unique:  X 
+  Unique:  X
   Generic: _ 
   Replica: _ 
-Parent Table:         Pokemon_Inventory 
-Label:                ID 
+Parent Table:         Fulfilled_Orders
+Label:                ID
 Source Specification: _ 
-Shared By:            Fulfilled_Orders
+Shared By:            Orders
 Aliases:              _ 
-Description:          The unique key that corresponds to each pokemon in inventory at the PPC. 
+Description:          The foreign key that corresponds to each order in the Orders table and can uniquely identify each record in the Fulfilled_Orders table.
 
 
 PHYSICAL ELEMENTS
 
-Data Type:            INT 
+Data Type:            INT
 Length:               _ 
 Decimal Places:       _ 
 Input Mask:           _ 
 Display Format:       _ 
 Character Support:
   Letters (A-Z):      _ 
-  Numbers (0-9):      X 
+  Numbers (0-9):      X
   Keyboard (.,/$#%):  _ 
   Special (©®™Σπ):    _ 
 
@@ -33,32 +33,32 @@ Character Support:
 LOGICAL ELEMENTS
 
 Key Type:      Non:        _ 
-               Primary:    X 
-               Foreign:    _ 
+               Primary:    _
+               Foreign:    X
                Alternate:  _ 
 
-Key Structure: Simple:     X 
-               Composite:  _ 
+Key Structure: Simple:     _
+               Composite:  X
 
 Uniqueness:    Non-unique: _ 
-               Unique:     X 
+               Unique:     X
 
 Null Support:  Nulls OK:   _ 
-               No nulls:   X 
+               No nulls:   X
 
 Values Entered By: User:   _ 
-                   System: X 
+                   System: X
 
 Required Value:    No:     _ 
-                   Yes:    X 
+                   Yes:    X
 
 Default Value:     _ 
 
-Range of Values:   _ 
+Range of Values:   All the Order_ID values inside Orders.
 
 Edit Rule:
   Enter now, edits allowed:       _ 
-  Enter now, edits not allowed:   X 
+  Enter now, edits not allowed:   X
   Enter later, edits allowed:     _ 
   Enter later, edits not allowed: _ 
   Not determined at this time:    _ 
@@ -66,14 +66,14 @@ Edit Rule:
 Comparisons Allowed:
   Same Field:   _ 
                 ALL  _ 
-                =    X 
+                =    X
                 >    _ 
                 >=   _ 
-                !=   X 
+                !=   X
                 <    _ 
                 <=   _ 
 
-  Other Fields: Inventory_ID inside Fulfilled_Orders
+  Other Fields: Order_ID inside the Orders table.
                 ALL  _ 
                 =    X
                 >    _ 
