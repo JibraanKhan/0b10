@@ -4,19 +4,14 @@
 </head>
 <body>
 <?php 
-    $host = "localhost";
-    $user = "jibraan";
-    $pass = "Pak!stan994";
     $dbse = "instrument_rentals";
-    $config = parse_ini_file('/home/jibraan/mysql.ini');
-    echo $config['mysqli.default_host'];
-    echo $config['mysqli.default_user'];
-    echo $config['mysqli.default_pw'];
+    $config = parse_ini_file('/home/jibraan/my_sql.ini');
     $conn = new mysqli(
-        $host,
-        $user,
-        $pass,
-        $dbse);
+        $config['mysqli.default_host'],
+        $config['mysqli.default_user'],
+        $config['mysqli.default_pw'],
+        $dbse
+    );
     if ($conn->connect_errno){
         echo "Error: Failed to make a MySQL connection, here is why: ". "<br/>";
         echo "Errno: " . $conn->connect_errno . "\n";
