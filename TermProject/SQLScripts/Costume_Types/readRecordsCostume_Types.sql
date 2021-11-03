@@ -1,0 +1,1 @@
+SELECT * FROM Costume_Types
