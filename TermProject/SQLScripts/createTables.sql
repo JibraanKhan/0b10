@@ -1,6 +1,6 @@
 CREATE TABLE Customers(
     PRIMARY KEY (Cust_ID),
-    Cust_ID      INT AUTO_INCREMENT,
+    Cust_ID      INT AUTO_INCREMENT NOT NULL,
     Cust_firstname VARCHAR(25) NOT NULL,
     Cust_lastname VARCHAR(25) NOT NULL,
     Cust_Address VARCHAR(50) NOT NULL,
@@ -9,29 +9,29 @@ CREATE TABLE Customers(
 
 CREATE TABLE Staff(
     PRIMARY KEY (Staff_ID),
-    Staff_ID    NUMERIC AUTO_INCREMENT,
+    Staff_ID    NUMERIC AUTO_INCREMENT NOT NULL,
     staff_firstName VARCHAR(25) NOT NULL,
     staff_lastName VARCHAR(25) NOT NULL
 )
 
 CREATE TABLE Pokemon_Inventory(
     PRIMARY KEY (Inventory_ID),
-    Inventory_ID INT AUTO_INCREMENT,
+    Inventory_ID INT AUTO_INCREMENT, NOT NULL,
     Pokemon_Name VARCHAR(15),
     FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name),
-    Pokemon_Price FLOAT NOT NULL,
+    Pokemon_Price FLOAT NOT NULL
 )
 CREATE TABLE Costumes_Inventory(
     PRIMARY KEY (Costume_ID),
-    Costume_ID INT AUTO_INCREMENT,
-    Costume_Type VARCHAR(30)
+    Costume_ID INT AUTO_INCREMENT NOT NULL,
+    Costume_Type VARCHAR(30),
     FOREIGN KEY (Custome_Type) REFERENCES Costume_Type(Custome_Type),
     Costume_Size VARCHAR(5) NOT NULL
 )
 CREATE TABLE Orders(
     PRIMARY KEY (Order_ID),
-    Order_ID INT AUTO_INCREMENT,
-    Pokemon_Name VARCHAR(15)
+    Order_ID INT AUTO_INCREMENT NOT NULL,
+    Pokemon_Name VARCHAR(15),
     FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name),
     Customer_ID INT,
     FOREIGN KEY (Customer_ID) REFERENCES Costumes_Rented(Costume_ID),
@@ -45,11 +45,13 @@ CREATE TABLE Sightings(
     Sightings_NumPokemon int NOT NULL
 )
 CREATE TABLE Pokemon(
-    Pokemon_name VARCHAR(15) PRIMARY KEY,
+    PRIMARY KEY (Pokemon_name),
+    Pokemon_name VARCHAR(15) NOT NULL,
     Pokemon_type VARCHAR(10) NOT NULL
 )
 CREATE TABLE Costumes_Types(
-    Costume_Type VARCHAR(30) PRIMARY KEY
+    PRIMARY KEY (Costume_Type),
+    Costume_Type VARCHAR(30) NOT NULL
 )
 CREATE TABLE Costumes_Rented(
     Costume_ID INT,
