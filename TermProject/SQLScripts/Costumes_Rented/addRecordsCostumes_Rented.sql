@@ -1,2 +1,2 @@
-INSERT INTO Costumes_Rented(Costume_ID)
-VALUES (?);
+INSERT INTO Costumes_Rented(Rental_CheckoutDate, Rental_DueDate)
+VALUES (?, ?);

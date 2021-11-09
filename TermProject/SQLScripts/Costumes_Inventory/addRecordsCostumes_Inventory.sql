@@ -1,2 +1,2 @@
-INSERT INTO Costumes_Inventory(Costume_ID,Costume_Type,Costume_Size)
-VALUES (?,?,?);
+INSERT INTO Costumes_Inventory(Costume_Type,Costume_Size)
+VALUES (?,?);

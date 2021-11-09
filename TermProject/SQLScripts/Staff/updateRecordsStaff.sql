@@ -1,4 +1,4 @@
 UPDATE Staff 
-   SET Staff_FirstName = ?
    SET Staff_LastName = ?
+   SET Staff_FirstName = ?
  WHERE Staff_ID = ?;

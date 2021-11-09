@@ -1,7 +1,7 @@
 UPDATE Customers
-    SET Cust_firstname = ?
-    SET Cust_lastname = ?
+    SET Cust_LastName = ?
+    SET Cust_FirstName = ?
+    SET Cust_Address = ?
     SET Cust_Phone = ?
-    SET Cust_Address
 WHERE Cust_ID = ?;
 

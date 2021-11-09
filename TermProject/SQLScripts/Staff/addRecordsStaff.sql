@@ -1,2 +1,2 @@
-INSERT INTO Staff (Staff_FirstName, Staff_LastName) VALUES 
+INSERT INTO Staff (Staff_LastName, Staff_FirstName) VALUES 
 (?, ?);
