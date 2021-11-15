@@ -58,7 +58,7 @@ CREATE TABLE Sightings(
     FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name),
     Sightings_Location VARCHAR(40) NOT NULL,
     Sightings_Time TIMESTAMP NOT NULL,
-    Sightings_NumPokemon int NOT NULL
+    Sightings_NumPokemon INT NOT NULL
 );
 
 CREATE TABLE Costumes_Rented(
