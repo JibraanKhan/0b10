@@ -4,7 +4,7 @@ CREATE TABLE Customers(
     Cust_FirstName VARCHAR(25) NOT NULL,
     Cust_LastName VARCHAR(25) NOT NULL,
     Cust_Address VARCHAR(50) NOT NULL,
-    Cust_Phone VARCHAR(20) NOT NULL
+    Cust_Phone VARCHAR(20) DEFAULT NULL
 );
 
 CREATE TABLE Staff(
@@ -47,26 +47,28 @@ CREATE TABLE Orders(
     Pokemon_Name VARCHAR(15),
     Cust_ID INT,
     Inventory_ID INT,
-    Order_SoldFor FLOAT NOT NULL,
+    Order_SoldFor FLOAT DEFAULT NULL,
     FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name),
     FOREIGN KEY (Cust_ID) REFERENCES Customers(Cust_ID),
     FOREIGN KEY (Inventory_ID) REFERENCES Pokemon_Inventory(Inventory_ID)
 );
 
 CREATE TABLE Sightings(
+    PRIMARY KEY (Pokemon_Name, Sightings_Location, Sightings_Time),
     Pokemon_Name VARCHAR(15),
-    FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name),
     Sightings_Location VARCHAR(40) NOT NULL,
     Sightings_Time TIMESTAMP NOT NULL,
-    Sightings_NumPokemon INT NOT NULL
+    Sightings_NumPokemon INT NOT NULL,
+    FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name)
 );
 
 CREATE TABLE Costumes_Rented(
+    PRIMARY KEY (Staff_ID, Costume_ID),
     Costume_ID INT,
     Staff_ID INT,
-    Rental_CheckoutDate TIMESTAMP NOT NULL,
+    Rental_CheckoutDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Rental_DueDate TIMESTAMP NOT NULL,
-    Rental_ReturnedDate TIMESTAMP NOT NULL,
+    Rental_ReturnedDate TIMESTAMP,
     FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID),
     FOREIGN KEY (Costume_ID) REFERENCES Costumes_Inventory(Costume_ID)
 );
