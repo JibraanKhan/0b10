@@ -1,0 +1,54 @@
+h4 > div.requiredField{
+    color:red;
+    font-weight:bolder;
+    width: 5px;
+    height:5px;
+    margin:0;
+    float: right;
+}
+
+h4{
+    font-weight:bold;
+    font-size: larger;
+    float: left;
+}
+
+form.fields{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+}
+
+form.fields > div.fieldInputs{
+    display:flex;
+    flex-direction: row;
+    margin: 10px;
+}
+form.fields > div.fieldInputs *{
+    margin: 10px;
+}
+
+body{
+    text-align: center;
+}
+
+.Error, .Confirmation{
+    position: absolute;
+    right: 25px;
+    top: 0;
+}
+
+.ErrorSpec, .Error, .Confirmation{
+    font-size: larger;
+    font-weight: bold;
+    
+}
+
+.ErrorSpec, .Error{
+    color: rgb(245, 108, 108);
+}
+
+.Confirmation{
+    color: rgb(110, 245, 110);
+}

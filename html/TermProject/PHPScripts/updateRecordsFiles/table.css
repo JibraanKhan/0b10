@@ -1,0 +1,21 @@
+p, li, ul {
+    max-width: 500px
+}
+
+h1{
+    text-decoration:double;
+    font-weight: bolder;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td, tr {
+    padding: 5px;
+}
+thead {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
