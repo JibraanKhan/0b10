@@ -14,7 +14,7 @@
         <h1 class="Add Records">Add Records</h1>
         <?php
         $dbse = "PPC";
-        $config = parse_ini_file('/home/jibraan/my_sql.ini');
+        $config = parse_ini_file('/home/mysql.ini');
         $conn = new mysqli(
             $config['mysqli.default_host'],
             $config['mysqli.default_user'],
