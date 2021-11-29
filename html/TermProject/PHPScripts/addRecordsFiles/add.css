@@ -32,23 +32,3 @@ form.fields > div.fieldInputs *{
 body{
     text-align: center;
 }
-
-.Error, .Confirmation{
-    position: absolute;
-    right: 25px;
-    top: 0;
-}
-
-.ErrorSpec, .Error, .Confirmation{
-    font-size: larger;
-    font-weight: bold;
-    
-}
-
-.ErrorSpec, .Error{
-    color: rgb(245, 108, 108);
-}
-
-.Confirmation{
-    color: rgb(110, 245, 110);
-}

@@ -1,1 +1,2 @@
-SELECT * FROM Costumes_Inventory;
+SELECT *
+  FROM Costumes_Inventory;

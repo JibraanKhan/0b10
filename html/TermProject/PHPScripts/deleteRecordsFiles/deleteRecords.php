@@ -1,9 +1,6 @@
 <html>
     <head>
-        <title>
-            Home
-        </title>
-        <link rel="stylesheet" href="different.css">
+
     </head>
     <body>
         <div class="navbar">

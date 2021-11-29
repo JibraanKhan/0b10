@@ -5,12 +5,20 @@
             session_start();
             $reload = False;
             ?>
-            addRecords.php
+            Add Records
         </title>
-        <link rel="stylesheet" href="table.css">
-        <link rel="stylesheet" href="addRecords.css">
+        <link rel="stylesheet" href="add.css">
+        <link rel="stylesheet" href="../table.css">
+        <link rel="stylesheet" href="../different.css">
+        <link rel="stylesheet" href="../all.css">
     </head>
     <body>
+    <div class="navbar">
+            <a href="/team/html/TermProject/PHPScripts/readRecordsFiles/readRecords.php" class="readRecords">Read Records</a>
+            <a href="/team/html/TermProject/PHPScripts/addRecordsFiles/addRecords.php" class="addRecords">Add Records</a>
+            <a href="/team/html/TermProject/PHPScripts/deleteRecordsFiles/deleteRecords.php" class="deleteRecords">Delete Records</a>
+            <a href="/team/html/TermProject/PHPScripts/updateRecordsFiles/updateRecords.php" class="updateRecords">Update Records</a>
+        </div>
         <h1 class="Add Records">Add Records</h1>
         <?php
         $dbse = "PPC";
@@ -69,11 +77,21 @@
                     echo "Failed to show tables";
                 }else{
                     while ($table_name = $result->fetch_array()){
-                ?>
+                        if ($_SESSION['tableName'] == $table_name[0]){
+                        ?>
+                        <option selected>
+                            <?php echo $table_name[0]; ?>
+                        </option>
+                        <?php
+                        }else{
+                        ?>
                         <option>
                             <?php echo $table_name[0]; ?>
                         </option>
-                <?php
+                        <?php
+                        }
+                        
+                        
                         }
                     }
                 ?>
@@ -85,11 +103,11 @@
         
 
         $flds = array(
-            'Costume_Types' => array('CostumeType'),
+            'Costume_Types' => array('Costume_Type'),
             'Costumes_Inventory' => array('Costume_Type', 'Costume_Size'),
             'Costumes_Rented' => array('Staff_ID', 'Costume_ID', 'Rental_CheckoutDate', 'Rental_DueDate'),
             'Customers' => array('Cust_LastName', 'Cust_FirstName', 'Cust_Address', 'Cust_Phone'),
-            'Orders' => array('Pokemon_Name', 'Cust_ID', 'Inventory_ID'),
+            'Orders' => array('Pokemon_Name', 'Cust_ID', 'Inventory_ID', 'Order_SoldFor'),
             'Pokemon' => array('Pokemon_Name', 'Pokemon_Type'),
             'Pokemon_Inventory' => array('Pokemon_Name', 'Pokemon_Price'),
             'Sightings' => array('Pokemon_Name', 'Sighting_Location', 'Sighting_Time', 'Sighting_NumPokemon'),
@@ -101,14 +119,14 @@
             'Costumes_Inventory' => array('s', 's'),
             'Costumes_Rented' => array('i', 'i', 's', 's'),
             'Customers' => array('s', 's', 's', 's'),
-            'Orders' => array('s', 'i', 'i'),
+            'Orders' => array('s', 'i', 'i', 'd'),
             'Pokemon' => array('s', 's'),
             'Pokemon_Inventory' => array('s', 'd'),
             'Sightings' => array('s', 's', 's', 'i'),
             'Staff' => array('s', 's'),
         );
 
-        $special_flds = array(
+        $special_flds = array( //All the fields that need a table representation to show records to choose
             'Cust_ID' => 'Customers',
             'Inventory_ID' => 'Pokemon_Inventory',
             'Staff_ID' => 'Staff',
@@ -117,12 +135,12 @@
             'Costume_Type' => 'Costume_Types'
         );
 
-        $accepted_special_flds = array(
+        $accepted_special_flds = array( //All fields that I want them to be able to change.
             'Pokemon_Name' => 'Pokemon',
             'Costume_Type' => 'Costume_Types'
         );
 
-        $masks = array(
+        $masks = array( //All of the place holders that show them what to enter into the text box.
             'CostumeType' => 'Meowth Costume, Office Jenny Costume',
             'Costume_Size' => 'S, M, L, XL',
             'Rental_CheckoutDate' => 'YYYY-MM-DD hh:mm:ss',
@@ -139,9 +157,10 @@
             'Sighting_NumPokemon' => '5, 2',
             'Staff_LastName' => 'Smith',
             'Staff_FirstName' => 'John',
+            'Order_SoldFor' => '5.50, 6.25, 6',
         );
 
-        $primary_flds = array(
+        $primary_flds = array( //All of the primary fields for each table.
             'Costume_Types' => array('Costume_Type'),
             'Costumes_Inventory' => array('Costume_ID'),
             'Costumes_Rented' => array('Staff_ID', 'Costume_ID'),
@@ -153,10 +172,10 @@
             'Staff' => array('Staff_ID'),
         );
 
-        $not_required_fields = array(
+        $not_required_fields = array( //All the optional fields
             'Costumes_Rented' => array('Rental_CheckoutDate', 'Rental_DueDate'),
             'Customers' => array('Cust_Phone'),
-            'Orders' => array('Inventory_ID')
+            'Orders' => array('Inventory_ID', 'Order_SoldFor')
         );
         
         if ($_SESSION['added']){
@@ -185,6 +204,7 @@
                 for ($i = 0; $i < count($rel_arr); $i++){
 
                     $id = $rel_arr[$i];
+                    echo $id;
                     $rel_tbl = $special_flds[$id];
                     //echo $id."<br/>";
                     if ((!$rel_tbl || ($rel_tbl == $selectedTable)) && isset($_POST[$id])){
@@ -358,7 +378,7 @@
                         </div>
                         <?php
                     }else{
-                        $reload = true;
+                        //$reload = true;
                         $_SESSION['added'] = true;
                     }
                 }
@@ -366,7 +386,6 @@
             }else{
                 //Records aren't being added but rather options need to shown
                 if ($_SESSION['fields_left_unspecified'] == $_SESSION['tableName']){
-                    echo $_SESSION['fields_left_unspecified'];
                     ?>
                     <div class="Error">
                         <p>
@@ -421,8 +440,7 @@
                         <?php
                             }else{
                                 $rel_table = $special_flds[$id];
-                                $dirc = get_sql_script_str($rel_table, "readRecords");
-                                $query_str = file_get_contents($dirc);
+                                $query_str = "SELECT * FROM $rel_table;";
                                 $result = $conn->query($query_str);
                                 $ncols = $result->field_count;
                                 $nrows = $result->num_rows;
