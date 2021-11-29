@@ -378,7 +378,7 @@
                         </div>
                         <?php
                     }else{
-                        //$reload = true;
+                        $reload = true;
                         $_SESSION['added'] = true;
                     }
                 }
