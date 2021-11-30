@@ -6,3 +6,6 @@ CREATE DATABASE PPC;
 USE PPC;
 
 SOURCE createTables.sql;
+
+SOURCE triggers.sql;
+
