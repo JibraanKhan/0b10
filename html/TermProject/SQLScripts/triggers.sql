@@ -16,6 +16,15 @@ FROM Costumes_Rented
 WHERE Costume_ID = c_id AND Rental_ReturnedDate ='0000-00-00 00:00:00'
 );
 
+CREATE FUNCTION is_pokemon_active (p_id INT)
+RETURNS INT 
+SELECT Pokemon_Inventory WHERE Inventory_ID = p_id 
+RETURN (
+SELECT COUNT(Costume_ID)
+FROM Costumes_Rented
+WHERE Costume_ID = c_id AND Rental_ReturnedDate ='0000-00-00 00:00:00'
+);
+
 
 DELIMITER //
 
@@ -68,7 +77,15 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Costume is already rented!';
 END IF;
 //
 
---trigger to make sure the price of the pokemon is greater than zero
+--trigger to make sure no one gets an inactive pokemon
+CREATE TRIGGER no_inactive_pokemon
+BEFORE INSERT ON Orders FOR EACH ROW
+IF Costumes_Inventory.Pokemon_Active = FALSE THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Costume is inactive!';
+END IF;
+//
+
+--trigger to make sure the pokemon is sold for a value greater than zero
 CREATE TRIGGER sold_for_positive
 BEFORE INSERT ON Orders FOR EACH ROW
 IF NEW.Order_SoldFor < 0 THEN
@@ -76,6 +93,7 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price must be at least zero!';
 END IF;
 //
 
+--trigger to make sure the price of the pokemon is greater than zero
 CREATE TRIGGER price_positive
 BEFORE INSERT ON Pokemon_Inventory FOR EACH ROW
 IF NEW.Pokemon_Price < 0 THEN
@@ -83,8 +101,12 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price must be at least zero!';
 END IF;
 //
 
+--trigger for 
+
 INSERT INTO Pokemon (Pokemon_Name,Pokemon_Type)
-    VALUES ('Charmander', 'fire');
+    VALUES ('Charmander', 'fire'),
+           ('Bulbasaur', 'grass'),
+           ('Gossifleur', 'grass');
 
 INSERT INTO Sightings (Pokemon_Name, Sightings_Location, Sightings_Time,Sightings_NumPokemon)
     VALUES ('Charmander', 'louisville', '2021-02-03 00:00:01', 2);
@@ -119,9 +141,23 @@ INSERT INTO Costumes_Rented(Costume_ID,Staff_ID,Rental_DueDate)
            (2,1,'2021-12-15 00:00:01'),
            (3,1,'2021-12-15 00:00:01'),
            (4,1,'2021-12-15 00:00:01');
+
+
+INSERT INTO Pokemon_Inventory(Pokemon_Name, Pokemon_Price)
+    VALUES ('Charmander',20),
+           ('Bulbasaur',30);
+
+INSERT INTO Customers (Cust_FirstName,Cust_LastName,Cust_Address,Cust_Phone)
+    VALUES ('Maran','Lee','100 Willow Way','123-456-7890');
+
+INSERT INTO Orders (Pokemon_Name,Cust_ID,Inventory_ID,Order_SoldFor)
+    VALUES ('Bulbasaur',1,2,20);
            
 
 SELECT * FROM Sightings;
 SELECT * FROM Costumes_Rented;
+SELECT * FROM Orders;
 
 SELECT num_costumes_rented(1);
+
+DELETE FROM Pokemon WHERE Pokemon_Name = 'Bulbasaur'

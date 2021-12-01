@@ -30,7 +30,8 @@ CREATE TABLE Pokemon_Inventory(
     Inventory_ID INT AUTO_INCREMENT NOT NULL,
     Pokemon_Name VARCHAR(15),
     Pokemon_Price FLOAT NOT NULL,
-    FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name)
+    Pokemon_Active BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name) ON DELETE RESTRICT
 );
 
 CREATE TABLE Costumes_Inventory(
@@ -48,9 +49,9 @@ CREATE TABLE Orders(
     Cust_ID INT,
     Inventory_ID INT,
     Order_SoldFor FLOAT DEFAULT NULL,
-    FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name),
-    FOREIGN KEY (Cust_ID) REFERENCES Customers(Cust_ID),
-    FOREIGN KEY (Inventory_ID) REFERENCES Pokemon_Inventory(Inventory_ID)
+    FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name) ON DELETE RESTRICT,
+    FOREIGN KEY (Cust_ID) REFERENCES Customers(Cust_ID) ON DELETE RESTRICT,
+    FOREIGN KEY (Inventory_ID) REFERENCES Pokemon_Inventory(Inventory_ID) -- on delete deactivate
 );
 
 CREATE TABLE Sightings(
@@ -63,12 +64,11 @@ CREATE TABLE Sightings(
 );
 
 CREATE TABLE Costumes_Rented(
-    PRIMARY KEY (Staff_ID, Costume_ID),
-    Costume_ID INT,
-    Staff_ID INT,
+    Costume_ID INT NOT NULL,
+    Staff_ID INT NOT NULL,
     Rental_CheckoutDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Rental_DueDate TIMESTAMP NOT NULL,
     Rental_ReturnedDate TIMESTAMP,
     FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID),
-    FOREIGN KEY (Costume_ID) REFERENCES Costumes_Inventory(Costume_ID)
+    FOREIGN KEY (Costume_ID) REFERENCES Costumes_Inventory(Costume_ID) --on delete deactivate
 );
