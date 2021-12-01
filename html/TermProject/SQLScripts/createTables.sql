@@ -51,7 +51,7 @@ CREATE TABLE Orders(
     Order_SoldFor FLOAT DEFAULT NULL,
     FOREIGN KEY (Pokemon_Name) REFERENCES Pokemon(Pokemon_Name) ON DELETE RESTRICT,
     FOREIGN KEY (Cust_ID) REFERENCES Customers(Cust_ID) ON DELETE RESTRICT,
-    FOREIGN KEY (Inventory_ID) REFERENCES Pokemon_Inventory(Inventory_ID) -- on delete deactivate
+    FOREIGN KEY (Inventory_ID) REFERENCES Pokemon_Inventory(Inventory_ID) 
 );
 
 CREATE TABLE Sightings(
@@ -70,5 +70,5 @@ CREATE TABLE Costumes_Rented(
     Rental_DueDate TIMESTAMP NOT NULL,
     Rental_ReturnedDate TIMESTAMP,
     FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID),
-    FOREIGN KEY (Costume_ID) REFERENCES Costumes_Inventory(Costume_ID) --on delete deactivate
+    FOREIGN KEY (Costume_ID) REFERENCES Costumes_Inventory(Costume_ID) 
 );
