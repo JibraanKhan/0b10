@@ -314,9 +314,9 @@
     );
 
     $not_required_fields = array( //All the optional fields
-        'Costumes_Rented' => array('CheckoutDate', 'DueDate'),
-        'Customers' => array('Phone'),
-        'Orders' => array('Inventory_ID', 'SoldFor')
+        'Costumes_Rented' => array('CheckoutDate', 'DueDate', 'Rental_CheckoutDate', 'Rental_DueDate'),
+        'Customers' => array('Phone', 'Cust_Phone'),
+        'Orders' => array('Inventory_ID', 'SoldFor', 'Orders_SoldFor', 'Pokemon')
     );
 
    $cant_edit = array(
@@ -515,18 +515,25 @@
         $conn->query($query_str);
 
         
-        if (isset($_POST['tablesSelector'])){
-            $_SESSION['tableName'] = $_POST['tablesSelector'];
-            $reload = True;
+        if (isset($_GET['tablesSelector'])){
+            $_SESSION['tableName'] = $_GET['tablesSelector'];
+            //$reload = True;
         }
 
-        if (isset($_GET['Charmanderlexington2021-02-0300:00:01'])){
-            echo "Got it";
+        if ($_SESSION['updated']){
+            ?>
+            <div class="Confirmation">
+                <p>
+                    Successfully updated records!
+                </p>
+            </div>
+            <?php
+            $_SESSION['updated'] = False;
         }
 
 
         ?>
-        <form action="updateRecords.php" method="POST"> <!-- Choose table-->
+        <form action="updateRecords.php" method="GET"> <!-- Choose table-->
             <label for="tablesSelector">Table:</label>  
             <!--
                 Need a label for the selector because it helps to 
@@ -593,7 +600,6 @@
                 }
                 $i++;
             }
-            //echo "Field by indices array:<br/>";
             
             for ($i = 0; $i < $nrows; $i++){ //Check if edit button has been pressed
                 $id = "";
@@ -676,15 +682,11 @@
             }else{
                 //Not editing but records might need updating from edit
                 if ($_POST['Edited']){
-                    echo "<br/>Primaries:<br/>";
+                    //echo "<br/>Primaries:<br/>";
                     $primary_keys_and_values = $_SESSION["primary_keys"];
-                    print_r($primary_keys_and_values);
+                    //print_r($primary_keys_and_values);
                     $dirc = get_sql_script_str($table_name, "updateRecords");
-                    echo "<br/>Directory:$dirc<br/>";
-                    $query_str = file_get_contents("$dirc");
-                    $stmt = $conn->prepare("$query_str");
-                    
-                    echo "<br/>Query:$query_str<br/>";
+                    //echo "<br/>Directory:$dirc<br/>";
                     $_fields_with_respective_values = array();
                     $values = array();
                     $rel_flds = $flds2[$table_name];
@@ -694,21 +696,32 @@
                     $nrows = $result->num_rows;
                     $resar = $result->fetch_all();
                     $type_str = '';
+                    $default_occurences = array();
+                    $not_required_fields_for_table = $not_required_fields[$table_name];
+                    $f = 0;
                     while ($fld = $result->fetch_field()){
                         $fld_name = $fld->name;
                         if (in_array($fld_name, $rel_flds)){
-                            $type_str = $type_str.$fld_types[$fld_name];
                             $id = $table_name.$fld_name;
                             if (!$special_flds[$fld_name]){
                                 //echo "ID: $id<br/>";
+                                //Not special field
+
                                 $id = str_replace(' ', '_', $id);
                                 if ($_POST[$id]){
                                     $val = htmlspecialchars($_POST[$id]);
                                     if (!$dates[$fld_name]){
                                         $val = str_replace(' ', '_', $val);
                                     }
+
+                                    //echo "<br/>Ok, $fld_name has value specified.<br/>";
                                     $_fields_with_respective_values[$fld_name] = $val; 
                                     array_push($values, $val);
+                                    $type_str = $type_str.$fld_types[$fld_name];
+                                    
+
+                                    $f++;
+                                    
                                 }
                             }else{
                                 //It is a special field so check for each thing inside that special table.
@@ -745,38 +758,60 @@
                                     if ($_POST[$id]){
                                         $val = htmlspecialchars($record_id);
                                         $val = str_replace(' ', '_', $val);
-                                        if ($fld_types[$fld_name] == 's'){
-                                            $_fields_with_respective_values[$fld_name] = "$val"; 
-                                            array_push($values, "$val");
-                                        }else{
-                                            $_fields_with_respective_values[$fld_name] = $val; 
-                                            array_push($values, $val);
-                                        }
+                                            
+                                        $_fields_with_respective_values[$fld_name] = $val; 
+                                        array_push($values, $val);
+                                        $type_str = $type_str.$fld_types[$fld_name];
+                                        $f++;
                                     }
                                 }
                             }
                         }
                     }
-                    
+                    if ($reload){
+                        //Ok, reload the page and redirect to a get request so that post don't repeat
+                        header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                        exit();
+                    }
+
                     foreach ($primary_keys_and_values as $fld => $val){
                         $_fields_with_respective_values[$fld] = $val;
                         array_push($values, $val);
                         //echo "Field: $fld<br/> FieldType: $fld_types[$fld]<br/>";
                         $type_str = $type_str.$fld_types[$fld];
                     }
-                    echo "Types:".$type_str."<br/>";
-                    echo "Fields & Values:<br/>";
-                    print_r($_fields_with_respective_values);
-                    echo "<br/>Values:<br/>";
-                    print_r($values);
-                    bind($stmt, $values, $type_str);
-                    $result = $stmt->execute();
-                    //echo "here";
-                    if (!$result){
-                        if ($conn->error){
-                            echo "<br/>Error: ".$conn->error."<br/>";
-                        }
-                    };
+                    //echo "Types:".$type_str."<br/>";
+                    //echo "Fields & Values:<br/>";
+                    //print_r($_fields_with_respective_values);
+                    //echo "<br/>Values:<br/>";
+                    //print_r($values);
+                    //echo "<br/>";
+
+                    $query_str = file_get_contents("$dirc");
+                    //echo "<br/>Query:$query_str<br/>";
+                    $stmt = $conn->prepare("$query_str");
+                    if ($stmt == false){
+                        die("Prepare() failed: ".htmlspecialchars($stmt->error));
+                    }
+
+                    $binding = bind($stmt, $values, $type_str);
+                    /*if ($binding == false){
+                        die('bind_param() failed: '.htmlspecialchars($conn->error));
+                    }*/
+                    $result_exec = $stmt->execute();
+                    echo "<br/>";
+                    /*if ($result_exec == false){
+                        die('execute() failed: '.htmlspecialchars($stmt->error));
+                    };*/
+
+                    if (!$result_exec){
+                        $_SESSION["Error"] = "Error: $conn->error";
+                    }else{
+                        $_SESSION['updated'] = True;
+                    }
+                        //Ok, reload the page and redirect to a get request so that post don't repeat
+                        header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                        exit();
                     //print_r($values);
                 }
                 $fields = $flds[$table_name];

@@ -53,14 +53,14 @@
         
         <?php
 
-        if ($_POST['tablesSelector']){
-            $_SESSION['tableName'] = $_POST['tablesSelector'];
-            $reload = True;
+        if ($_GET['tablesSelector']){
+            $_SESSION['tableName'] = $_GET['tablesSelector'];
+            //$reload = True;
         }
 
         ?>
 
-        <form action="addRecords.php" method="POST"> <!-- Choose table-->
+        <form action="addRecords.php" method="GET"> <!-- Choose table-->
             <label for="tablesSelector">Table:</label>  
             <!--
                 Need a label for the selector becuase it helps to 

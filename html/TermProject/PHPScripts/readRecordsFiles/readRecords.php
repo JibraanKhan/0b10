@@ -196,7 +196,7 @@
 
 <html>
     <head>
-    <link rel="stylesheet" href="update.css">
+    <link rel="stylesheet" href="read.css">
     <link rel="stylesheet" href="../table.css">
     <link rel="stylesheet" href="../different.css">
     <link rel="stylesheet" href="../all.css">
@@ -238,14 +238,14 @@
         $conn->query($query_str);
 
 
-        if (isset($_POST['tablesSelector'])){
-            $_SESSION['tableName'] = $_POST['tablesSelector'];
+        if (isset($_GET['tablesSelector'])){
+            $_SESSION['tableName'] = $_GET['tablesSelector'];
             $reload = True;
         }
 
 
         ?>
-        <form action="readRecords.php" method="POST"> <!-- Choose table-->
+        <form action="readRecords.php" method="GET"> <!-- Choose table-->
             <label for="tablesSelector">Table:</label>  
             <!--
                 Need a label for the selector becuase it helps to 
@@ -306,46 +306,10 @@
                         $i++;
                     }
                     
-                    for ($i = 0; $i < $nrows; $i++){
-                        $id = "";
-                        foreach ($primary_field_indices as $prim_fld_index){
-                            $id = $id.$resar[$i][$prim_fld_index];
-                            $prim_keys_for_specific_record[$flds_by_indices[$prim_fld_index]] = $resar[$i][$prim_fld_index];
-                        }
-                        if (isset($_POST[$id])){
-                            $edit = True;
-                            break;
-                        }
-                    }
 
                     $result = $conn->query($query_strs[$table_name]);
-                    if (!$edit || $_POST['Edited']){ //If they are not trying to edit a record or if a file just got edited.
-                        //echo "<br/>Table Name: ".$table_name."<br/>";
-                        
-                        // Check if there were any edited fields from the edit
-                        if ($_POST['Edited']){
-                            // A record was just edited, apply all changes.
-                            //Must first locate the record that was edited
-                            $record;
-                            $ids_dict = $_SESSION['id_of_edited_record'];
-                            $read_query_str = "SELECT * FROM $table_name;";
-                            $result_find_record = $conn->query($read_query_str);
-                            $resar = $result_find_record->fetch_all();
-                            $primary_fld_indices = array();
-                            $i = 0;
-                            while ($fld = $result_find_record->fetch_field()){
-                                $fld_name = $fld->name;
-                                if ($ids_dict[$fld_name]){
-                                    array_push($primary_fld_indices, $i);
-                                }
-                                $i++;
-                            }
-                            print_r($primary_fld_indices);
-                            //print_r($ids_dict[$fld_name]);
-                        }                        
-                        make_relevant_table($result, $ncols, $nrows, $flds[$table_name], $primary_flds[$table_name]);
-                        
-                    }
+                              
+                    make_relevant_table($result, $ncols, $nrows, $flds[$table_name], $primary_flds[$table_name]);    
                     }
             ?>
     </body>
