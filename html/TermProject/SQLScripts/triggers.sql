@@ -27,7 +27,8 @@ WHERE Inventory_ID = p_id
 DELIMITER //
 
 --trigger to ensure each sighting has at least one pokemon
-CREATE TRIGGER check_num_pokemon
+--trigger to ensure sighting date is before today's date
+CREATE TRIGGER check_sightings
 BEFORE INSERT ON Sightings FOR EACH ROW
 IF NEW.Sightings_NumPokemon <1 THEN 
 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Each sighting must have at least one Pokemon!';
@@ -115,7 +116,8 @@ SELECT * FROM Pokemon;
 SELECT * FROM Sightings;
 
 INSERT INTO Sightings (Pokemon_Name, Sightings_Location, Sightings_Time,Sightings_NumPokemon)
-    VALUES ('Charmander', 'lexington', '2021-02-03 00:00:01', 1);
+    VALUES ('Charmander', 'lexington', '2021-02-03 00:00:01', 0),
+           ('Bulbasaur', 'lexington', '2022-02-03 00:00:01', 1);
 
 INSERT INTO Staff (Staff_FirstName,Staff_LastName)
     VALUES ('Shelby','Young'),
