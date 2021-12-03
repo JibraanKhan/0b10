@@ -1,2 +1,2 @@
-DELETE FROM Costume_Inventory
+DELETE FROM Costumes_Inventory
       WHERE Costume_ID = ?;

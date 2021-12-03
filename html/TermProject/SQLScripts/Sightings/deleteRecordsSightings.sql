@@ -1,2 +1,2 @@
 DELETE FROM Sightings
-      WHERE Pokemon_Name=? AND Sighting_Location=? AND Sighting_Time=?;
+      WHERE Pokemon_Name = ? AND Sightings_Location = ? AND Sightings_Time = ?;
