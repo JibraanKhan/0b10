@@ -67,7 +67,7 @@ CREATE TABLE Costumes_Rented(
     Costume_ID INT NOT NULL,
     Staff_ID INT NOT NULL,
     Rental_CheckoutDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Rental_DueDate TIMESTAMP NOT NULL,
+    Rental_DueDate TIMESTAMP,
     Rental_ReturnedDate TIMESTAMP,
     FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID),
     FOREIGN KEY (Costume_ID) REFERENCES Costumes_Inventory(Costume_ID) 

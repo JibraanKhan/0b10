@@ -26,11 +26,13 @@
             }
         }
 
-        echo "string: $str <br/>";
+        //echo "string: $str <br/>";
         return $str;
     }
 
-    function make_relevant_table($result, $ncols, $nrows, $fields, $primary_fields){
+    function make_relevant_table($result, $fields, $primary_fields){
+        $ncols = $result->field_count;
+        $nrows = $result->num_rows;
         if ($nrows == 0){
             $_SESSION['Error'] = 'No records exist.';
             $_SESSION['PreviousTable'] = $_SESSION['tableName'];
@@ -52,7 +54,7 @@
                         //echo $fld_name;
                         if (in_array($fld_name, $fields)){
                             array_push($field_indices, $i)
-                            ?>
+                            ?> 
                             
                             <th>
                                 <?php 
@@ -61,24 +63,29 @@
                             </th>
                         <?php
                         }
-
+                        //echo "Field:$fld_name<br/>";
+                        //print_r($primary_fields);
                         if (in_array($fld_name, $primary_fields)){ //To help construct id, we need to know the indices
+                            //echo "In array";
                             array_push($primary_field_indices, $i);
                         }
                         $i++;
                         }
+                    //print_r($field_indices);
                     ?>
                     <th>Edit?</th>
                 </thead>
 
                 <tbody>
                     <?php
+                    //print_r($primary_field_indices);
                     for ($i = 0; $i < $nrows; $i++){
                         $id = "";
-
                         foreach ($primary_field_indices as $prim_fld_index){
                             $id = $id.$resar[$i][$prim_fld_index];
                         }
+                        //echo "ID:$id";
+
                         ?>
                         <tr>
                             <?php
@@ -97,6 +104,7 @@
                                 <?php
                                 }
                             }
+                            $id = str_replace(' ', '_', $id);
                             ?>
                             <td>
                                 <input type="submit"
@@ -115,7 +123,10 @@
         <?php
     }
 
-    function make_relevant_table_for_special_fields($result, $ncols, $nrows, $tablename, $special_flds, $accepted_special_flds, $primary_flds, $value){
+    function make_relevant_table_for_special_fields($result, $tablename, $special_flds, $accepted_special_flds, $primary_flds, $value, $field_name, $relavant_table_name){
+        echo "Table: $relavant_table_name";
+        $nrows = $result->num_rows;
+        $ncols = $result->field_count;
         ?>
         <table>
             <thead>
@@ -124,11 +135,14 @@
                     $resar = $result->fetch_all();
                     $disgusting_fields = array();
                     $i = 0;
+                    echo "Value:$value";
                     $rel_primary_flds_indices = array();
                     $rel_primary_flds = $primary_flds;
                         while ($fld = $result->fetch_field()){
                             $fld_name = $fld->name;
-                            if ($rel_primary_flds[$i] && ($rel_primary_flds[$i] == $fld_name)){ //If the relevant primary field exists for the index and if it is equal to the field name.
+                            //echo $fld_name;
+                            if (in_array($fld_name, $rel_primary_flds)){ //If the relevant primary field exists for the index and if it is equal to the field name.
+                                //echo "Pushing";
                                 array_push($rel_primary_flds_indices, $i);
                             }
 
@@ -145,7 +159,9 @@
                             }
                             $i++;
                         }
-                        
+                        //echo "Primary fields and their indices:";
+                        //print_r($rel_primary_flds_indices);
+                        //echo "<br/>";
                     ?>
                     <th>Select</th>
                 </tr>
@@ -154,12 +170,13 @@
             <tbody>
                 
                 <?php
-                
+
                     for ($i = 0; $i < $nrows; $i++){
                         ?>
                         <tr>
                             
                         <?php
+                        $id_prefix = "$tablename$field_name";
                         $id = "";
                         for ($fld_index_rel = 0; $fld_index_rel < count($rel_primary_flds_indices); $fld_index_rel++){
                             $id = $id.$resar[$i][$rel_primary_flds_indices[$fld_index_rel]];
@@ -173,21 +190,27 @@
                         ?>
                         <td>
                             <?php 
+                            
                             if ($id == $value){
+                                $id = $id_prefix.$id;
+                                $id = str_replace(' ', '_', $id);
+                                //echo "ID: ".$id;
                             ?>
                                 <input type="checkbox"
-                                name="checkbox<?php echo $tablename.str_replace(' ', '_', $id); ?>"
+                                name="checkbox<?php echo $id; ?>"
                                 value="<?php echo $id; ?>"
-                                id="<?php echo "checkbox$tablename";?>"
+                                id="<?php echo "checkbox$relavant_table_name";?>"
                                 checked
                                 />
                                 <?php
                             }else{
+                                $id = $id_prefix.$id;
+                                //echo "ID: ".$id;
                                 ?>
                                 <input type="checkbox"
-                                name="checkbox<?php echo $tablename.str_replace(' ', '_', $id); ?>"
+                                name="checkbox<?php echo $id; ?>"
                                 value="<?php echo $id; ?>"
-                                id="<?php echo "checkbox$tablename";?>"
+                                id="<?php echo "checkbox$relavant_table_name";?>"
                                 />
                                 <?php
                             }
@@ -203,11 +226,11 @@
         </table>
         <script>
             
-            document.querySelectorAll("#checkbox" + "<?php echo $tablename?>").forEach((checkbox) => {
+            document.querySelectorAll("#checkbox" + "<?php echo $relavant_table_name?>").forEach((checkbox) => {
                 
                 checkbox.addEventListener('click', (event) => {
                     if (checkbox.checked){ //If the checkbox has just been checked to be true.
-                        document.querySelectorAll("#checkbox" + "<?php echo $tablename?>").forEach((checkboxother) => {
+                        document.querySelectorAll("#checkbox" + "<?php echo $relavant_table_name?>").forEach((checkboxother) => {
                             if (checkboxother.value != checkbox.value){ //if it's not the same checkbox
                                 checkboxother.checked = false; //make the other checkboxes be unchecked
                             }
@@ -222,83 +245,226 @@
         <?php
     }
     
+    function make_edit_page($values, $record, $result, $fields){
+        while ($fld = $result->fetch_field()){
+            $fld_name = $fld->name;
+
+            if (in_array($fld_name, $fields)){
+                //If the field exists.
+                ?>
+                <div>
+                    <?php echo $fld_name; ?>
+                </div>
+                <?php
+            }
+        }
+    }
+
     //Relevant variables
 
-    $flds = array(
-        'Costume_Types' => array('Costume_Type'),
-        'Costumes_Inventory' => array('Costume_Type', 'Costume_Size'),
-        'Costumes_Rented' => array('Costume_Type', 'Costume_Size', 'Staff_FirstName', 'Staff_LastName', 'Rental_CheckoutDate', 'Rental_DueDate', 'Rental_ReturnedDate'),
-        'Customers' => array('Cust_FirstName', 'Cust_LastName', 'Cust_Address', 'Cust_Phone'), 
-        'Orders' => array('Pokemon_Name', 'Cust_FirstName', 'Cust_LastName', 'Inventory_Pokemon_Name', 'Pokemon_Price', 'Order_SoldFor'),
-        'Pokemon' => array('Pokemon_Name', 'Pokemon_Type'),
-        'Pokemon_Inventory' => array('Pokemon_Name', 'Pokemon_Price'),
-        'Sightings' => array('Pokemon_Name', 'Sighting_Location', 'Sighting_Time', 'Sighting_NumPokemon'),
-        'Staff' => array('Staff_FirstName', 'Staff_LastName'),
-    );
-
-    $flds2 = array(
-        'Costume_Types' => array('Costume_Type'),
-        'Costumes_Inventory' => array('Costume_Type', 'Costume_Size'),
-        'Costumes_Rented' => array('Staff_ID', 'Costume_ID', 'Rental_CheckoutDate', 'Rental_DueDate'),
-        'Customers' => array('Cust_LastName', 'Cust_FirstName', 'Cust_Address', 'Cust_Phone'),
-        'Orders' => array('Pokemon_Name', 'Cust_ID', 'Inventory_ID', 'Order_SoldFor'),
-        'Pokemon' => array('Pokemon_Name', 'Pokemon_Type'),
-        'Pokemon_Inventory' => array('Pokemon_Name', 'Pokemon_Price'),
-        'Sightings' => array('Pokemon_Name', 'Sighting_Location', 'Sighting_Time', 'Sighting_NumPokemon'),
-        'Staff' => array('Staff_LastName', 'Staff_FirstName'),
-    );
-
     $primary_flds = array( //All of the primary fields for each table.
-        'Costume_Types' => array('Costume_Type'),
+        'Costume_Types' => array('Costume_Type', 'Costume'),
         'Costumes_Inventory' => array('Costume_ID'),
         'Costumes_Rented' => array('Staff_ID', 'Costume_ID'),
         'Customers' => array('Cust_ID'),
         'Orders' => array('Order_ID'),
-        'Pokemon' => array('Pokemon_Name'),
+        'Pokemon' => array('Pokemon_Name', 'Pokemon_Species'),
         'Pokemon_Inventory' => array('Inventory_ID'),
-        'Sightings' => array('Pokemon_Name', 'Sighting_Location', 'Sighting_Time'),
+        'Sightings' => array('Pokemon_Name', 'Sighting_Location', 'Sighting_Time', 'Location_Sighted', 'Time_Sighted', 'Pokemon_Species'),
         'Staff' => array('Staff_ID'),
     );
 
     $special_flds = array( //All the fields that need a table representation to show records to choose
         'Cust_ID' => 'Customers',
         'Inventory_ID' => 'Pokemon_Inventory',
+        'Ordered_Pokemon' => 'Pokemon',
         'Staff_ID' => 'Staff',
         'Costume_ID' => 'Costumes_Inventory',
+        'Pokemon_Species' => 'Pokemon',
         'Pokemon_Name' => 'Pokemon',
-        'Costume_Type' => 'Costume_Types'
+        'Costume_Type' => 'Costume_Types',
+        'Costume' => 'Costume_Types'
     );
 
     $accepted_special_flds = array( //All fields that I want them to be able to change.
+        'Pokemon_Species' => 'Pokemon',
         'Pokemon_Name' => 'Pokemon',
-        'Costume_Type' => 'Costume_Types'
+        'Costume_Type' => 'Costume_Types',
+        'Costume' => 'Costume_Types'
     );
 
     $masks = array( //All of the place holders that show them what to enter into the text box.
-        'CostumeType' => 'Meowth Costume, Office Jenny Costume',
-        'Costume_Size' => 'S, M, L, XL',
-        'Rental_CheckoutDate' => 'YYYY-MM-DD hh:mm:ss',
-        'Rental_DueDate' => 'YYYY-MM-DD hh:mm:ss',
-        'Cust_LastName' => 'Smith',
-        'Cust_FirstName' => 'John',
-        'Cust_Address'=> 'House #30, Veridian Forest',
-        'Cust_Phone' => '(502)982-5012',
-        'Pokemon_Name'=> 'Charmander, Pikachu',
-        'Pokemon_Type' => 'Fire, Water, Grass',
-        'Pokemon_Price' => '5.50, 6.25, 6',
-        'Sighting_Location' => 'Cerulean City',
-        'Sighting_Time' => 'YYYY-MM-DD hh:mm:ss',
-        'Sighting_NumPokemon' => '5, 2',
+        'Costume' => 'Meowth Costume, Office Jenny Costume',
+        'Size' => 'S, M, L, XL',
+        'CheckoutDate' => 'YYYY-MM-DD hh:mm:ss',
+        'DueDate' => 'YYYY-MM-DD hh:mm:ss',
+        'LastName' => 'Smith',
+        'FirstName' => 'John',
+        'Address'=> 'House #30, Veridian Forest',
+        'Phone' => '(502)982-5012',
+        'Pokemon_Species'=> 'Charmander, Pikachu',
+        'Type' => 'Fire, Water, Grass',
+        'Price' => '5.50, 6.25, 6',
+        'Location_Sighted' => 'Cerulean City',
+        'Time_Sighted' => 'YYYY-MM-DD hh:mm:ss',
+        'Number_Of_Pokemon_Sighted' => '5, 2',
         'Staff_LastName' => 'Smith',
         'Staff_FirstName' => 'John',
-        'Order_SoldFor' => '5.50, 6.25, 6',
+        'SoldFor' => '5.50, 6.25, 6',
     );
 
     $not_required_fields = array( //All the optional fields
-        'Costumes_Rented' => array('Rental_CheckoutDate', 'Rental_DueDate'),
-        'Customers' => array('Cust_Phone'),
-        'Orders' => array('Inventory_ID', 'Order_SoldFor')
+        'Costumes_Rented' => array('CheckoutDate', 'DueDate'),
+        'Customers' => array('Phone'),
+        'Orders' => array('Inventory_ID', 'SoldFor')
     );
+
+   $cant_edit = array(
+       'Costume_Types' => True
+   );
+    
+    $flds = array( //Used to display fields
+        'Costume_Types' => array('Costume'),
+        'Costumes_Inventory' => array('Costume', 'Size'),
+        'Costumes_Rented' => array('Costume', 'Size', 'Staff_FirstName', 'Staff_LastName', 'CheckoutDate', 'DueDate', 'ReturnedDate'),
+        'Customers' => array('FirstName', 'LastName', 'Address', 'Phone'), 
+        'Orders' => array('Ordered_Pokemon', 'Customers_FirstName', 'Customers_LastName', 'Inventory_Pokemon', 'Price', 'SoldFor'),
+        'Pokemon' => array('Pokemon_Species', 'Type'),
+        'Pokemon_Inventory' => array('Pokemon_Species', 'Price'),
+        'Sightings' => array('Pokemon_Species', 'Location_Sighted', 'Time_Sighted', 'Number_Of_Pokemon_Sighted'),
+        'Staff' => array('FirstName', 'LastName'),
+    ); 
+
+
+    $as_fields = array(
+        'Costume_Types' => array(
+            'Costume' => 'Costume_Type'
+        ),
+        'Costumes_Inventory' => array(
+            'Costume_ID' => 'Costume_ID',
+            'Costume' => 'Costume_Type',
+            'Size' => 'Costume_Size'
+        ),
+        'Costumes_Rented' => array(
+            'Costume_ID' => 'Costume_ID',
+            'Staff_ID' => 'Staff_ID',
+            'CheckoutDate' => 'Rental_CheckoutDate',
+            'DueDate' => 'Rental_DueDate',
+            'ReturnedDate' => 'Rental_ReturnedDate',
+            'Staff_FirstName' => 'Staff_FirstName',
+            'Staff_LastName' => 'Staff_LastName',
+            'Costume' => 'Costume_Type',
+            'Size' => 'Costume_Size'
+        ),
+        'Customers' => array(
+            'Cust_ID' => 'Cust_ID',
+            'FirstName' => 'Cust_FirstName',
+            'LastName' => 'Cust_LastName',
+            'Address' => 'Cust_Address',
+            'Phone' => 'Cust_Phone'
+        ),
+        'Orders' => array(
+            'Order_ID' => 'Order_ID',
+            'Cust_ID' => 'Cust_ID',
+            'Inventory_ID' => 'Inventory_ID',
+            'Ordered_Pokemon' => 'Order_ID',
+            'SoldFor' => 'Order_SoldFor',
+            'Customers_FirstName' => 'Cust_FirstName',
+            'Customers_LastName' => 'Cust_LastName',
+            'Inventory_Pokemon' => 'Inventory_ID',
+            'Inventory_Pokemon_Name' => 'Pokemon_Name',
+            'Price' => 'Pokemon_Price'
+        ),
+        'Pokemon' => array(
+            'Pokemon_Species' => 'Pokemon_Name',
+            'Type' => 'Pokemon_Type'
+        ),
+        'Pokemon_Inventory' => array(
+            'Inventory_ID' => 'Inventory_ID',
+            'Pokemon_Species' => 'Pokemon_Name',
+            'Price' => 'Pokemon_Price'
+        ),
+        'Sightings' => array(
+            'Pokemon_Species' => 'Pokemon_Name',
+            'Location_Sighted' => 'Sightings_Location',
+            'Time_Sighted' => 'Sightings_Time',
+            'Number_Of_Pokemon_Sighted' => 'Sightings_NumPokemon'
+        ),
+        'Staff' => array(
+            'Staff_ID' => 'Staff_ID',
+            'FirstName' => 'Staff_FirstName',
+            'LastName' => 'Staff_LastName'
+        )
+    );
+
+    $query_strs = array(
+        'Costume_Types' => 'SELECT Costume_Type as Costume FROM Costume_Types;',
+        'Costumes_Inventory' => 'SELECT Costume_ID, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Inventory;',
+        'Costumes_Rented' => 'SELECT Costume_ID, Staff_ID, Rental_CheckoutDate as CheckoutDate, Rental_DueDate as DueDate, Rental_ReturnedDate as ReturnedDate, Staff_FirstName, Staff_LastName, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Rented INNER JOIN Staff USING (Staff_ID) INNER JOIN Costumes_Inventory USING (Costume_ID);',
+        'Customers' => 'SELECT Cust_ID, Cust_FirstName as FirstName, Cust_LastName as LastName, Cust_Address as Address, Cust_Phone as Phone FROM Customers;',
+        'Orders' => 'SELECT Order_ID, Cust_ID, Inventory_ID, Orders.Pokemon_Name as Ordered_Pokemon, Order_SoldFor as SoldFor, Cust_FirstName as Customers_FirstName, Cust_LastName as Customers_LastName, Pokemon_Inventory.Pokemon_Name as Inventory_Pokemon, Pokemon_Price as Price FROM Orders INNER JOIN Customers USING (Cust_ID) INNER JOIN Pokemon_Inventory USING (Inventory_ID);',
+        'Pokemon' => 'SELECT Pokemon_Name as Pokemon_Species, Pokemon_Type as Type FROM Pokemon;',
+        'Pokemon_Inventory' => 'SELECT Inventory_ID, Pokemon_Name as Pokemon_Species, Pokemon_Price as Price FROM Pokemon_Inventory;',
+        'Sightings' => 'SELECT Pokemon_Name as Pokemon_Species, Sightings_Location as Location_Sighted, Sightings_Time as Time_Sighted, Sightings_NumPokemon as Number_Of_Pokemon_Sighted FROM Sightings;',
+        'Staff' => 'SELECT Staff_ID, Staff_FirstName as FirstName, Staff_LastName as LastName FROM Staff;'
+    );
+
+    $flds2 = array( //Used to edit fields
+        'Costumes_Inventory' => array('Costume', 'Size'), 
+        //Costume_Type, Costume_Size
+        'Costumes_Rented' => array('CheckoutDate', 'DueDate', 'ReturnedDate'), 
+        //Rental_CheckoutDate, Rental_DueDate, Rental_ReturnedDate
+        'Customers' => array('FirstName', 'LastName', 'Address', 'Phone'),
+        //Cust_FirstName, Cust_LastName, Cust_Address, Cust_Phone
+        'Orders' => array('Ordered_Pokemon', 'Cust_ID', 'Inventory_ID', 'SoldFor'),
+        //Pokemon_Name, Cust_ID, Inventory_ID, Order_SoldFor
+        'Pokemon' => array('Type'),
+        //Pokemon_Type
+        'Pokemon_Inventory' => array('Pokemon_Species', 'Price'),
+        //Pokemon_Name, Pokemon_Price
+        'Sightings' => array('Number_Of_Pokemon_Sighted'),
+        //
+        'Staff' => array('FirstName', 'LastName'),
+    );
+
+    $dates = array(
+        'Sighting_Time' => true,
+        'Rental_CheckoutDate' => true,
+        'Rental_DueDate' => true,
+        'Rental_ReturnedDate' => true,
+        'CheckoutDate' => true,
+        'DueDate' => true,
+        'ReturnedDate' => true
+    );
+
+    $fld_types = array(
+        'Costume' => 's',
+        'Size' => 's',
+        'CheckoutDate' => 's',
+        'DueDate' => 's',
+        'ReturnedDate' => 's',
+        'FirstName' => 's',
+        'LastName' => 's',
+        'Address' => 's',
+        'Phone' => 's',
+        'Ordered_Pokemon' => 's',
+        'Cust_ID' => 'i',
+        'Inventory_ID' => 'i',
+        'SoldFor' => 'd',
+        'Type' => 's',
+        'Pokemon_Species' => 's',
+        'Price' => 'd',
+        'Number_Of_Pokemon_Sighted' => 'i',
+        'Costume_ID' => 'i',
+        'Staff_ID' => 'i',
+        'Order_ID' => 'i',
+        'Costume_Type' => 's',
+        'Pokemon_Name' => 's',
+        'Sighting_Location' => 's',
+        'Sighting_Time' => 's',
+        'Location_Sighted' => 's',
+        'Time_Sighted' => 's',
+    )
 ?>
 
 <html>
@@ -326,6 +492,10 @@
         if (isset($_POST['hi'])){
             echo "<h1>Hi!</h1>";
         }
+
+        if (isset($_GET['hi'])){
+            echo "<h1>Hi!</h1>";
+        }
         $dbse = "PPC";
         $config = parse_ini_file('/home/mysql.ini');
         $conn = new mysqli(
@@ -344,160 +514,285 @@
         $query_str = "USE PPC;";
         $conn->query($query_str);
 
-
+        
         if (isset($_POST['tablesSelector'])){
             $_SESSION['tableName'] = $_POST['tablesSelector'];
             $reload = True;
         }
 
+        if (isset($_GET['Charmanderlexington2021-02-0300:00:01'])){
+            echo "Got it";
+        }
 
 
         ?>
         <form action="updateRecords.php" method="POST"> <!-- Choose table-->
             <label for="tablesSelector">Table:</label>  
             <!--
-                Need a label for the selector becuase it helps to 
+                Need a label for the selector because it helps to 
                 later find the selected table
             -->
-
             <select name="tablesSelector" id="tableSelector">
                 <option value="unselected" selected></option>
                 <?php
-                    
                 $query = "SHOW TABLES;";
                 $result = $conn->query($query);
                 if (!$result){
                     echo "Failed to show tables";
                 }else{
                     while ($table_name = $result->fetch_array()){
-                        if ($_SESSION['tableName'] == $table_name[0]){
-                        ?>
-                        <option selected>
-                            <?php echo $table_name[0]; ?>
-                        </option>
-                        <?php
-                        }else{
-                        ?>
-                        <option>
-                            <?php echo $table_name[0]; ?>
-                        </option>
-                        <?php
-                        }                 
+                        if (!$cant_edit[$table_name[0]]){
+                            if ($_SESSION['tableName'] == $table_name[0]){
+                            ?>
+                            <option selected>
+                                <?php echo $table_name[0]; ?>
+                            </option>
+                            <?php
+                            }else{
+                                
+                            ?>
+                            <option>
+                                <?php echo $table_name[0]; ?>
+                            </option>
+                            <?php
+                            }                 
                         }
                     }
+                }
                 ?>
                 </select>
                 <button type="submit">Select</button>            
-            </form>
+        </form>
 
-            <?php
-                $table_name = $_SESSION['tableName'];
-                if ($table_name){
-                    //If the table has been selected, show all records
-                    $dirc = get_sql_script_str($table_name, 'readRecords');
-                    $query_str = file_get_contents($dirc);
-                    $result = $conn->query($query_str);
+        <?php
+            $table_name = $_SESSION['tableName'];
+        if ($table_name){
+            //Ok, so it has two states:
+            //Currently editting
+            //Not started editing, need to pick record
+
+            //First, lets see the state it is in
+            $result = $conn->query($query_strs[$table_name]);
+            $resar = $result->fetch_all(); 
+            $nrows = $result->num_rows;
+            $ncols = $result->field_count;
+            $edit = False;
+            $primary_fields_for_table = $primary_flds[$table_name];
+            $record_index = 0;
+            $primary_field_indices = array();
+            $primary_field_indices_with_fieldname = array();
+            $field_by_indices = array();
+            $i = 0;
+            while ($fld = $result->fetch_field()){
+                $fld_name = $fld->name;
+                $field_by_indices[$fld_name] = $i;
+                //echo $fld_name;
+                if (in_array($fld_name, $primary_fields_for_table)){
+                    array_push($primary_field_indices, $i);
+                    $primary_field_indices_with_fieldname[$fld_name] = $i;
+                }
+                $i++;
+            }
+            //echo "Field by indices array:<br/>";
+            
+            for ($i = 0; $i < $nrows; $i++){ //Check if edit button has been pressed
+                $id = "";
+                $record = $resar[$i];
+
+                foreach ($primary_field_indices as $primary_field_index){ 
+                    $id = $id.$record[$primary_field_index];
+                }
+                $id = str_replace(' ', '_', $id);
+                if ($_GET[$id]){ //Found that edit button was pressed
+                    $result = $conn->query($query_strs[$table_name]);
+                    $resar = $result->fetch_all(); 
+                    $record = $resar[$i];
+                    foreach ($primary_field_indices_with_fieldname as $fld => $val){
+                        $primary_field_indices_with_fieldname[$fld] = $record[$val];
+                    }
+                    $edit = $record;
+                    break;
+                }
+            }
+            
+            
+            if ($_POST['Edited']){
+                $edit = False;
+                //$reload = True; Needs to become true after the edits have been applied to all the records
+            }
+
+            if ($edit){
+                //Editing state
+               
+                $_SESSION["primary_keys"] = $primary_field_indices_with_fieldname;
+                $result = $conn->query($query_strs[$table_name]);
+                $resar = $result->fetch_all();
+                $relevant_flds = $flds2[$table_name]; //All the editable fields and how they are displayed   
+                $primary_key_field_value_index = array();
+                //echo "Edit: ";
+                //print_r($edit);
+                ?>
+                <form action="updateRecords.php" method="POST">
+                    <?php
+                    for ($i = 0; $i < count($relevant_flds); $i++){
+                        //Traverse through each field, show the field name and the input they should enter.
+                        $rel_fld = $relevant_flds[$i];
+                        $real_fld = $as_fields[$table_name][$rel_fld];
+                        $field_index = $field_by_indices[$rel_fld];
+                        $val = $edit[$field_index];
+                        if (!$dates[$rel_fld]){
+                            $val = str_replace(' ', '_', $val);
+                        }
+                        //echo "<br/>Specific field:".$field_index."<br/>";
+                        ?>
+                        <div>
+                            <div class="FieldName">
+                                <?php echo $rel_fld.":"; ?>
+                            </div>
+                            <div class="FieldInput">
+                                <?php
+                                    //Check if the field is special or not, if not then just do a text input, otherwise present a table.
+                                    if (!$special_flds[$rel_fld]){
+                                        $id = $table_name.$rel_fld;
+                                        //echo "ID: $id";
+                                        ?>
+                                        <input type="text" name="<?php echo $id; ?>" value="<?php echo $val; ?>"/>
+                                        <?php
+                                    }else{
+                                        $result = $conn->query("SELECT * FROM $special_flds[$rel_fld];");
+                                        make_relevant_table_for_special_fields($result, $table_name, $special_flds, $accepted_special_flds, $primary_flds[$special_flds[$rel_fld]], $val, $rel_fld, $special_flds[$rel_fld]);
+                                        //$result, $tablename, $special_flds, $accepted_special_flds, $primary_flds, $value
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                        
+                        <?php
+                    }?>
+                    <input type="submit" name="Edited" value="Publish Edits"/>
+                </form>
+                
+                <?php
+            }else{
+                //Not editing but records might need updating from edit
+                if ($_POST['Edited']){
+                    echo "<br/>Primaries:<br/>";
+                    $primary_keys_and_values = $_SESSION["primary_keys"];
+                    print_r($primary_keys_and_values);
+                    $dirc = get_sql_script_str($table_name, "updateRecords");
+                    echo "<br/>Directory:$dirc<br/>";
+                    $query_str = file_get_contents("$dirc");
+                    $stmt = $conn->prepare("$query_str");
+                    
+                    echo "<br/>Query:$query_str<br/>";
+                    $_fields_with_respective_values = array();
+                    $values = array();
+                    $rel_flds = $flds2[$table_name];
+                    $query = $query_strs[$table_name];
+                    $result = $conn->query($query);
                     $ncols = $result->field_count;
                     $nrows = $result->num_rows;
                     $resar = $result->fetch_all();
-                    $edit = False;
-                    $primary_field_indices = array();
-                    $i = 0;
-                    $prim_keys_for_specific_record = array(); //The dictionary of primary key field and value that is currently being edited
-                    $flds_by_indices = array();
+                    $type_str = '';
                     while ($fld = $result->fetch_field()){
                         $fld_name = $fld->name;
-                        if (in_array($fld_name, $primary_flds[$table_name])){ //To help construct id, we need to know the indices
-                            array_push($flds_by_indices, $fld_name);
-                            array_push($primary_field_indices, $i);
-                        }
-                        $i++;
-                    }
-                    
-                    for ($i = 0; $i < $nrows; $i++){
-                        $id = "";
-                        foreach ($primary_field_indices as $prim_fld_index){
-                            $id = $id.$resar[$i][$prim_fld_index];
-                            $prim_keys_for_specific_record[$flds_by_indices[$prim_fld_index]] = $resar[$i][$prim_fld_index];
-                        }
-                        if (isset($_POST[$id])){
-                            $edit = True;
-                            break;
-                        }
-                    }
-
-                    $result = $conn->query($query_str);
-                    if (!$edit || $_POST['Edited']){ //If they are not trying to edit a record or if a file just got edited.
-                        //echo "<br/>Table Name: ".$table_name."<br/>";
-                        
-                        // Check if there were any edited fields from the edit
-                        if ($_POST['Edited']){
-                            // A record was just edited, apply all changes.
-                            //Must first locate the record that was edited
-                            $record;
-                            $ids_dict = $_SESSION['id_of_edited_record'];
-                            $read_query_str = "SELECT * FROM $table_name;";
-                            $result_find_record = $conn->query($read_query_str);
-                            $resar = $result_find_record->fetch_all();
-                            $primary_fld_indices = array();
-                            $i = 0;
-                            while ($fld = $result_find_record->fetch_field()){
-                                $fld_name = $fld->name;
-                                if ($ids_dict[$fld_name]){
-                                    array_push($primary_fld_indices, $i);
+                        if (in_array($fld_name, $rel_flds)){
+                            $type_str = $type_str.$fld_types[$fld_name];
+                            $id = $table_name.$fld_name;
+                            if (!$special_flds[$fld_name]){
+                                //echo "ID: $id<br/>";
+                                $id = str_replace(' ', '_', $id);
+                                if ($_POST[$id]){
+                                    $val = htmlspecialchars($_POST[$id]);
+                                    if (!$dates[$fld_name]){
+                                        $val = str_replace(' ', '_', $val);
+                                    }
+                                    $_fields_with_respective_values[$fld_name] = $val; 
+                                    array_push($values, $val);
                                 }
-                                $i++;
-                            }
-                            print_r($primary_fld_indices);
-                            //print_r($ids_dict[$fld_name]);
-                        }
-                        ?>
-                        
-                        <form action="updateRecords.php" method="POST">
-                        <?php
-                        make_relevant_table($result, $ncols, $nrows, $flds[$table_name], $primary_flds[$table_name]);
-                        ?>
-                        </form>
-                        <?php
-                    }else{
-                        $rel_flds = $flds2[$table_name]; //Get the array of all the relevant fields.
-                        $record = $resar[$i];
-                        $_SESSION['id_of_edited_record'] = $prim_keys_for_specific_record;
-                        ?>
-                        <form action="updateRecords.php" method="POST">
-                            <div class="Form">
-                                <?php
-                                for ($i = 0; $i < count($rel_flds); $i++){
-                                    $rel_fld = $rel_flds[$i];
-                                    $val = $prim_keys_for_specific_record[$rel_fld];
-                                    ?>
-                                    <div class="field_name">
-                                        <?php
-                                        echo $rel_fld.":";
-                                        ?>
-                                    </div>
-                                    <?php
-                                    if ($special_flds[$rel_fld]){
-                                        $rel_table = $special_flds[$rel_fld];
-                                        $query_str = "SELECT * FROM $rel_table;";
-                                        $result = $conn->query($query_str);
-                                        $ncols = $result->field_count;
-                                        $nrows = $result->num_rows;
-                                        make_relevant_table_for_special_fields($result, $ncols, $nrows, $rel_table, $special_flds, $accepted_special_flds, $primary_flds[$rel_table], $val);
-                                    }else{
-                                        ?>
-                                        <input type="text" name="<?php echo $id; ?>" placeholder="<?= $mask; ?>" class="textbox_input" value="<?php echo $val; ?>"/>
-                                        <?php
+                            }else{
+                                //It is a special field so check for each thing inside that special table.
+                                $rel_special_table = $special_flds[$fld_name];
+                                $primary_fields_for_spec = $primary_flds[$rel_special_table];
+                                $query_n = "SELECT * FROM $rel_special_table;";
+                                $result_n = $conn->query($query_n);
+                                $nrows_n = $result_n->num_rows;
+                                $ncols_n = $result_n->field_count;
+                                $resar_n = $result_n->fetch_all();
+                                $primary_field_indices_n = array();
+                                $k = 0;
+                                while ($fld_n = $result_n->fetch_field()){
+                                    $fld_name_n = $fld_n->name;
+
+                                    if (in_array($fld_name_n, $primary_fields_for_spec)){
+                                        array_push($primary_field_indices_n, $k);
+                                    }
+
+                                    $k++;
+                                }
+                                
+                                for ($i = 0; $i < $nrows_n; $i++){
+                                    $record_id = "";
+                                    $record = $resar_n[$i];
+                                    foreach ($primary_field_indices_n as $primary_field_index){
+                                        $record_id = $record_id.$record[$primary_field_index];
+                                    }
+                                    $id = $table_name.$fld_name;
+                                    $id = $id.$record_id;
+                                    $id = "checkbox".$id;
+                                    //echo "ID:".$id."<br/>";
+                                    $id = str_replace(' ', '_', $id);
+                                    if ($_POST[$id]){
+                                        $val = htmlspecialchars($record_id);
+                                        $val = str_replace(' ', '_', $val);
+                                        if ($fld_types[$fld_name] == 's'){
+                                            $_fields_with_respective_values[$fld_name] = "$val"; 
+                                            array_push($values, "$val");
+                                        }else{
+                                            $_fields_with_respective_values[$fld_name] = $val; 
+                                            array_push($values, $val);
+                                        }
                                     }
                                 }
-                                    ?>
-                            </div>
-                            <input type="submit" name="Edited" value="Publish Edits"/>
-                        </form>
-                        <?php
+                            }
+                        }
                     }
+                    
+                    foreach ($primary_keys_and_values as $fld => $val){
+                        $_fields_with_respective_values[$fld] = $val;
+                        array_push($values, $val);
+                        //echo "Field: $fld<br/> FieldType: $fld_types[$fld]<br/>";
+                        $type_str = $type_str.$fld_types[$fld];
+                    }
+                    echo "Types:".$type_str."<br/>";
+                    echo "Fields & Values:<br/>";
+                    print_r($_fields_with_respective_values);
+                    echo "<br/>Values:<br/>";
+                    print_r($values);
+                    bind($stmt, $values, $type_str);
+                    $result = $stmt->execute();
+                    //echo "here";
+                    if (!$result){
+                        if ($conn->error){
+                            echo "<br/>Error: ".$conn->error."<br/>";
+                        }
+                    };
+                    //print_r($values);
                 }
-            ?>
+                $fields = $flds[$table_name];
+                $result = $conn->query($query_strs[$table_name]);
+                ?>
+                <form action="updateRecords.php" method="GET">
+                    <?php
+                    make_relevant_table($result, $fields, $primary_fields_for_table);
+                    ?>
+                </form>
+                <?php
+            }
+            
+            
+        }
+        ?>
     </body>
 </html>
 

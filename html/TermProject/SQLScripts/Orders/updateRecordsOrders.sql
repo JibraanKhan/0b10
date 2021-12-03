@@ -1,4 +1,6 @@
 UPDATE Orders 
-   SET Inventory_ID = ?
-   SET Order_SoldFor = ?
+   SET Pokemon_Name = ?,
+       Cust_ID = ?,
+       Inventory_ID = ?,
+       Order_SoldFor = ?
  WHERE Order_ID = ?;

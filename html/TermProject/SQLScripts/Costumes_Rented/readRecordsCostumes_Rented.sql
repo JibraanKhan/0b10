@@ -1,4 +1,4 @@
 SELECT *
   FROM Costumes_Rented
- INNER JOIN Staff USING (Staff_ID)
- INNER JOIN Costumes_Inventory USING (Costume_ID);
+ LEFT JOIN Staff USING (Staff_ID)
+ LEFT JOIN Costumes_Inventory USING (Costume_ID);
