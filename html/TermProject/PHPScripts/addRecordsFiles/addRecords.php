@@ -143,8 +143,9 @@
         $masks = array( //All of the place holders that show them what to enter into the text box.
             'CostumeType' => 'Meowth Costume, Office Jenny Costume',
             'Costume_Size' => 'S, M, L, XL',
-            'Rental_CheckoutDate' => 'YYYY-MM-DD hh:mm:ss',
-            'Rental_DueDate' => 'YYYY-MM-DD hh:mm:ss',
+            'Rental_CheckoutDate' => 'YYYY-MM-DD',
+            'Rental_DueDate' => 'YYYY-MM-DD',
+            'Rental_ReturnedDate' => 'YYYY-MM-DD',
             'Cust_LastName' => 'Smith',
             'Cust_FirstName' => 'John',
             'Cust_Address'=> 'House #30, Veridian Forest',
@@ -153,13 +154,19 @@
             'Pokemon_Type' => 'Fire, Water, Grass',
             'Pokemon_Price' => '5.50, 6.25, 6',
             'Sighting_Location' => 'Cerulean City',
-            'Sighting_Time' => 'YYYY-MM-DD hh:mm:ss',
+            'Sighting_Time' => 'YYYY-MM-DD',
             'Sighting_NumPokemon' => '5, 2',
             'Staff_LastName' => 'Smith',
             'Staff_FirstName' => 'John',
             'Order_SoldFor' => '5.50, 6.25, 6',
         );
 
+        $dates = array(
+            'Sighting_Time' => true,
+            'Rental_CheckoutDate' => true,
+            'Rental_DueDate' => true,
+            'Rental_ReturnedDate' => true
+        );
         $primary_flds = array( //All of the primary fields for each table.
             'Costume_Types' => array('Costume_Type'),
             'Costumes_Inventory' => array('Costume_ID'),
@@ -210,9 +217,12 @@
                     if ((!$rel_tbl || ($rel_tbl == $selectedTable)) && isset($_POST[$id])){
                         //echo "Not special field...<br/>";
                         echo "<br/>";
-                        $value = htmlspecialchars(str_replace(' ', '_', $_POST[$id]));
                         $fld = $id;
-                        
+                        if (!$dates[$fld]){
+                            $value = htmlspecialchars(str_replace(' ', '_', $_POST[$id]));
+                        }else{
+                            $value = htmlspecialchars($_POST[$id]);
+                        }
                         if ($value == ''){
                             if ($not_required_fields[$selectedTable]){
                                 //If we found that the table has optional entry fields
