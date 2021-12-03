@@ -27,9 +27,15 @@ WHERE Inventory_ID = p_id
 DELIMITER //
 
 --trigger to ensure each sighting has at least one pokemon
---trigger to ensure sighting date is before today's date
-CREATE TRIGGER check_sightings
+CREATE TRIGGER check_num_pokemon
 BEFORE INSERT ON Sightings FOR EACH ROW
+IF NEW.Sightings_NumPokemon <1 THEN 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Each sighting must have at least one Pokemon!';
+END IF;
+//
+
+CREATE TRIGGER check_num_pokemon_update
+BEFORE UPDATE ON Sightings FOR EACH ROW
 IF NEW.Sightings_NumPokemon <1 THEN 
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Each sighting must have at least one Pokemon!';
 END IF;
@@ -38,6 +44,13 @@ END IF;
 --trigger to ensure sighting date is before today's date
 CREATE TRIGGER check_sighting_date
 BEFORE INSERT ON Sightings FOR EACH ROW
+IF NEW.Sightings_Time > CURRENT_TIMESTAMP THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This is an impossible date!';
+END IF;
+//
+
+CREATE TRIGGER check_sighting_date_update
+BEFORE UPDATE ON Sightings FOR EACH ROW
 IF NEW.Sightings_Time > CURRENT_TIMESTAMP THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This is an impossible date!';
 END IF;
@@ -55,9 +68,27 @@ ELSE
 END IF;
 //
 
+CREATE TRIGGER check_due_date_update
+BEFORE UPDATE ON Costumes_Rented FOR EACH ROW
+IF (NEW.Rental_DueDate != "0000-00-00 00:00:00") AND (NEW.Rental_CheckoutDate > NEW.Rental_DueDate) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The checkout date must be before the due date!';
+ELSE 
+    IF (NEW.Rental_DueDate = '0000-00-00 00:00:00') THEN
+        SET NEW.Rental_DueDate = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 14 DAY);
+    END IF;
+END IF;
+//
+
 --trigger to ensure the costume rental checkout date is before the return date
 CREATE TRIGGER check_return_date
 BEFORE INSERT ON Costumes_Rented FOR EACH ROW
+IF ((NEW.Rental_CheckoutDate > NEW.Rental_ReturnedDate) AND NEW.Rental_ReturnedDate != "0000-00-00 00:00:00") THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The checkout date must be before the returned date!';
+END IF;
+//
+
+CREATE TRIGGER check_return_date_update
+BEFORE UPDATE ON Costumes_Rented FOR EACH ROW
 IF ((NEW.Rental_CheckoutDate > NEW.Rental_ReturnedDate) AND NEW.Rental_ReturnedDate != "0000-00-00 00:00:00") THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The checkout date must be before the returned date!';
 END IF;
@@ -72,9 +103,23 @@ IF num_costumes_rented(NEW.staff_id) >= 5 THEN
 END IF;
 //
 
+CREATE TRIGGER check_max_costumes_update
+BEFORE UPDATE ON Costumes_Rented FOR EACH ROW
+IF num_costumes_rented(NEW.staff_id) >= 5 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Each staff member may only check out 5 costumes at once!';
+END IF;
+//
+
 --trigger to make sure a costume is only rented by one staff member at a time
 CREATE TRIGGER one_staff_per_costume
 BEFORE INSERT ON Costumes_Rented FOR EACH ROW
+IF is_costume_rented(NEW.Costume_ID) = 1 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Costume is already rented!';
+END IF;
+//
+
+CREATE TRIGGER one_staff_per_costume_update
+BEFORE UPDATE ON Costumes_Rented FOR EACH ROW
 IF is_costume_rented(NEW.Costume_ID) = 1 THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Costume is already rented!';
 END IF;
@@ -88,6 +133,13 @@ IF is_pokemon_active(NEW.Inventory_ID) = FALSE THEN
 END IF;
 //
 
+CREATE TRIGGER no_inactive_pokemon_update
+BEFORE UPDATE ON Orders FOR EACH ROW
+IF is_pokemon_active(NEW.Inventory_ID) = FALSE THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Costume is inactive!';
+END IF;
+//
+
 --trigger to make sure the pokemon is sold for a value greater than zero
 CREATE TRIGGER sold_for_positive
 BEFORE INSERT ON Orders FOR EACH ROW
@@ -96,9 +148,23 @@ IF NEW.Order_SoldFor < 0 THEN
 END IF;
 //
 
+CREATE TRIGGER sold_for_positive_update
+BEFORE UPDATE ON Orders FOR EACH ROW
+IF NEW.Order_SoldFor < 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price must be at least zero!';
+END IF;
+//
+
 --trigger to make sure the price of the pokemon is greater than zero
 CREATE TRIGGER price_positive
 BEFORE INSERT ON Pokemon_Inventory FOR EACH ROW
+IF NEW.Pokemon_Price < 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price must be at least zero!';
+END IF;
+//
+
+CREATE TRIGGER price_positive_update
+BEFORE UPDATE ON Pokemon_Inventory FOR EACH ROW
 IF NEW.Pokemon_Price < 0 THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price must be at least zero!';
 END IF;
@@ -121,8 +187,7 @@ SELECT * FROM Pokemon;
 SELECT * FROM Sightings;
 
 INSERT INTO Sightings (Pokemon_Name, Sightings_Location, Sightings_Time,Sightings_NumPokemon)
-    VALUES ('Charmander', 'lexington', '2021-02-03 00:00:01', 0),
-           ('Bulbasaur', 'lexington', '2022-02-03 00:00:01', 1);
+    VALUES ('Charmander', 'lexington', '2021-02-03 00:00:01', 1);
 
 INSERT INTO Staff (Staff_FirstName,Staff_LastName)
     VALUES ('Shelby','Young'),
@@ -167,5 +232,3 @@ SELECT * FROM Costumes_Rented;
 SELECT * FROM Orders;
 
 SELECT num_costumes_rented(1);
-
-
