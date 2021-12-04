@@ -9,7 +9,7 @@
             ?>
             Add Records
         </title>
-        <link rel="stylesheet" href="../all.css">
+        <link rel="stylesheet" href="../main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma-rtl.min.css">
     </head>
     <body>
@@ -202,11 +202,14 @@ if (isset($_GET['tablesSelector'])){
         
         if ($_SESSION['added']){
             ?>
-            <div class="Confirmation">
-                <p>
-                    Successfully added records!
+            <h4 class="NotificationDiv">
+                <p class="Confirmation">
+                    <?php
+                        echo "Successfully added records!"
+                    ?>
                 </p>
-            </div>
+            
+            </h4>
             <?php
             $_SESSION['added'] = False;
         }
@@ -226,12 +229,12 @@ if (isset($_GET['tablesSelector'])){
                 for ($i = 0; $i < count($rel_arr); $i++){
 
                     $id = $rel_arr[$i];
-                    echo $id;
+                    //echo $id;
                     $rel_tbl = $special_flds[$id];
                     //echo $id."<br/>";
                     if ((!$rel_tbl || ($rel_tbl == $selectedTable)) && isset($_POST[$id])){
                         //echo "Not special field...<br/>";
-                        echo "<br/>";
+                        //echo "<br/>";
                         $fld = $id;
                         if (!$dates[$fld]){
                             $value = htmlspecialchars(str_replace(' ', '_', $_POST[$id]));
@@ -243,35 +246,25 @@ if (isset($_GET['tablesSelector'])){
                                 //If we found that the table has optional entry fields
                                 $not_required_field_arr = $not_required_fields[$selectedTable];
                                 if (in_array($fld, $not_required_field_arr)){
-                                    echo "$fld isn't required";
+                                    //echo "$fld isn't required";
                                     $position_of_default_insertion = $i + 1;
                                     //echo $position_of_default_insertion;
                                     array_push($not_required_field_replacement_arr, $position_of_default_insertion);
                                     //print_r($not_required_field_replacement_arr);
                                 }else{
                                     //field is required and no value was found for it.
-                                    ?>
-                                    <div class="ErrorDiv">
-                                        <p class="Error"> 
-                                            Please choose a value for all required fields!
-                                        </p>
-                                    </div>
-                                    <?php
-                                    $field_rqs_failed = True;
-                                    echo "Requirements failed:".$field_rqs_failed;
-                                    break;
+                                    $_SESSION['Error'] = "You must specify a value for $fld_name.";
+                                    $_SESSION['PreviousTable'] = $_SESSION['tableName'];
+                                    header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                                    exit();
+                                    //echo "Requirements failed:".$field_rqs_failed;
                                 }
                             }else{
                                 //No optional entry fields
-                                ?>
-                                    <div class="ErrorDiv">
-                                        <p class="Error">
-                                            Please choose a value for all required fields!
-                                        </p>
-                                    </div>
-                                <?php
-                                $field_rqs_failed = True;
-                                break;
+                                $_SESSION['Error'] = "You must specify a value for $fld_name.";
+                                $_SESSION['PreviousTable'] = $_SESSION['tableName'];
+                                header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                                exit();
                             }
                         }else{
                             $fld_value_pairs[$fld] = $value;
@@ -309,7 +302,7 @@ if (isset($_GET['tablesSelector'])){
                                 }
                             }
                             if (!$fld_value_pairs[$fld]){
-                                echo "<br/>Value doesn't exist for $fld<br/>";
+                                //echo "<br/>Value doesn't exist for $fld<br/>";
                                 //Now check if the value needs to be specified, if so,
                                 //tell the user they need to specify the value for the field.
                                 //Otherwise, set the value to be default.
@@ -318,47 +311,36 @@ if (isset($_GET['tablesSelector'])){
                                     $not_required_field_arr = $not_required_fields[$selectedTable];
                                     if (in_array($fld, $not_required_field_arr)){
                                         //The field isn't required
-                                        echo $fld." isn't required.";
+                                        //echo $fld." isn't required.";
                                         $position_of_default_insertion = $i + 1;
                                         array_push($not_required_field_replacement_arr, $position_of_default_insertion);
                                     }else{
                                         //The field is required.
-                                    ?>
-                                        <div class="ErrorDiv">
-                                            <p class="Error">
-                                                Please choose a value for all required fields!
-                                            </p>
-                                        </div>
-                                    <?php
-                                        $field_rqs_failed = True;
-                                        break;
+                                        
+                                        $_SESSION['Error'] = "You must specify a value for $fld.";
+                                        echo "Error:".$_SESSION['Error'];
+                                        $_SESSION['PreviousTable'] = $_SESSION['tableName'];
+                                        //echo "Previous table:".$_SESSION['PreviousTable']; 
+                                        header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                                        exit();
                                     }
                                 }else{
                                     //The table requires all fields 
-                                    ?>
-                                        <div class="ErrorDiv">
-                                            <p class="Error">
-                                            Please choose a value for all required fields!
-                                            </p>
-                                        </div>
-                                    <?php
-                                    $field_rqs_failed = True;
-                                    break;
+                                    $_SESSION['Error'] = "You must specify a value for $fld.";
+                                    $_SESSION['PreviousTable'] = $_SESSION['tableName'];
+                                    header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                                    exit();
                                 }
                                 
                             }
 
-                            if ($field_rqs_failed){
-                                
-                                break;
-                            }
                         }
                     }
                 }
-                echo "<br/> <br/>";
+                //echo "<br/> <br/>";
                 $contents = file_get_contents(get_sql_script_str($selectedTable, "addRecords"));
                 $types = $table_types[$selectedTable];
-                echo "<br/>";
+                //echo "<br/>";
                 $i = 0;
                 foreach ($not_required_field_replacement_arr as $occurence){
                     $contents = replace_specific_occurence($contents, $occurence - $i, '?', 'DEFAULT');//replace the string you're looking for with replacement at when it occurs $occurence times.
@@ -367,41 +349,33 @@ if (isset($_GET['tablesSelector'])){
                 }
                 $types = implode('', $types);
                 
-                echo "<br/>";
+                //echo "<br/>";
                 foreach($fld_value_pairs as $key=>$value){
                     // Each field and value for the specific record.
-                    echo "field:$key, value:$value <br/>";
+                    //echo "field:$key, value:$value <br/>";
                 }
                 echo $str;
-                echo "<br/> <br/> <br/> <br/>".$contents."<br/>";
-                echo "<br/> <br/> <br/> <br/>";
+                //echo "<br/> <br/> <br/> <br/>".$contents."<br/>";
+                //echo "<br/> <br/> <br/> <br/>";
                 for ($i = 0; $i < count($vals_only); $i++){
-                    echo "Value$i: ".$vals_only[$i]."<br/>";
+                    //echo "Value$i: ".$vals_only[$i]."<br/>";
                 }
                 if ($field_rqs_failed){
                     $_SESSION['fields_left_unspecified'] = $_SESSION['tableName'];
                     
                 }else{
-                    echo "<br/>";
+                    //echo "<br/>";
                     $stmt = $conn->prepare("$contents");
                     //$vals_only = array('Pikachu', 'Lightning');
-                    echo $contents;
+                    //echo $contents;
                     //bind($stmt, $vals_only, 'ss');
                     bind($stmt, $vals_only, $types);
                     $results = $stmt->execute();
                     if (!$results){
-                        ?>
-                        <div class="ErrorSpec">
-                            <p>
-                                <?php
-                                    echo "Failed to insert records.";
-                                    if ($conn->error){
-                                        echo "<br/>Error: ".$conn->error."<br/>";
-                                    }
-                                ?>
-                            </p>
-                        </div>
-                        <?php
+                        $_SESSION['Error'] = $conn->error;
+                        $_SESSION['PreviousTable'] = $_SESSION['tableName'];
+                        header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                        exit();
                     }else{
                         $reload = true;
                         $_SESSION['added'] = true;
@@ -412,13 +386,27 @@ if (isset($_GET['tablesSelector'])){
                 //Records aren't being added but rather options need to shown
                 if ($_SESSION['fields_left_unspecified'] == $_SESSION['tableName']){
                     ?>
-                    <div class="ErrorDiv">
+                    <div class="NotificationDiv">
                         <p class="Error">
                             Last time you left some fields unspecified that need to be specified, please make sure to specify all required fields!
                         </p>
                     </div>
                     <?php
                     $_SESSION['fields_left_unspecified'] = False;
+                }
+
+                if ($_SESSION['Error'] && ($_SESSION['PreviousTable'] == $_SESSION['tableName'])){
+                    $_SESSION['PreviousTable'] = False;
+                    ?>
+                    <h4 class="NotificationDiv">
+                        <p class="Error">
+                        <?php
+                            echo $_SESSION['Error'];
+                        ?>
+                        </p>
+                        
+                    </h4>
+                    <?php
                 }
                 ?>
 
