@@ -186,60 +186,6 @@ UPDATE Pokemon_Inventory SET Pokemon_Active = FALSE WHERE Pokemon_Inventory.Inve
 
 DELIMITER ;
 
-INSERT INTO Pokemon (Pokemon_Name,Pokemon_Type)
-    VALUES ('Charmander', 'fire'),
-           ('Bulbasaur', 'grass'),
-           ('Gossifleur', 'grass');
-
-INSERT INTO Sightings (Pokemon_Name, Sightings_Location, Sightings_Time,Sightings_NumPokemon)
-    VALUES ('Charmander', 'louisville', '2021-02-03 00:00:01', 2);
-
-SELECT * FROM Pokemon;  
-SELECT * FROM Sightings;
-
-INSERT INTO Sightings (Pokemon_Name, Sightings_Location, Sightings_Time,Sightings_NumPokemon)
-    VALUES ('Charmander', 'lexington', '2021-02-03 00:00:01', 1);
-
-INSERT INTO Staff (Staff_FirstName,Staff_LastName)
-    VALUES ('Shelby','Young'),
-           ('Jibraan', 'Kaan'),
-           ('Tim','Smith');
-
-INSERT INTO Costume_Types (Costume_Type)
-    VALUES ('Shirt'),
-           ('Hat'),
-           ('Pants'),
-           ('Shoes');
-
-INSERT INTO Costumes_Inventory (Costume_Type,Costume_Size)
-    VALUES ('Shirt','S'),
-           ('Pants','L'),
-           ('Hat','L'),
-           ('Shirt','L'),
-           ('Pants','S'),
-           ('Shoes', 'S');
-
-INSERT INTO Costumes_Rented(Costume_ID,Staff_ID,Rental_DueDate)
-    VALUES (1,1,'2021-12-15 00:00:01'),
-           (2,1,'2021-12-15 00:00:01'),
-           (3,1,'2021-12-15 00:00:01'),
-           (4,1,'2021-12-15 00:00:01');
-
-
-INSERT INTO Pokemon_Inventory(Pokemon_Name, Pokemon_Price,Pokemon_Active)
-    VALUES ('Charmander',20,TRUE),
-           ('Bulbasaur',30,TRUE),
-           ('Charmander',30,FALSE);
-
-INSERT INTO Customers (Cust_FirstName,Cust_LastName,Cust_Address,Cust_Phone)
-    VALUES ('Maran','Lee','100_Willow_Way','123-456-7890'),
-           ('Will','Smith','urmomlane','222-333-4444');
-
-INSERT INTO Orders (Pokemon_Name,Cust_ID,Inventory_ID,Order_SoldFor)
-    VALUES ('Bulbasaur',1,2,20);
-
-INSERT INTO Orders (Pokemon_Name,Cust_ID,Inventory_ID,Order_SoldFor)
-    VALUES ('Charmander',2,2,20);
 
            
 UPDATE Pokemon_Inventory 

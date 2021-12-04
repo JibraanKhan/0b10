@@ -9,3 +9,4 @@ SOURCE createTables.sql;
 
 SOURCE triggers.sql;
 
+SOURCE populate_database.sql
