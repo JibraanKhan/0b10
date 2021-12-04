@@ -129,14 +129,14 @@ END IF;
 CREATE TRIGGER no_inactive_pokemon
 BEFORE INSERT ON Orders FOR EACH ROW
 IF is_pokemon_active(NEW.Inventory_ID) = FALSE THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Costume is inactive!';
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Pokemon has already been sold!';
 END IF;
 //
 
 CREATE TRIGGER no_inactive_pokemon_update
 BEFORE UPDATE ON Orders FOR EACH ROW
 IF is_pokemon_active(NEW.Inventory_ID) = FALSE THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Costume is inactive!';
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Pokemon has already been sold!';
 END IF;
 //
 
@@ -168,6 +168,17 @@ BEFORE UPDATE ON Pokemon_Inventory FOR EACH ROW
 IF NEW.Pokemon_Price < 0 THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price must be at least zero!';
 END IF;
+//
+
+--create trigger that sets Pokemon_Active to false when the pokemon is ordered
+CREATE TRIGGER inactivate_pokemon
+AFTER INSERT ON Orders FOR EACH ROW
+UPDATE Pokemon_Inventory SET Pokemon_Active = FALSE WHERE Pokemon_Inventory.Inventory_ID = NEW.Inventory_ID;    
+//
+
+CREATE TRIGGER inactivate_pokemon_update
+AFTER UPDATE ON Orders FOR EACH ROW
+UPDATE Pokemon_Inventory SET Pokemon_Active = FALSE WHERE Pokemon_Inventory.Inventory_ID = NEW.Inventory_ID;    
 //
 
 --trigger to make sure unique entries to costumes rented
@@ -221,14 +232,23 @@ INSERT INTO Pokemon_Inventory(Pokemon_Name, Pokemon_Price,Pokemon_Active)
            ('Charmander',30,FALSE);
 
 INSERT INTO Customers (Cust_FirstName,Cust_LastName,Cust_Address,Cust_Phone)
-    VALUES ('Maran','Lee','100_Willow_Way','123-456-7890');
+    VALUES ('Maran','Lee','100_Willow_Way','123-456-7890'),
+           ('Will','Smith','urmomlane','222-333-4444');
 
 INSERT INTO Orders (Pokemon_Name,Cust_ID,Inventory_ID,Order_SoldFor)
     VALUES ('Bulbasaur',1,2,20);
+
+INSERT INTO Orders (Pokemon_Name,Cust_ID,Inventory_ID,Order_SoldFor)
+    VALUES ('Charmander',2,2,20);
+
            
+UPDATE Pokemon_Inventory 
+SET Pokemon_Price = -1
+WHERE Pokemon_Inventory.Inventory_ID = 1;          
 
 SELECT * FROM Sightings;
 SELECT * FROM Costumes_Rented;
 SELECT * FROM Orders;
+SELECT * FROM Pokemon_Inventory;
 
 SELECT num_costumes_rented(1);
