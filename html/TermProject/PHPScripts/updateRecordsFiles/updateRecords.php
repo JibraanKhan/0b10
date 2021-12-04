@@ -564,14 +564,16 @@ if (isset($_GET['tablesSelector'])){
                     </option>
                     <?php
                     }else{
+                        if (!$cant_edit[$table_name[0]]){
                     ?>
                     <option>
                         <?php echo $table_name[0]; ?>
                     </option>
                     <?php
+                        }
                     }                 
-                    }
                 }
+            }
             ?>
         </select>
     </aside>
