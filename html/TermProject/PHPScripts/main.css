@@ -1,0 +1,39 @@
+form{
+    text-align: center;
+    margin-top: 20px;
+}
+
+a{
+    margin-left: 20px;
+}
+
+body{
+    text-align: center;
+    margin-left: 50%;
+}
+
+.ErrorSpec, .Error, .Confirmation{
+    font-size: 1vw;
+    font-weight: bold;
+}
+
+.NotificationDiv{
+    position:absolute;
+    height:20%;
+    width:20%;
+    top: 10%;
+    right: 10%;
+}
+
+.ErrorSpec, .Error{
+    color: hsl(348, 100%, 61%);
+}
+
+.Confirmation{
+    color: hsl(141, 53%, 53%);
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
