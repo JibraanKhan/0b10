@@ -170,6 +170,17 @@ IF NEW.Pokemon_Price < 0 THEN
 END IF;
 //
 
+--create trigger that sets Pokemon_Active to false when the pokemon is ordered
+CREATE TRIGGER inactivate_pokemon
+AFTER INSERT ON Orders FOR EACH ROW
+UPDATE Pokemon_Inventory SET Pokemon_Active = FALSE WHERE Pokemon_Inventory.Inventory_ID = NEW.Inventory_ID;    
+//
+
+CREATE TRIGGER inactivate_pokemon_update
+AFTER UPDATE ON Orders FOR EACH ROW
+UPDATE Pokemon_Inventory SET Pokemon_Active = FALSE WHERE Pokemon_Inventory.Inventory_ID = NEW.Inventory_ID;    
+//
+
 --trigger to make sure unique entries to costumes rented
 --is this needed?
 
@@ -230,5 +241,6 @@ INSERT INTO Orders (Pokemon_Name,Cust_ID,Inventory_ID,Order_SoldFor)
 SELECT * FROM Sightings;
 SELECT * FROM Costumes_Rented;
 SELECT * FROM Orders;
+SELECT * FROM Pokemon_Inventory;
 
 SELECT num_costumes_rented(1);
