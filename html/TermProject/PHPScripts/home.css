@@ -27,15 +27,29 @@ h1{
 #welcome{
     margin-left: 20%;
     width:70%;
-    height:30%;
+    height:40%;
 }
 
 #mission_statement{
+    position: absolute;
     left: 0;
+    margin-top: 5%;
     width:30%;
-    height:35%;
+    height:20%;
+}
+
+#challenges{
+    position: absolute;
+    right: 0;
+    width: 30%;
+    height: 46%;
+}
+
+li{
+    margin-left: 5%;
 }
 
 p{
     text-indent: 10px;
+    padding: 1px;
 }

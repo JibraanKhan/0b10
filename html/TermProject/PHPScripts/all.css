@@ -13,15 +13,20 @@ body{
 }
 
 .Error, .Confirmation{
-    position: absolute;
-    right: 25px;
-    top: 50px;
+    
 }
 
 .ErrorSpec, .Error, .Confirmation{
-    font-size: 35px;
+    font-size: 1vw;
     font-weight: bold;
-    
+}
+
+.ErrorDiv{
+    position:absolute;
+    height:20%;
+    width:20%;
+    top: 10%;
+    right: 10%;
 }
 
 .ErrorSpec, .Error{

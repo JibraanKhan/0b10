@@ -214,7 +214,7 @@ if (isset($_GET['tablesSelector'])){
         
         if ($_SESSION['tableName']){
             $selectedTable = $_SESSION['tableName'];
-            echo "<h1>$selectedTable</h1>";
+            //echo "<h1>$selectedTable</h1>";
             $rel_arr = $flds[$selectedTable]; //Get the array of all the relevant fields.
             if (isset($_POST['AddRecords'])){
                 // If records need to be added...
@@ -251,8 +251,8 @@ if (isset($_GET['tablesSelector'])){
                                 }else{
                                     //field is required and no value was found for it.
                                     ?>
-                                    <div class="Error">
-                                        <p>
+                                    <div class="ErrorDiv">
+                                        <p class="Error"> 
                                             Please choose a value for all required fields!
                                         </p>
                                     </div>
@@ -264,8 +264,8 @@ if (isset($_GET['tablesSelector'])){
                             }else{
                                 //No optional entry fields
                                 ?>
-                                    <div class="Error">
-                                        <p>
+                                    <div class="ErrorDiv">
+                                        <p class="Error">
                                             Please choose a value for all required fields!
                                         </p>
                                     </div>
@@ -324,8 +324,8 @@ if (isset($_GET['tablesSelector'])){
                                     }else{
                                         //The field is required.
                                     ?>
-                                        <div class="Error">
-                                            <p>
+                                        <div class="ErrorDiv">
+                                            <p class="Error">
                                                 Please choose a value for all required fields!
                                             </p>
                                         </div>
@@ -336,8 +336,8 @@ if (isset($_GET['tablesSelector'])){
                                 }else{
                                     //The table requires all fields 
                                     ?>
-                                        <div class="Error">
-                                            <p>
+                                        <div class="ErrorDiv">
+                                            <p class="Error">
                                             Please choose a value for all required fields!
                                             </p>
                                         </div>
@@ -412,8 +412,8 @@ if (isset($_GET['tablesSelector'])){
                 //Records aren't being added but rather options need to shown
                 if ($_SESSION['fields_left_unspecified'] == $_SESSION['tableName']){
                     ?>
-                    <div class="Error">
-                        <p>
+                    <div class="ErrorDiv">
+                        <p class="Error">
                             Last time you left some fields unspecified that need to be specified, please make sure to specify all required fields!
                         </p>
                     </div>
@@ -445,7 +445,7 @@ if (isset($_GET['tablesSelector'])){
                                         }
                                     }else{
                                         ?>
-                                        <div class="requiredField">
+                                        <div class="has-text-danger-dark">
                                             *
                                         </div>
                                         <?php 

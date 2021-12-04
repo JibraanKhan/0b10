@@ -879,7 +879,7 @@ if (isset($_GET['tablesSelector'])){
     if ($_SESSION['Error'] && ($_SESSION['PreviousTable'] == $table_name)){
         $_SESSION['PreviousTable'] = False;
         ?>
-        <h4 class="Error">
+        <h4 class="ErrorDiv">
             <?php
                 echo $_SESSION['Error'];
             ?>

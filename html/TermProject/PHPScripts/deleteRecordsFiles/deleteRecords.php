@@ -570,7 +570,7 @@
     if ($_SESSION['Error'] && ($_SESSION['PreviousTable'] == $table_name)){
         $_SESSION['PreviousTable'] = False;
         ?>
-        <div class="Error">
+        <div class="ErrorDiv">
             <h4 class="Error">
                 <?php
                     echo $_SESSION['Error'];
