@@ -314,7 +314,7 @@
     );
 
     $not_required_fields = array( //All the optional fields
-        'Costumes_Rented' => array('CheckoutDate', 'DueDate', 'Rental_CheckoutDate', 'Rental_DueDate'),
+        'Costumes_Rented' => array('CheckoutDate', 'DueDate', 'Rental_CheckoutDate', 'Rental_DueDate', 'Rental_ReturnedDate', 'ReturnedDate'),
         'Customers' => array('Phone', 'Cust_Phone'),
         'Orders' => array('Inventory_ID', 'SoldFor', 'Orders_SoldFor', 'Pokemon')
     );
@@ -784,8 +784,18 @@ if (isset($_GET['tablesSelector'])){
                                     }
                                 }
                             }
+                            echo "Not required fields:<br/>";
+                            print_r($not_required_fields_for_table);
                             if (!$record_added){
-                                array_push($null_occurences, array_search($fld_name, $rel_flds));
+                                if (!in_array($fld_name, $not_required_fields_for_table)){
+                                    $_SESSION['Error'] = "You must specify a value for $fld_name.";
+                                    $_SESSION['PreviousTable'] = $_SESSION['tableName'];
+                                    header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
+                                    exit();
+                                }else{
+                                    //echo "Pushing...";
+                                    array_push($null_occurences, array_search($fld_name, $rel_flds));
+                                }
                             }
                         }
                     }
@@ -799,7 +809,7 @@ if (isset($_GET['tablesSelector'])){
                         $n++;
                     }
 
-                    //echo "New query:<br/> $query_str<br/>";
+                    echo "New query:<br/> $query_str<br/>";
                     if ($reload){
                         //Ok, reload the page and redirect to a get request so that post don't repeat
                         header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
@@ -815,9 +825,9 @@ if (isset($_GET['tablesSelector'])){
                     //echo "Types:".$type_str."<br/>";
                     //echo "Fields & Values:<br/>";
                     //print_r($_fields_with_respective_values);
-                    //echo "<br/>Values:<br/>";
-                    //print_r($values);
-                    //echo "<br/>";
+                    echo "<br/>Values:<br/>";
+                    print_r($values);
+                    echo "<br/>";
 
                     
                     $stmt = $conn->prepare("$query_str");
