@@ -882,9 +882,12 @@ if (isset($_GET['tablesSelector'])){
         $_SESSION['PreviousTable'] = False;
         ?>
         <h4 class="ErrorDiv">
+            <p class="Error">
             <?php
                 echo $_SESSION['Error'];
             ?>
+            </p>
+            
         </h4>
         <?php
     }
