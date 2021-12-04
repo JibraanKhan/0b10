@@ -471,7 +471,7 @@
 
 <html>
     <head>
-    <link rel="stylesheet" href="../all.css">
+    <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma-rtl.min.css">
     <?php
         
@@ -529,11 +529,15 @@
 
         if ($_SESSION['updated']){
             ?>
-            <div class="Confirmation">
-                <p>
-                    Successfully updated records!
+            <h4 class="NotificationDiv">
+                <p class="Confirmation">
+                    <?php
+                        echo "Successfully updated records!"
+                    ?>
                 </p>
-            </div>
+            
+            </h4>
+            
             <?php
             $_SESSION['updated'] = False;
         }
@@ -564,14 +568,16 @@ if (isset($_GET['tablesSelector'])){
                     </option>
                     <?php
                     }else{
+                        if (!$cant_edit[$table_name[0]]){
                     ?>
                     <option>
                         <?php echo $table_name[0]; ?>
                     </option>
                     <?php
+                        }
                     }                 
-                    }
                 }
+            }
             ?>
         </select>
     </aside>
@@ -879,10 +885,13 @@ if (isset($_GET['tablesSelector'])){
     if ($_SESSION['Error'] && ($_SESSION['PreviousTable'] == $table_name)){
         $_SESSION['PreviousTable'] = False;
         ?>
-        <h4 class="ErrorDiv">
+        <h4 class="NotificationDiv">
+            <p class="Error">
             <?php
                 echo $_SESSION['Error'];
             ?>
+            </p>
+            
         </h4>
         <?php
     }
