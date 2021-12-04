@@ -400,9 +400,9 @@
     $query_strs = array(
         'Costume_Types' => 'SELECT Costume_Type as Costume FROM Costume_Types;',
         'Costumes_Inventory' => 'SELECT Costume_ID, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Inventory;',
-        'Costumes_Rented' => 'SELECT Costume_ID, Staff_ID, Rental_CheckoutDate as CheckoutDate, Rental_DueDate as DueDate, Rental_ReturnedDate as ReturnedDate, Staff_FirstName, Staff_LastName, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Rented INNER JOIN Staff USING (Staff_ID) INNER JOIN Costumes_Inventory USING (Costume_ID);',
+        'Costumes_Rented' => 'SELECT Costume_ID, Staff_ID, Rental_CheckoutDate as CheckoutDate, Rental_DueDate as DueDate, Rental_ReturnedDate as ReturnedDate, Staff_FirstName, Staff_LastName, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Rented LEFT JOIN Staff USING (Staff_ID) LEFT JOIN Costumes_Inventory USING (Costume_ID);',
         'Customers' => 'SELECT Cust_ID, Cust_FirstName as FirstName, Cust_LastName as LastName, Cust_Address as Address, Cust_Phone as Phone FROM Customers;',
-        'Orders' => 'SELECT Order_ID, Cust_ID, Inventory_ID, Orders.Pokemon_Name as Ordered_Pokemon, Order_SoldFor as SoldFor, Cust_FirstName as Customers_FirstName, Cust_LastName as Customers_LastName, Pokemon_Inventory.Pokemon_Name as Inventory_Pokemon, Pokemon_Price as Price FROM Orders INNER JOIN Customers USING (Cust_ID) INNER JOIN Pokemon_Inventory USING (Inventory_ID);',
+        'Orders' => 'SELECT Order_ID, Cust_ID, Inventory_ID, Orders.Pokemon_Name as Ordered_Pokemon, Order_SoldFor as SoldFor, Cust_FirstName as Customers_FirstName, Cust_LastName as Customers_LastName, Pokemon_Inventory.Pokemon_Name as Inventory_Pokemon, Pokemon_Price as Price FROM Orders LEFT JOIN Customers USING (Cust_ID) LEFT JOIN Pokemon_Inventory USING (Inventory_ID);',
         'Pokemon' => 'SELECT Pokemon_Name as Pokemon_Species, Pokemon_Type as Type FROM Pokemon;',
         'Pokemon_Inventory' => 'SELECT Inventory_ID, Pokemon_Name as Pokemon_Species, Pokemon_Price as Price FROM Pokemon_Inventory;',
         'Sightings' => 'SELECT Pokemon_Name as Pokemon_Species, Sightings_Location as Location_Sighted, Sightings_Time as Time_Sighted, Sightings_NumPokemon as Number_Of_Pokemon_Sighted FROM Sightings;',
@@ -704,6 +704,8 @@ if (isset($_GET['tablesSelector'])){
                     //print_r($primary_keys_and_values);
                     $dirc = get_sql_script_str($table_name, "updateRecords");
                     //echo "<br/>Directory:$dirc<br/>";
+                    $query_str = file_get_contents("$dirc");
+                    //echo "<br/>Query:$query_str<br/>";
                     $_fields_with_respective_values = array();
                     $values = array();
                     $rel_flds = $flds2[$table_name];
@@ -713,17 +715,17 @@ if (isset($_GET['tablesSelector'])){
                     $nrows = $result->num_rows;
                     $resar = $result->fetch_all();
                     $type_str = '';
-                    $default_occurences = array();
+                    $null_occurences = array();
                     $not_required_fields_for_table = $not_required_fields[$table_name];
-                    $f = 0;
                     while ($fld = $result->fetch_field()){
                         $fld_name = $fld->name;
                         if (in_array($fld_name, $rel_flds)){
+                            $record_added = false;
+                            //echo "In array";
                             $id = $table_name.$fld_name;
                             if (!$special_flds[$fld_name]){
                                 //echo "ID: $id<br/>";
                                 //Not special field
-
                                 $id = str_replace(' ', '_', $id);
                                 if ($_POST[$id]){
                                     $val = htmlspecialchars($_POST[$id]);
@@ -733,12 +735,11 @@ if (isset($_GET['tablesSelector'])){
 
                                     //echo "<br/>Ok, $fld_name has value specified.<br/>";
                                     $_fields_with_respective_values[$fld_name] = $val; 
+                                    
+                                    //echo "Pushing values $val";
                                     array_push($values, $val);
-                                    $type_str = $type_str.$fld_types[$fld_name];
-                                    
-
-                                    $f++;
-                                    
+                                    $record_added = true;
+                                    $type_str = $type_str.$fld_types[$fld_name];                                    
                                 }
                             }else{
                                 //It is a special field so check for each thing inside that special table.
@@ -778,13 +779,27 @@ if (isset($_GET['tablesSelector'])){
                                             
                                         $_fields_with_respective_values[$fld_name] = $val; 
                                         array_push($values, $val);
+                                        $record_added = true;
                                         $type_str = $type_str.$fld_types[$fld_name];
-                                        $f++;
                                     }
                                 }
                             }
+                            if (!$record_added){
+                                array_push($null_occurences, array_search($fld_name, $rel_flds));
+                            }
                         }
                     }
+                    $n = 0;
+                    asort($null_occurences);
+                    //echo "Query: $query_str<br/>";
+                    foreach ($null_occurences as $occurence){
+                        $actual_occurence = $occurence + 1;
+                        //echo "<br/>Actual Occurence:$actual_occurence<br/>";
+                        $query_str = replace_specific_occurence($query_str, $actual_occurence - $n, '?', 'NULL');
+                        $n++;
+                    }
+
+                    //echo "New query:<br/> $query_str<br/>";
                     if ($reload){
                         //Ok, reload the page and redirect to a get request so that post don't repeat
                         header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
@@ -804,8 +819,7 @@ if (isset($_GET['tablesSelector'])){
                     //print_r($values);
                     //echo "<br/>";
 
-                    $query_str = file_get_contents("$dirc");
-                    //echo "<br/>Query:$query_str<br/>";
+                    
                     $stmt = $conn->prepare("$query_str");
                     if ($stmt == false){
                         die("Prepare() failed: ".htmlspecialchars($stmt->error));
@@ -829,7 +843,9 @@ if (isset($_GET['tablesSelector'])){
                         //Ok, reload the page and redirect to a get request so that post don't repeat
                         header("Location: {$_SERVER['REQUEST_URI']}", true, 303); 
                         exit();
-                    //print_r($values);
+                    /*echo "Values:<br/>";
+                    print_r($values);
+                    echo "<br/>";*/
                 }
                 $fields = $flds[$table_name];
                 $result = $conn->query($query_strs[$table_name]);

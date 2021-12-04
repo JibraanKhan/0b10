@@ -265,9 +265,9 @@
     $query_strs = array(
         'Costume_Types' => 'SELECT Costume_Type as Costume FROM Costume_Types;',
         'Costumes_Inventory' => 'SELECT Costume_ID, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Inventory;',
-        'Costumes_Rented' => 'SELECT Costume_ID, Staff_ID, Rental_CheckoutDate as CheckoutDate, Rental_DueDate as DueDate, Rental_ReturnedDate as ReturnedDate, Staff_FirstName, Staff_LastName, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Rented INNER JOIN Staff USING (Staff_ID) INNER JOIN Costumes_Inventory USING (Costume_ID);',
+        'Costumes_Rented' => 'SELECT Costume_ID, Staff_ID, Rental_CheckoutDate as CheckoutDate, Rental_DueDate as DueDate, Rental_ReturnedDate as ReturnedDate, Staff_FirstName, Staff_LastName, Costume_Type as Costume, Costume_Size as Size FROM Costumes_Rented LEFT JOIN Staff USING (Staff_ID) LEFT JOIN Costumes_Inventory USING (Costume_ID);',
         'Customers' => 'SELECT Cust_ID, Cust_FirstName as FirstName, Cust_LastName as LastName, Cust_Address as Address, Cust_Phone as Phone FROM Customers;',
-        'Orders' => 'SELECT Order_ID, Cust_ID, Inventory_ID, Orders.Pokemon_Name as Ordered_Pokemon, Order_SoldFor as SoldFor, Cust_FirstName as Customers_FirstName, Cust_LastName as Customers_LastName, Pokemon_Inventory.Pokemon_Name as Inventory_Pokemon, Pokemon_Price as Price FROM Orders INNER JOIN Customers USING (Cust_ID) INNER JOIN Pokemon_Inventory USING (Inventory_ID);',
+        'Orders' => 'SELECT Order_ID, Cust_ID, Inventory_ID, Orders.Pokemon_Name as Ordered_Pokemon, Order_SoldFor as SoldFor, Cust_FirstName as Customers_FirstName, Cust_LastName as Customers_LastName, Pokemon_Inventory.Pokemon_Name as Inventory_Pokemon, Pokemon_Price as Price FROM Orders LEFT JOIN Customers USING (Cust_ID) LEFT JOIN Pokemon_Inventory USING (Inventory_ID);',
         'Pokemon' => 'SELECT Pokemon_Name as Pokemon_Species, Pokemon_Type as Type FROM Pokemon;',
         'Pokemon_Inventory' => 'SELECT Inventory_ID, Pokemon_Name as Pokemon_Species, Pokemon_Price as Price FROM Pokemon_Inventory;',
         'Sightings' => 'SELECT Pokemon_Name as Pokemon_Species, Sightings_Location as Location_Sighted, Sightings_Time as Time_Sighted, Sightings_NumPokemon as Number_Of_Pokemon_Sighted FROM Sightings;',
