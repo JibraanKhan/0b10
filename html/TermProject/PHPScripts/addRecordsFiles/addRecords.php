@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
     <head>
         <title>
@@ -7,18 +9,29 @@
             ?>
             Add Records
         </title>
-        <link rel="stylesheet" href="add.css">
-        <link rel="stylesheet" href="../table.css">
-        <link rel="stylesheet" href="../different.css">
         <link rel="stylesheet" href="../all.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma-rtl.min.css">
     </head>
     <body>
-    <div class="navbar">
-            <a href="/team/html/TermProject/PHPScripts/readRecordsFiles/readRecords.php" class="readRecords">Read Records</a>
-            <a href="/team/html/TermProject/PHPScripts/addRecordsFiles/addRecords.php" class="addRecords">Add Records</a>
-            <a href="/team/html/TermProject/PHPScripts/deleteRecordsFiles/deleteRecords.php" class="deleteRecords">Delete Records</a>
-            <a href="/team/html/TermProject/PHPScripts/updateRecordsFiles/updateRecords.php" class="updateRecords">Update Records</a>
-        </div>
+    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+            <a class="navbar-item" href="/team/html/TermProject/PHPScripts/home.php">
+                <img class="" src="../../Images/TeamRocketLogo-removebg-preview.v1.png" width="60" height="100">
+            </a>
+
+            <div class="navbar-start">
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/readRecordsFiles/readRecords.php" class="readRecords">Read Records</a>
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/addRecordsFiles/addRecords.php" class="addRecords">Add Records</a>
+            </div>
+            <div class="navbar-end">
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/deleteRecordsFiles/deleteRecords.php" class="deleteRecords">Delete Records</a>
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/updateRecordsFiles/updateRecords.php" class="updateRecords">Update Records</a>
+            </div>
+           
+        </nav>
+        <br>
+        <br>
+        <br>
+        <br>
         <h1 class="Add Records">Add Records</h1>
         <?php
         $dbse = "PPC";
@@ -53,51 +66,53 @@
         
         <?php
 
-        if ($_GET['tablesSelector']){
-            $_SESSION['tableName'] = $_GET['tablesSelector'];
-            //$reload = True;
-        }
+if (isset($_GET['tablesSelector'])){
+    $_SESSION['tableName'] = $_GET['tablesSelector'];
+}
 
-        ?>
 
-        <form action="addRecords.php" method="GET"> <!-- Choose table-->
-            <label for="tablesSelector">Table:</label>  
-            <!--
-                Need a label for the selector becuase it helps to 
-                later find the selected table
-            -->
-
-            <select name="tablesSelector" id="tableSelector">
-                <option value="unselected" selected></option>
-                <?php
-                    
-                $query = "SHOW TABLES;";
-                $result = $conn->query($query);
-                if (!$result){
-                    echo "Failed to show tables";
-                }else{
-                    while ($table_name = $result->fetch_array()){
-                        if ($_SESSION['tableName'] == $table_name[0]){
-                        ?>
-                        <option selected>
-                            <?php echo $table_name[0]; ?>
-                        </option>
-                        <?php
-                        }else{
-                        ?>
-                        <option>
-                            <?php echo $table_name[0]; ?>
-                        </option>
-                        <?php
-                        }
-                        
-                        
-                        }
+?>
+<form action="addRecords.php" method="GET"> <!-- Choose table-->
+    <aside class="menu">
+        <label for="tableSelector" class="menu-label">Table:</label>  
+        <br>
+        <select name="tablesSelector" id="tableSelector">
+            <?php
+                
+            $query = "SHOW TABLES;";
+            $result = $conn->query($query);
+            if (!$result){
+                echo "Failed to show tables";
+            }else{
+                while ($table_name = $result->fetch_array()){
+                    if ($_SESSION['tableName'] == $table_name[0]){
+                    ?>
+                    <option selected>
+                        <?php echo $table_name[0]; ?>
+                    </option>
+                    <?php
+                    }else{
+                    ?>
+                    <option>
+                        <?php echo $table_name[0]; ?>
+                    </option>
+                    <?php
+                    }                 
                     }
-                ?>
-                </select>
-                <button type="submit">Select</button>            
-            </form>
+                }
+            ?>
+        </select>
+    </aside>
+    
+    <!--
+        Need a label for the selector becuase it helps to 
+        later find the selected table
+    -->
+    <div class="dropdown is-active">
+        
+    </div>
+    <button type="submit">Select</button>            
+</form>
         <?php
         
         
@@ -423,7 +438,7 @@
                                     if ($not_required_fields[$selectedTable]){
                                         if (!(in_array($rel_arr[$i], $not_required_fields[$selectedTable]))){
                                             ?>
-                                            <div class="requiredField">
+                                            <div class="has-text-danger-dark">
                                                 *
                                             </div>
                                             <?php
@@ -497,7 +512,7 @@
 
         function make_relevant_table($result, $ncols, $nrows, $tablename, $special_flds, $accepted_special_flds, $primary_flds){
             ?>
-            <table>
+            <table class="table is-spaced is-bordered is-striped is-hoverable">
                 <thead>
                     <tr>
                         <?php

@@ -39,7 +39,7 @@
             return;
         }
         ?>
-        <table>
+        <table class="table is-spaced is-bordered is-fullwidth is-striped is-hoverable">
             <?php
                 $resar = $result->fetch_all();
                 $primary_field_indices = array();
@@ -124,18 +124,18 @@
     }
 
     function make_relevant_table_for_special_fields($result, $tablename, $special_flds, $accepted_special_flds, $primary_flds, $value, $field_name, $relavant_table_name){
-        echo "Table: $relavant_table_name";
+        //echo "Table: $relavant_table_name";
         $nrows = $result->num_rows;
         $ncols = $result->field_count;
         ?>
-        <table>
+        <table class="table is-spaced is-bordered is-striped is-hoverable">
             <thead>
                 <tr>
                     <?php
                     $resar = $result->fetch_all();
                     $disgusting_fields = array();
                     $i = 0;
-                    echo "Value:$value";
+                    //echo "Value:$value";
                     $rel_primary_flds_indices = array();
                     $rel_primary_flds = $primary_flds;
                         while ($fld = $result->fetch_field()){
@@ -467,12 +467,12 @@
     )
 ?>
 
+<!DOCTYPE html>
+
 <html>
     <head>
-    <link rel="stylesheet" href="update.css">
-    <link rel="stylesheet" href="../table.css">
-    <link rel="stylesheet" href="../different.css">
     <link rel="stylesheet" href="../all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma-rtl.min.css">
     <?php
         
     ?>
@@ -480,12 +480,25 @@
     </head>
     <body>
         
-        <div class="navbar">
-            <a href="/team/html/TermProject/PHPScripts/readRecordsFiles/readRecords.php" class="readRecords">Read Records</a>
-            <a href="/team/html/TermProject/PHPScripts/addRecordsFiles/addRecords.php" class="addRecords">Add Records</a>
-            <a href="/team/html/TermProject/PHPScripts/deleteRecordsFiles/deleteRecords.php" class="deleteRecords">Delete Records</a>
-            <a href="/team/html/TermProject/PHPScripts/updateRecordsFiles/updateRecords.php" class="updateRecords">Update Records</a>
-        </div>
+    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+            <a class="navbar-item" href="/team/html/TermProject/PHPScripts/home.php">
+                <img class="" src="../../Images/TeamRocketLogo-removebg-preview.v1.png" width="60" height="100">
+            </a>
+
+            <div class="navbar-start">
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/readRecordsFiles/readRecords.php" class="readRecords">Read Records</a>
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/addRecordsFiles/addRecords.php" class="addRecords">Add Records</a>
+            </div>
+            <div class="navbar-end">
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/deleteRecordsFiles/deleteRecords.php" class="deleteRecords">Delete Records</a>
+                <a class="navbar-item is-spaced" href="/team/html/TermProject/PHPScripts/updateRecordsFiles/updateRecords.php" class="updateRecords">Update Records</a>
+            </div>
+           
+        </nav>
+        <br>
+        <br>
+        <br>
+        <br>
         <h1>Update Records</h1>
         <?php 
 
@@ -514,12 +527,6 @@
         $query_str = "USE PPC;";
         $conn->query($query_str);
 
-        
-        if (isset($_GET['tablesSelector'])){
-            $_SESSION['tableName'] = $_GET['tablesSelector'];
-            //$reload = True;
-        }
-
         if ($_SESSION['updated']){
             ?>
             <div class="Confirmation">
@@ -531,45 +538,53 @@
             $_SESSION['updated'] = False;
         }
 
+if (isset($_GET['tablesSelector'])){
+    $_SESSION['tableName'] = $_GET['tablesSelector'];
+}
 
-        ?>
-        <form action="updateRecords.php" method="GET"> <!-- Choose table-->
-            <label for="tablesSelector">Table:</label>  
-            <!--
-                Need a label for the selector because it helps to 
-                later find the selected table
-            -->
-            <select name="tablesSelector" id="tableSelector">
-                <option value="unselected" selected></option>
-                <?php
-                $query = "SHOW TABLES;";
-                $result = $conn->query($query);
-                if (!$result){
-                    echo "Failed to show tables";
-                }else{
-                    while ($table_name = $result->fetch_array()){
-                        if (!$cant_edit[$table_name[0]]){
-                            if ($_SESSION['tableName'] == $table_name[0]){
-                            ?>
-                            <option selected>
-                                <?php echo $table_name[0]; ?>
-                            </option>
-                            <?php
-                            }else{
-                                
-                            ?>
-                            <option>
-                                <?php echo $table_name[0]; ?>
-                            </option>
-                            <?php
-                            }                 
-                        }
+
+?>
+<form action="updateRecords.php" method="GET"> <!-- Choose table-->
+    <aside class="menu">
+        <label for="tableSelector" class="menu-label">Table:</label>  
+        <br>
+        <select name="tablesSelector" id="tableSelector">
+            <?php
+                
+            $query = "SHOW TABLES;";
+            $result = $conn->query($query);
+            if (!$result){
+                echo "Failed to show tables";
+            }else{
+                while ($table_name = $result->fetch_array()){
+                    if ($_SESSION['tableName'] == $table_name[0]){
+                    ?>
+                    <option selected>
+                        <?php echo $table_name[0]; ?>
+                    </option>
+                    <?php
+                    }else{
+                    ?>
+                    <option>
+                        <?php echo $table_name[0]; ?>
+                    </option>
+                    <?php
+                    }                 
                     }
                 }
-                ?>
-                </select>
-                <button type="submit">Select</button>            
-        </form>
+            ?>
+        </select>
+    </aside>
+    
+    <!--
+        Need a label for the selector becuase it helps to 
+        later find the selected table
+    -->
+    <div class="dropdown is-active">
+        
+    </div>
+    <button type="submit">Select</button>            
+</form>
 
         <?php
             $table_name = $_SESSION['tableName'];
@@ -638,6 +653,8 @@
                 //echo "Edit: ";
                 //print_r($edit);
                 ?>
+                <br>
+                <br>
                 <form action="updateRecords.php" method="POST">
                     <?php
                     for ($i = 0; $i < count($relevant_flds); $i++){
@@ -653,7 +670,7 @@
                         ?>
                         <div>
                             <div class="FieldName">
-                                <?php echo $rel_fld.":"; ?>
+                                <?php echo $rel_fld.":<br/><br/>"; ?>
                             </div>
                             <div class="FieldInput">
                                 <?php

@@ -1,5 +1,15 @@
+form{
+    text-align: center;
+    margin-top: 20px;
+}
+
+a{
+    margin-left: 20px;
+}
+
 body{
     text-align: center;
+    margin-left: 50%;
 }
 
 .Error, .Confirmation{
@@ -15,11 +25,11 @@ body{
 }
 
 .ErrorSpec, .Error{
-    color: rgb(255, 17, 17);
+    color: hsl(348, 100%, 61%);
 }
 
 .Confirmation{
-    color: rgb(110, 245, 110);
+    color: hsl(141, 53%, 53%);
 }
 
 table{
