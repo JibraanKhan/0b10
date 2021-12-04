@@ -336,7 +336,7 @@
 
 <html>
     <head>
-    <link rel="stylesheet" href="../all.css">
+    <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma-rtl.min.css">
     <?php
         
@@ -394,11 +394,14 @@
 
         if ($_SESSION['deleted']){
             ?>
-            <div class="Confirmation">
-                <p>
-                    Successfully deleted records!
+            <h4 class="NotificationDiv">
+                <p class="Confirmation">
+                    <?php
+                        echo "Successfully deleted records!"
+                    ?>
                 </p>
-            </div>
+            
+            </h4>
             <?php
             $_SESSION['deleted'] = False;
         }
@@ -570,7 +573,7 @@
     if ($_SESSION['Error'] && ($_SESSION['PreviousTable'] == $table_name)){
         $_SESSION['PreviousTable'] = False;
         ?>
-        <div class="ErrorDiv">
+        <div class="NotificationDiv">
             <h4 class="Error">
                 <?php
                     echo $_SESSION['Error'];
